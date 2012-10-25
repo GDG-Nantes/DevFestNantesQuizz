@@ -1,0 +1,36 @@
+@(players: List[Player], playerForm: Form[Player])
+
+@import helper._
+
+@main("Jeux") {
+    
+    
+    <div class="container">
+	    <h1>Questions pour un DevFest !  le grand jeu du DevFest Nantes 2012</h1>
+	    <img src="@routes.Assets.at("images/logo_jeux.png")" class="img-rounded"/>
+	    <h2>Liste des joueurs inscrits</h2>
+	    <ul>
+	        @for(player <- players) {
+	            <li>
+	                @player.pseudo
+	                
+	            </li>
+	        }
+	    </ul>
+	    
+	    <audio src="@routes.Assets.at("media/Jeopardy.mp3")" autoplay controls loop>
+	    
+	    <h2>Ajouter un joueur</h2>
+	    
+	    @form(routes.Application.newPlayer()) {
+	        
+	        @inputText(playerForm("pseudo")) 
+	        
+	        <input type="submit" value="Create">
+	        
+	    }
+	    <a class="btn btn-inverse" href="/game/start">Demarrer le jeux</a>
+    </div>
+    
+    
+}

@@ -22,8 +22,10 @@ public class Application extends Controller {
 		return redirect(routes.Application.game());
 	}
 
-	public static Result player() {
-		return TODO;
+	public static Result player(String playerPseudo) {
+		Player player = new Player();
+		player.pseudo = playerPseudo;
+		return ok(views.html.player.render(player));
 	}
 
 	public static Result startGame() {
@@ -42,7 +44,7 @@ public class Application extends Controller {
 			Player player = filledForm.get();
 			Player.create(player);
 			Player.all().add(player);
-			return redirect(routes.Application.player());
+			return redirect(routes.Application.player(player.pseudo));
 		}
 	}
 }

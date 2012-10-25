@@ -13,7 +13,7 @@ GET     /game/reset                      controllers.Application.resetGame()
 #Players
 GET     /player/list                controllers.Application.players()
 GET     /player/new                  controllers.Application.newPlayer()
-GET     /player                     controllers.Application.player()
+GET     /player                     controllers.Application.player(player: String ?= null)
 
 
 # Map static resources from the /public folder to the /assets URL path

@@ -5,9 +5,13 @@
 @main("Jeux") {
     
     
-    <div class="container">
-	    <h1>Questions pour un DevFest !  le grand jeu du DevFest Nantes 2012</h1>
-	    <img src="@routes.Assets.at("images/logo_jeux.png")" class="img-rounded"/>
+    	 <div class="page-header">
+	        <h1>Bienvenue dans le grand jeux </h1>
+	    </div>
+	    <div class="row">
+	    	<div class="center">
+		    <img id="logo" src="@routes.Assets.at("images/logo_jeux.png")" class="img-rounded" width="400"/>
+	    	</div>
 	    <h2>Liste des joueurs inscrits</h2>
 	    <ul>
 	        @for(player <- players) {
@@ -18,7 +22,10 @@
 	        }
 	    </ul>
 	    
-	    <audio src="@routes.Assets.at("media/Jeopardy.mp3")" autoplay controls loop>
+	    <div id="songs" style="visibility: hidden;">
+	    	<audio id="jeopardySong" src="@routes.Assets.at("media/Jeopardy.mp3")" >
+	    	<audio id="buzz" src="@routes.Assets.at("media/buzz.mp3")">
+	    </div>
 	    
 	    <h2>Ajouter un joueur</h2>
 	    
@@ -30,7 +37,7 @@
 	        
 	    }
 	    <a class="btn btn-inverse" href="/game/start">Demarrer le jeux</a>
-    </div>
+	    </div>
     
     
 }

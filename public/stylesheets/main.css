@@ -28,6 +28,20 @@ body {
 .container {
     width: 820px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
 }
+.center {
+    margin: 0px auto;
+}
 #logo {
     margin: 0px auto;	
+}
+
+
+#divLogo{
+	width: 820px;
+}
+
+#divLogo img{
+	display: block;
+	margin-left: auto;
+	margin-top: auto;
 }

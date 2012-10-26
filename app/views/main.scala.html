@@ -24,6 +24,10 @@
         	<div class="content">
 	        	@content
         	</div>
+        	<div id="songs" style="visibility: hidden;">
+		    	<audio id="jeopardySong" src="@routes.Assets.at("media/Jeopardy.mp3")" />
+		    	<audio id="buzz" src="@routes.Assets.at("media/buzz.mp3")" />
+		    </div>
         </div>
     </body>
 </html>

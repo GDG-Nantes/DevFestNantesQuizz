@@ -1,9 +1,13 @@
 package controllers;
 
 import models.Player;
+
+import org.codehaus.jackson.JsonNode;
+
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.WebSocket;
 
 public class Application extends Controller {
 
@@ -36,7 +40,12 @@ public class Application extends Controller {
 		return ok(views.html.index.render(Player.all(), playerForm));
 	}
 
+	// public static Result newPlayer(String pseudo) {
 	public static Result newPlayer() {
+		// Player player = new Player();
+		// player.pseudo = pseudo;
+		// Player.all().add(player);
+		// return redirect(routes.Application.player(player.pseudo));
 		Form<Player> filledForm = playerForm.bindFromRequest();
 		if (filledForm.hasErrors()) {
 			return badRequest(views.html.index.render(Player.all(), filledForm));
@@ -46,5 +55,23 @@ public class Application extends Controller {
 			Player.all().add(player);
 			return redirect(routes.Application.player(player.pseudo));
 		}
+	}
+
+	/**
+	 * Handle the chat websocket.
+	 */
+	public static WebSocket<JsonNode> response(final String username) {
+		return new WebSocket<JsonNode>() {
+
+			// Called when the Websocket Handshake is done.
+			@Override
+			public void onReady(WebSocket.In<JsonNode> in, WebSocket.Out<JsonNode> out) {
+
+				try {
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+		};
 	}
 }

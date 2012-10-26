@@ -10,34 +10,55 @@
 	    </div>
 	    <div class="row">
 	    	<div class="center">
-		    <img id="logo" src="@routes.Assets.at("images/logo_jeux.png")" class="img-rounded" width="400"/>
+	    		<div id="divLogo">
+			    	<img id="logo" src="@routes.Assets.at("images/logo_jeux.png")" class="img-rounded" width="400"/>
+	    		</div>
 	    	</div>
-	    <h2>Liste des joueurs inscrits</h2>
-	    <ul>
-	        @for(player <- players) {
-	            <li>
-	                @player.pseudo
-	                
-	            </li>
-	        }
-	    </ul>
-	    
-	    <div id="songs" style="visibility: hidden;">
-	    	<audio id="jeopardySong" src="@routes.Assets.at("media/Jeopardy.mp3")" >
-	    	<audio id="buzz" src="@routes.Assets.at("media/buzz.mp3")">
 	    </div>
-	    
-	    <h2>Ajouter un joueur</h2>
-	    
-	    @form(routes.Application.newPlayer()) {
-	        
-	        @inputText(playerForm("pseudo")) 
-	        
-	        <input type="submit" value="Create">
-	        
-	    }
-	    <a class="btn btn-inverse" href="/game/start">Demarrer le jeux</a>
+	    <div class="row">
+		    <h2>Liste des joueurs inscrits</h2>
+		    <ul>
+		        @for(player <- players) {
+		            <li>
+		                @player.pseudo
+		                
+		            </li>
+		        }
+		    </ul>
+		    
+		    <p>Ajouter un nouveau joueur</p>
+		    
+		     @form(routes.Application.newPlayer()) {
+
+		        @inputText(playerForm("pseudo")) 
+	
+		        <button class="btn" type="submit" value="Create" >Ajouter</button>
+	
+		    }
+		    <!-- 
+		    <form action="@routes.Application.newPlayer()" class="form-inline">
+		    	<input id="pseudo" name="pseudo" class="input-small" type="text" placeholder="Pseudo">
+                <button class="btn" type="submit">Ajouter</button>
+		    </form>
+		     -->
+		    
+		    <div class="center">
+		    <a class="btn btn-inverse" href="@routes.Application.startGame()" >Demarrer le jeux</a>
+		    <a id="playMusique">Play</a>
+		    </div>
+		    <!-- 
+		    <a class="btn btn-inverse" onclick="@routes.Application.newPlayer()" action="/game/start">Demarrer le jeux</a>
+		     -->
 	    </div>
     
+    <script type="text/javascript">
+    	$('body').on('click', '#playMusique', function(e){
+    		$('#buzz')[0].play();
+    	});
+    </script>
+<!--
+
+//-->
+</script>
     
 }

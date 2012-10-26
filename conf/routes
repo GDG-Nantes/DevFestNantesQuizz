@@ -12,6 +12,7 @@ GET     /game/reset                      controllers.Application.resetGame()
 
 #Players
 GET     /player/list                controllers.Application.players()
+#GET     /player/new                  controllers.Application.newPlayer(username: String ?= null)
 GET     /player/new                  controllers.Application.newPlayer()
 GET     /player                     controllers.Application.player(player: String ?= null)
 

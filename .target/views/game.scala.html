@@ -16,10 +16,19 @@
 	    </div>
 	     <div class="row">
 		    <h2>Liste des joueurs inscrits</h2>
-		    <ul id="playersList">
+		    <ul id="playersList" class="nav nav-pills">
 		        @for(player <- players) {
 		            <li>
-		                <div class="player" id="@player.pseudo">@player.pseudo</div>
+		            	<div class="playerShow">
+			            	<div class="playerParent" id="@player.pseudo">
+				            	<div class="player" >
+					                <p >@player.pseudo</p>
+					                <button class="btn btn success btnPlayers" id="btn@player.pseudo" onclick="clickBtnValider(this);">Valider ?</button>
+				            	</div>
+			            	</div>
+			                <p >Compteur de points</p>
+			                <p id="pt@player.pseudo">0</p>
+		            	</div>
 		            </li>
 		        }
 		    </ul>
@@ -28,6 +37,21 @@
 	        
     
     <script type="text/javascript" charset="utf-8">
+    
+    	function hideBtns(){
+            $(".btnPlayers").each(function(btn){
+            	$(this).hide();
+            })
+        }
+    
+	    function clickBtnValider(btn){
+	    	$('#reponse').get(0).play();
+	    	var id = btn.getAttribute("id").substring(3);
+	    	var text = $('#pt'+id).text(); 
+	    	var newScore = parseInt(text) + 1; 
+	    	$('#pt'+id).replaceWith('<p id="pt'+id+'">'+newScore+'</p>');
+        	hideBtns();
+	    }
     
         $(function() {
             var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
@@ -38,19 +62,44 @@
             	var user = event.data;
             	$('#buzz').get(0).play();
             	
-            	$('.player').each(function(userDiv){
-            		$(this).removeClass("playerAnswer");
+            	$('.playerParent').each(function(userDiv){
+            		
             		if ($(this).attr("id") === user){
-            			$(this).addClass("playerAnswer");
+            			//$(this).addClass("playerAnswer");
+            			$(this).removeClass().addClass("playerParent animated flash");
+            			var el = $(this);
+            			var wait = window.setTimeout( function(){
+            				el.removeClass().addClass("playerParent");
+            				$('#btn'+user).show();
+            				},
+            				1300
+            			);
+            		}else{
+            			$(this).removeClass().addClass("playerParent");	
             		}
             	});
             	
             }
+                     
             
+            chatSocket.onmessage = receiveEvent;
             
-            chatSocket.onmessage = receiveEvent
+            /* var hideBtns = function(){
+	            $(".btnPlayers").each(function(btn){
+	            	$(this).hide();
+	            })
+            }
             
-        })
+            var clickBtnValider = function(btn){
+            	$('#reponse').get(0).play();
+            	hideBtns();
+            } */
+            
+            hideBtns();
+            
+        });
+        
+        
     
     </script>
 <!--

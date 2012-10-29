@@ -1,12 +1,11 @@
-@(players: List[Player], playerForm: Form[Player])
+@(players: List[Player])
 
-@import helper._
 
 @main("Jeux") {
     
     
     	 <div class="page-header">
-	        <h1>Bienvenue dans le grand jeux </h1>
+	        <h1>Question 1 </h1>
 	    </div>
 	    <div class="row">
 	    	<div class="center">
@@ -15,46 +14,44 @@
 	    		</div>
 	    	</div>
 	    </div>
-	    <div class="row">
+	     <div class="row">
 		    <h2>Liste des joueurs inscrits</h2>
-		    <ul>
+		    <ul id="playersList">
 		        @for(player <- players) {
 		            <li>
-		                @player.pseudo
-		                
+		                <div class="player" id="@player.pseudo">@player.pseudo</div>
 		            </li>
 		        }
 		    </ul>
 		    
-		    <p>Ajouter un nouveau joueur</p>
-		    
-		     @form(routes.Application.newPlayer()) {
-
-		        @inputText(playerForm("pseudo")) 
-	
-		        <button class="btn" type="submit" value="Create" >Ajouter</button>
-	
-		    }
-		    <!-- 
-		    <form action="@routes.Application.newPlayer()" class="form-inline">
-		    	<input id="pseudo" name="pseudo" class="input-small" type="text" placeholder="Pseudo">
-                <button class="btn" type="submit">Ajouter</button>
-		    </form>
-		     -->
-		    
-		    <div class="center">
-		    <a class="btn btn-inverse" href="@routes.Application.startGame()" >Demarrer le jeux</a>
-		    <a id="playMusique">Play</a>
-		    </div>
-		    <!-- 
-		    <a class="btn btn-inverse" onclick="@routes.Application.newPlayer()" action="/game/start">Demarrer le jeux</a>
-		     -->
 	    </div>
+	        
     
-    <script type="text/javascript">
-    	$('body').on('click', '#playMusique', function(e){
-    		$('#buzz')[0].play();
-    	});
+    <script type="text/javascript" charset="utf-8">
+    
+        $(function() {
+            var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
+	        var chatSocket = new WS("@routes.Application.initWebSocketGame().webSocketURL(request)")
+            
+            
+            var receiveEvent = function(event) {
+            	var user = event.data;
+            	$('#buzz').get(0).play();
+            	
+            	$('.player').each(function(userDiv){
+            		$(this).removeClass("playerAnswer");
+            		if ($(this).attr("id") === user){
+            			$(this).addClass("playerAnswer");
+            		}
+            	});
+            	
+            }
+            
+            
+            chatSocket.onmessage = receiveEvent
+            
+        })
+    
     </script>
 <!--
 

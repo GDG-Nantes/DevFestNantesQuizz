@@ -9,8 +9,26 @@
 	    <h1>@player.pseudo
 	        
 	    	    
-	    <a class="btn btn-inverse" href="/game/start">Réponse ! </a>
+	    <a id="reponse" class="btn btn-inverse" href="#">Reponse ! </a>
     </div>
+    
+     <script type="text/javascript" charset="utf-8">
+    
+        $(function() {
+            var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
+	        var chatSocket = new WS("@routes.Application.websocketPlayer(player.pseudo).webSocketURL(request)")
+            
+            var sendMessage = function() {
+                chatSocket.send("@player.pseudo");
+                
+            }
+            
+            $("#reponse")[0].onclick = sendMessage  
+            
+            
+        })
+    
+    </script>
     
     
 }

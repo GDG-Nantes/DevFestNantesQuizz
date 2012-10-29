@@ -3,18 +3,19 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
+GET     /                        controllers.Application.index()
 
 # Games page
 GET     /game                    controllers.Application.game()
-GET     /game/start                    controllers.Application.startGame()
-GET     /game/reset                      controllers.Application.resetGame()
+GET     /game/init               controllers.Application.initWebSocketGame()
+GET     /game/resp               controllers.Application.websocketPlayer(player: String ?= null)
+GET     /game/start              controllers.Application.startGame()
+GET     /game/reset              controllers.Application.resetGame()
 
 #Players
-GET     /player/list                controllers.Application.players()
-#GET     /player/new                  controllers.Application.newPlayer(username: String ?= null)
-GET     /player/new                  controllers.Application.newPlayer()
-GET     /player                     controllers.Application.player(player: String ?= null)
+GET     /player/list             controllers.Application.players()
+GET     /player/new              controllers.Application.newPlayer()
+GET     /player                  controllers.Application.player(player: String ?= null)
 
 
 # Map static resources from the /public folder to the /assets URL path

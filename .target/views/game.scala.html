@@ -6,13 +6,24 @@
     
     	 <div class="page-header">
 	        <h1>Question 1 </h1>
+		    <div class="row">
+		    	<div class="center">
+		    		<div id="divLogo">
+			    	 	<canvas id="the-canvas" width="400"></canvas>
+			    	</div>
+			  	</div>
+		    </div>
 	    </div>
 	    <div class="row">
 	    	<div class="center">
 	    		<div id="divLogo">
-			    	<img id="logo" src="@routes.Assets.at("images/logo_jeux.png")" class="img-rounded" width="400"/>
-	    		</div>
-	    	</div>
+	    			<div style="width:400px">
+		    	 	<button id="prev" class="btn btn-inverse" onclick="goPrevious()">Question précédente</button> 
+		    	 	<button id="prev" class="btn btn-inverse" onclick="goNext()">Question suivante</button>			    
+			    	<span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
+	    			</div>
+		    	 </div>
+		  	</div> 
 	    </div>
 	     <div class="row">
 		    <h2>Liste des joueurs inscrits</h2>
@@ -25,6 +36,9 @@
 					                <p >@player.pseudo</p>
 					                <button class="btn btn success btnPlayers" id="btn@player.pseudo" onclick="clickBtnValider(this);">Valider ?</button>
 				            	</div>
+			            	</div>
+			            	<div>
+				            	<audio id="buzz@player.pseudo" src="@routes.Assets.at("media/buzz.mp3")" style="hidden"/>
 			            	</div>
 			                <p >Compteur de points</p>
 			                <p id="pt@player.pseudo">0</p>
@@ -60,7 +74,7 @@
             
             var receiveEvent = function(event) {
             	var user = event.data;
-            	$('#buzz').get(0).play();
+            	$('#buzz'+user).get(0).play();
             	
             	$('.playerParent').each(function(userDiv){
             		
@@ -83,23 +97,77 @@
                      
             
             chatSocket.onmessage = receiveEvent;
-            
-            /* var hideBtns = function(){
-	            $(".btnPlayers").each(function(btn){
-	            	$(this).hide();
-	            })
-            }
-            
-            var clickBtnValider = function(btn){
-            	$('#reponse').get(0).play();
-            	hideBtns();
-            } */
-            
             hideBtns();
             
         });
         
         
+        //PDF Configuration 
+        
+		var url = '@routes.Assets.at("files/KeyNote.pdf")';
+    	
+    	//
+        // Disable workers to avoid yet another cross-origin issue (workers need the URL of
+        // the script to be loaded, and currently do not allow cross-origin scripts)
+        //
+        PDFJS.disableWorker = true;
+        
+        var pdfDoc = null,
+        pageNum = 1,
+        scale = 0.7,
+        canvas = document.getElementById('the-canvas'),
+        ctx = canvas.getContext('2d');
+
+    //
+    // Get page info from document, resize canvas accordingly, and render page
+    //
+    function renderPage(num) {
+      // Using promise to fetch the page
+      pdfDoc.getPage(num).then(function(page) {
+        var viewport = page.getViewport(scale);
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        // Render PDF page into canvas context
+        var renderContext = {
+          canvasContext: ctx,
+          viewport: viewport
+        };
+        page.render(renderContext);
+      });
+
+      // Update page counters
+      document.getElementById('page_num').textContent = pageNum;
+      document.getElementById('page_count').textContent = pdfDoc.numPages;
+    }
+
+    //
+    // Go to previous page
+    //
+    function goPrevious() {
+      if (pageNum <= 1)
+        return;
+      pageNum--;
+      renderPage(pageNum);
+    }
+
+    //
+    // Go to next page
+    //
+    function goNext() {
+      if (pageNum >= pdfDoc.numPages)
+        return;
+      pageNum++;
+      renderPage(pageNum);
+    }
+
+    //
+    // Asynchronously download PDF as an ArrayBuffer
+    //
+    PDFJS.getDocument(url).then(function getPdfHelloWorld(_pdfDoc) {
+      pdfDoc = _pdfDoc;
+      renderPage(pageNum);
+    });
     
     </script>
 <!--

@@ -45,6 +45,18 @@ body {
 	margin-left: auto;
 	margin-top: auto;
 }
+#divLogo canvas{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: auto;
+}
+#divLogo div{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: auto;
+}
 
 .playerAnswer{
 	font-weight: bold;

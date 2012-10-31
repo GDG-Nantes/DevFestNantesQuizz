@@ -2,6 +2,9 @@ package controllers;
 
 import models.Game;
 import models.Player;
+
+import org.codehaus.jackson.JsonNode;
+
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -55,14 +58,14 @@ public class Application extends Controller {
 	/**
 	 * Handle the chat websocket.
 	 */
-	public static WebSocket<String> initWebSocketGame() {
-		return new WebSocket<String>() {
+	public static WebSocket<JsonNode> initWebSocketGame() {
+		return new WebSocket<JsonNode>() {
 
 			// Called when the Websocket Handshake is done.
 			@Override
-			public void onReady(WebSocket.In<String> in, final WebSocket.Out<String> out) {
+			public void onReady(WebSocket.In<JsonNode> in, final WebSocket.Out<JsonNode> out) {
 
-				gameDispatcher.registerGameScreen(out);
+				gameDispatcher.registerGameScreen(out, in);
 			}
 		};
 	}
@@ -70,14 +73,14 @@ public class Application extends Controller {
 	/**
 	 * Handle the chat websocket.
 	 */
-	public static WebSocket<String> websocketPlayer(final String player) {
-		return new WebSocket<String>() {
+	public static WebSocket<JsonNode> websocketPlayer(final String player) {
+		return new WebSocket<JsonNode>() {
 
 			// Called when the Websocket Handshake is done.
 			@Override
-			public void onReady(WebSocket.In<String> in, final WebSocket.Out<String> out) {
+			public void onReady(WebSocket.In<JsonNode> in, final WebSocket.Out<JsonNode> out) {
 
-				gameDispatcher.registerGamePlayer(in);
+				gameDispatcher.registerGamePlayer(in, out, player);
 			}
 		};
 	}

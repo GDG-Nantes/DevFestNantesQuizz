@@ -6,10 +6,14 @@
     
     
     <div class="container">
-	    <h1>@player.pseudo
-	        
-	    	    
-	    <a id="reponse" class="btn btn-inverse" href="#">Reponse ! </a>
+	    <div id="divLogo">
+	    	<div>
+		    	<h1>Jouer :@player.pseudo</h1>
+		    	<p>Appuyez sur le bouton "Réponse" pour répondre.
+		    	</p>
+	    	</div>
+	 	   <a id="reponse" class="btnPush" href="#">Réponse ! </a>
+	    </div>	    
     </div>
     
      <script type="text/javascript" charset="utf-8">
@@ -19,12 +23,21 @@
 	        var chatSocket = new WS("@routes.Application.websocketPlayer(player.pseudo).webSocketURL(request)")
             
             var sendMessage = function() {
-                chatSocket.send("@player.pseudo");
+                chatSocket.send(JSON.stringify({type:"response", data:"@player.pseudo"}));
+                
+            }
+            var receiveEvent = function(event) {
+            	var data = JSON.parse(event.data);
+            	if (data.type ==="registerDone" && data.data === "@player.pseudo"){
+            		$("#reponse").show();  
+            	}
                 
             }
             
-            $("#reponse")[0].onclick = sendMessage  
+            chatSocket.onmessage = receiveEvent;
             
+            $("#reponse")[0].onclick = sendMessage;  
+            $("#reponse").hide();  
             
         })
     

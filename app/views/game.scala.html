@@ -5,7 +5,6 @@
     
     
     	 <div class="page-header">
-	        <h1>Question 1 </h1>
 		    <div class="row">
 		    	<div class="center">
 		    		<div id="divLogo">
@@ -19,52 +18,155 @@
 	    		<div id="divLogo">
 	    			<div style="width:400px">
 		    	 	<button id="prev" class="btn btn-inverse" onclick="goPrevious()">Question précédente</button> 
-		    	 	<button id="prev" class="btn btn-inverse" onclick="goNext()">Question suivante</button>			    
+		    	 	<button id="next" class="btn btn-inverse" onclick="goNext()">Question suivante</button>			    
+		    	 	<button id="stopMusic" class="btn btn-inverse" onclick="toggleMusic()">Stopper la musique</button>			    
 			    	<span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
 	    			</div>
 		    	 </div>
 		  	</div> 
 	    </div>
 	     <div class="row">
-		    <h2>Liste des joueurs inscrits</h2>
+		    <h2>Classement des joueurs</h2>
+			    <ol id="playersListScore">
+			    </ol>
+		    <h2>Réponses des joueurs</h2>
 		    <ul id="playersList" class="nav nav-pills">
-		        @for(player <- players) {
-		            <li>
-		            	<div class="playerShow">
-			            	<div class="playerParent" id="@player.pseudo">
-				            	<div class="player" >
-					                <p >@player.pseudo</p>
-					                <button class="btn btn success btnPlayers" id="btn@player.pseudo" onclick="clickBtnValider(this);">Valider ?</button>
-				            	</div>
-			            	</div>
-			            	<div>
-				            	<audio id="buzz@player.pseudo" src="@routes.Assets.at("media/buzz.mp3")" style="hidden"/>
-			            	</div>
-			                <p >Compteur de points</p>
-			                <p id="pt@player.pseudo">0</p>
-		            	</div>
-		            </li>
-		        }
 		    </ul>
-		    
 	    </div>
+	    <div style="visibility: hidden;">
+		    	<audio id="jeopardySong" src="@routes.Assets.at("media/Jeopardy.mp3")" autoplay="autoplay" />		    	
+		</div>
 	        
     
     <script type="text/javascript" charset="utf-8">
+    
+    	var scoreMap = new Array();
+    	var musicOn = true;
     
     	function hideBtns(){
             $(".btnPlayers").each(function(btn){
             	$(this).hide();
             })
         }
+    	
+    	function toggleMusic(){
+    		musicOn = !musicOn;
+    		if (musicOn){
+    			$('#jeopardySong').get(0).play();
+    		}else{
+    			$('#jeopardySong').get(0).pause();
+            	$('#jeopardySong').get(0).currentTime = 0;
+    		}
+    		$('#musicSwitch').removeClass().addClass(musicOn ? 'icon-volume-up' : 'icon-volume-off');
+    	}
+    	
+    	function initPlayers(){
+			 scoreMap = new Array();    			 
+    		 @for(player <- players) {
+    			 scoreMap['@player.pseudo'] = 0;
+    		 }
+    	}
     
 	    function clickBtnValider(btn){
 	    	$('#reponse').get(0).play();
 	    	var id = btn.getAttribute("id").substring(3);
 	    	var text = $('#pt'+id).text(); 
-	    	var newScore = parseInt(text) + 1; 
-	    	$('#pt'+id).replaceWith('<p id="pt'+id+'">'+newScore+'</p>');
-        	hideBtns();
+	    	scoreMap[id] = scoreMap[id]+1;
+	    	$('#pt'+id).replaceWith('<p id="pt'+id+'">'+id+' : '+scoreMap[id]+'</p>');
+        	
+	    	var remplacementPlayerList = '';
+	    	remplacementPlayerList += '<ul id="playersList" class="nav nav-pills">';
+	    	remplacementPlayerList += '</ul>';
+	    	$('#playersList').replaceWith(remplacementPlayerList);
+	    	
+	    	hideBtns();
+        	
+	    }
+	    
+	    function sortScoreMap(){
+	    	var permutation = false;
+	    	do{
+	    		permutation = false;
+	    		for(var i = 0; i < scoreMap.length -2; i++){
+	    			if (scoreMap[i] > scoreMap[i+1]){
+	    				var tmp = scoreMap[i];
+	    				scoreMap[i] = scoreMap[i+1];
+	    				scoreMap[i+1] = tmp;
+	    				permutation = true;
+	    			}
+	    		}
+	    		
+	    	}while (permutation);
+	    	
+	    }
+	    
+	    function initPlayersArea(){
+	    	var remplacementPlayerList = '';
+	    	remplacementPlayerList += '<ul id="playersList" class="nav nav-pills">';
+	    	for (var playerLogin in scoreMap){
+	    		remplacementPlayerList += ' <li>';
+	    		remplacementPlayerList += '   <div class="playerShow">';
+	    		remplacementPlayerList += '      <div class="playerParent" id="'+playerLogin+'">';
+	    		remplacementPlayerList += '        <div class="player" >';
+	    		remplacementPlayerList += '          <p >'+playerLogin+'</p>';
+	    		remplacementPlayerList += '            <button class="btn btn success btnPlayers" id="btn'+playerLogin+'" onclick="clickBtnValider(this);">Valider ?</button>';
+	    		remplacementPlayerList += '        </div>';
+	    		remplacementPlayerList += '      </div>';
+	    		remplacementPlayerList += '      <div>';
+	    		remplacementPlayerList += '        <audio id="buzz'+playerLogin+'" src="@routes.Assets.at("media/buzz.mp3")" style="hidden"/>';
+	    		remplacementPlayerList += '      </div>';
+	    		remplacementPlayerList += '    </div>';
+	    		remplacementPlayerList += '  </li>';
+	    	}
+	    	remplacementPlayerList += '</ul>';
+	    	$('#playersList').replaceWith(remplacementPlayerList);
+	    	hideBtns();
+	    }
+	    
+	    function appendPlayerReponse(playerLogin){
+	    	var remplacementPlayerList = '';
+    		remplacementPlayerList += ' <li>';
+    		remplacementPlayerList += '   <div class="playerShow">';
+    		remplacementPlayerList += '      <div class="playerParent" id="'+playerLogin+'">';
+    		remplacementPlayerList += '        <div class="player" >';
+    		remplacementPlayerList += '          <p >'+playerLogin+'</p>';
+    		remplacementPlayerList += '            <button class="btn btn success btnPlayers" id="btn'+playerLogin+'" onclick="clickBtnValider(this);">Valider ?</button>';
+    		remplacementPlayerList += '        </div>';
+    		remplacementPlayerList += '      </div>';
+    		remplacementPlayerList += '      <div>';
+    		remplacementPlayerList += '        <audio id="buzz'+playerLogin+'" src="@routes.Assets.at("media/buzz.mp3")" style="hidden"/>';
+    		remplacementPlayerList += '      </div>';
+    		remplacementPlayerList += '    </div>';
+    		remplacementPlayerList += '  </li>';
+	    	$('#playersList').append(remplacementPlayerList);
+	    	hideBtns();
+	    }
+	    
+	    function initScorePlayersArea(){
+	    	sortScoreMap();
+	    	var remplacementPlayerList = '';
+	    	remplacementPlayerList += '<ol id="playersListScore">';
+	    	var compt = 0;
+	    	for (var playerLogin in scoreMap){
+	    		remplacementPlayerList += ' <li>';
+	    		remplacementPlayerList += '   <div class="playerScore">';
+	    		remplacementPlayerList += '      <p id="pt'+playerLogin+'">'+playerLogin+' : '+scoreMap[playerLogin]+'</p>';
+	    		remplacementPlayerList += '    </div>';
+	    		remplacementPlayerList += '  </li>';
+	    		compt+=1;
+	    		if (compt >= 5){
+	    			break;
+	    		}
+	    	}
+	    	if (scoreMap.length > 5){
+	    		remplacementPlayerList += ' <li>';
+	    		remplacementPlayerList += '   <div class="playerScore">';
+	    		remplacementPlayerList += '      <p>'+scoreMap.length+' joueurs en course</p>';
+	    		remplacementPlayerList += '    </div>';
+	    		remplacementPlayerList += '  </li>';
+	    	}
+	    	remplacementPlayerList += '</ol>';
+	    	$('#playersListScore').replaceWith(remplacementPlayerList);
 	    }
     
         $(function() {
@@ -73,30 +175,51 @@
             
             
             var receiveEvent = function(event) {
-            	var user = event.data;
-            	$('#buzz'+user).get(0).play();
-            	
-            	$('.playerParent').each(function(userDiv){
+            	var data = JSON.parse(event.data);
+            	if (data.type ==="response"){
             		
-            		if ($(this).attr("id") === user){
-            			//$(this).addClass("playerAnswer");
-            			$(this).removeClass().addClass("playerParent animated flash");
-            			var el = $(this);
-            			var wait = window.setTimeout( function(){
-            				el.removeClass().addClass("playerParent");
-            				$('#btn'+user).show();
-            				},
-            				1300
-            			);
-            		}else{
-            			$(this).removeClass().addClass("playerParent");	
+            		if (musicOn){
+            			$('#jeopardySong').get(0).pause();
+                    	$('#jeopardySong').get(0).currentTime = 0;
             		}
-            	});
+	            	var user = data.data;
+	            	//var user = event.data;
+	            	if ($('#'+user).length==0){
+	            		appendPlayerReponse(user);
+	            	}
+	            	$('#buzz'+user).get(0).play();
+	            	
+	            	$('.playerParent').each(function(userDiv){
+	            		
+	            		if ($(this).attr("id") === user){
+	            			//$(this).addClass("playerAnswer");
+	            			$(this).removeClass().addClass("playerParent animated flash");
+	            			var el = $(this);
+	            			var wait = window.setTimeout( function(){
+	            				el.removeClass().addClass("playerParent");
+	            				$('#btn'+user).show();
+	            				},
+	            				1300
+	            			);
+	            		}else{
+	            			$(this).removeClass().addClass("playerParent");	
+	            		}
+	            	});
+            	}else if (data.type ==="register"){
+            		scoreMap[''+data.data] = 0;
+            		//initPlayersArea();
+            		initScorePlayersArea();
+            		var user = data.data;
+            		chatSocket.send(JSON.stringify({type:"registerDone", data:user}))
+            	}
             	
             }
                      
             
             chatSocket.onmessage = receiveEvent;
+            initPlayers();
+            initPlayersArea();
+            initScorePlayersArea();
             hideBtns();
             
         });
@@ -159,6 +282,10 @@
         return;
       pageNum++;
       renderPage(pageNum);
+      if (musicOn){
+	      $('#jeopardySong').get(0).play();
+      }
+    	  
     }
 
     //

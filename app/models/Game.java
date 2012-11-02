@@ -39,11 +39,12 @@ public class Game {
 		});
 	}
 
-	public void registerGamePlayer(WebSocket.In<JsonNode> player, final Out<JsonNode> out, String playerName) {
+	public void registerGamePlayer(WebSocket.In<JsonNode> player, final Out<JsonNode> out, Player playerObj) {
 		if (this.gameOut != null) {
 			ObjectNode event = Json.newObject();
 			event.put("type", "register");
-			event.put("data", playerName);
+			event.put("data", playerObj.pseudo);
+			event.put("id", playerObj.id);
 			this.gameOut.write(event);
 			playerOutList.add(out);
 		}

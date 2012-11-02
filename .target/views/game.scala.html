@@ -13,18 +13,6 @@
 			  	</div>
 		    </div>
 	    </div>
-	    <div class="row">
-	    	<div class="center">
-	    		<div id="divLogo">
-	    			<div style="width:400px">
-		    	 	<button id="prev" class="btn btn-inverse" onclick="goPrevious()">Question précédente</button> 
-		    	 	<button id="next" class="btn btn-inverse" onclick="goNext()">Question suivante</button>			    
-		    	 	<button id="stopMusic" class="btn btn-inverse" onclick="toggleMusic()">Stopper la musique</button>			    
-			    	<span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
-	    			</div>
-		    	 </div>
-		  	</div> 
-	    </div>
 	     <div class="row">
 		    <h2>Classement des joueurs</h2>
 			    <ol id="playersListScore">
@@ -32,6 +20,22 @@
 		    <h2>Réponses des joueurs</h2>
 		    <ul id="playersList" class="nav nav-pills">
 		    </ul>
+	    </div>
+	     <div class="row">
+		    <h3>Contrôles du jeu</h3>
+	    	<div class="center">
+	    		<div id="divLogo">
+	    			<div style="width:400px">
+		    	 		<button id="prev" class="btn btn-inverse" onclick="goPrevious()">Question précédente</button> 
+		    	 		<button id="next" class="btn btn-inverse" onclick="goNext()">Question suivante</button>			    
+			    		<span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
+	    			</div>
+	    			<div style="width:400px">
+			    	 	<button id="stopMusic" class="btn btn-inverse" onclick="toggleMusic()">Stopper la musique</button>			    
+			    	 	<button id="raz" class="btn btn-inverse" onclick="RAZReponses()">RAZ réponses</button>			    
+	    			</div>
+		    	 </div>
+		  	</div> 
 	    </div>
 	    <div style="visibility: hidden;">
 		    	<audio id="jeopardySong" src="@routes.Assets.at("media/Jeopardy.mp3")" autoplay="autoplay" />		    	
@@ -41,6 +45,7 @@
     <script type="text/javascript" charset="utf-8">
     
     	var scoreMap = new Array();
+    	var scoreArray = new Array();
     	var musicOn = true;
     
     	function hideBtns(){
@@ -62,8 +67,10 @@
     	
     	function initPlayers(){
 			 scoreMap = new Array();    			 
+			 scoreArray = new Array();    			 
     		 @for(player <- players) {
-    			 scoreMap['@player.pseudo'] = 0;
+    			 scoreMap['@player.id'] = {'pseudo' :'@player.pseudo', 'score':0};
+    			 scoreArray.push('@player.id');
     		 }
     	}
     
@@ -71,27 +78,32 @@
 	    	$('#reponse').get(0).play();
 	    	var id = btn.getAttribute("id").substring(3);
 	    	var text = $('#pt'+id).text(); 
-	    	scoreMap[id] = scoreMap[id]+1;
-	    	$('#pt'+id).replaceWith('<p id="pt'+id+'">'+id+' : '+scoreMap[id]+'</p>');
+	    	scoreMap[id].score = scoreMap[id].score+1;
+	    	$('#pt'+id).replaceWith('<p id="pt'+id+'">'+id+' : '+scoreMap[id].score+'</p>');
         	
+			RAZReponses();        	
+	    }
+	    
+	    function RAZReponses(){
 	    	var remplacementPlayerList = '';
 	    	remplacementPlayerList += '<ul id="playersList" class="nav nav-pills">';
 	    	remplacementPlayerList += '</ul>';
 	    	$('#playersList').replaceWith(remplacementPlayerList);
 	    	
+	    	initScorePlayersArea();
 	    	hideBtns();
-        	
+	    	
 	    }
 	    
 	    function sortScoreMap(){
 	    	var permutation = false;
 	    	do{
 	    		permutation = false;
-	    		for(var i = 0; i < scoreMap.length -2; i++){
-	    			if (scoreMap[i] > scoreMap[i+1]){
-	    				var tmp = scoreMap[i];
-	    				scoreMap[i] = scoreMap[i+1];
-	    				scoreMap[i+1] = tmp;
+	    		for(var i = 0; i <= scoreArray.length -2; i++){
+	    			if (scoreMap[scoreArray[i]].score < scoreMap[scoreArray[i+1]].score){
+	    				var tmp = scoreArray[i];
+	    				scoreArray[i] = scoreArray[i+1];
+	    				scoreArray[i+1] = tmp;
 	    				permutation = true;
 	    			}
 	    		}
@@ -103,17 +115,17 @@
 	    function initPlayersArea(){
 	    	var remplacementPlayerList = '';
 	    	remplacementPlayerList += '<ul id="playersList" class="nav nav-pills">';
-	    	for (var playerLogin in scoreMap){
+	    	for (var playerId in scoreMap){
 	    		remplacementPlayerList += ' <li>';
 	    		remplacementPlayerList += '   <div class="playerShow">';
-	    		remplacementPlayerList += '      <div class="playerParent" id="'+playerLogin+'">';
+	    		remplacementPlayerList += '      <div class="playerParent" id="'+playerId+'">';
 	    		remplacementPlayerList += '        <div class="player" >';
-	    		remplacementPlayerList += '          <p >'+playerLogin+'</p>';
-	    		remplacementPlayerList += '            <button class="btn btn success btnPlayers" id="btn'+playerLogin+'" onclick="clickBtnValider(this);">Valider ?</button>';
+	    		remplacementPlayerList += '          <p >'+scoreMap[playerId].pseudo+'</p>';
+	    		remplacementPlayerList += '            <button class="btn btn success btnPlayers" id="btn'+playerId+'" onclick="clickBtnValider(this);">Valider ?</button>';
 	    		remplacementPlayerList += '        </div>';
 	    		remplacementPlayerList += '      </div>';
 	    		remplacementPlayerList += '      <div>';
-	    		remplacementPlayerList += '        <audio id="buzz'+playerLogin+'" src="@routes.Assets.at("media/buzz.mp3")" style="hidden"/>';
+	    		remplacementPlayerList += '        <audio id="buzz'+playerId+'" src="@routes.Assets.at("media/buzz.mp3")" style="hidden"/>';
 	    		remplacementPlayerList += '      </div>';
 	    		remplacementPlayerList += '    </div>';
 	    		remplacementPlayerList += '  </li>';
@@ -123,18 +135,18 @@
 	    	hideBtns();
 	    }
 	    
-	    function appendPlayerReponse(playerLogin){
+	    function appendPlayerReponse(playerId){
 	    	var remplacementPlayerList = '';
     		remplacementPlayerList += ' <li>';
     		remplacementPlayerList += '   <div class="playerShow">';
-    		remplacementPlayerList += '      <div class="playerParent" id="'+playerLogin+'">';
+    		remplacementPlayerList += '      <div class="playerParent" id="'+playerId+'">';
     		remplacementPlayerList += '        <div class="player" >';
-    		remplacementPlayerList += '          <p >'+playerLogin+'</p>';
-    		remplacementPlayerList += '            <button class="btn btn success btnPlayers" id="btn'+playerLogin+'" onclick="clickBtnValider(this);">Valider ?</button>';
+    		remplacementPlayerList += '          <p >'+scoreMap[playerId].pseudo+'</p>';
+    		remplacementPlayerList += '            <button class="btn btn success btnPlayers" id="btn'+playerId+'" onclick="clickBtnValider(this);">Valider ?</button>';
     		remplacementPlayerList += '        </div>';
     		remplacementPlayerList += '      </div>';
     		remplacementPlayerList += '      <div>';
-    		remplacementPlayerList += '        <audio id="buzz'+playerLogin+'" src="@routes.Assets.at("media/buzz.mp3")" style="hidden"/>';
+    		remplacementPlayerList += '        <audio id="buzz'+playerId+'" src="@routes.Assets.at("media/buzz.mp3")" style="hidden"/>';
     		remplacementPlayerList += '      </div>';
     		remplacementPlayerList += '    </div>';
     		remplacementPlayerList += '  </li>';
@@ -147,10 +159,12 @@
 	    	var remplacementPlayerList = '';
 	    	remplacementPlayerList += '<ol id="playersListScore">';
 	    	var compt = 0;
-	    	for (var playerLogin in scoreMap){
+	    	var playerId = null;
+	    	for (var index in scoreArray){
+	    		playerId = scoreArray[index];
 	    		remplacementPlayerList += ' <li>';
 	    		remplacementPlayerList += '   <div class="playerScore">';
-	    		remplacementPlayerList += '      <p id="pt'+playerLogin+'">'+playerLogin+' : '+scoreMap[playerLogin]+'</p>';
+	    		remplacementPlayerList += '      <p id="pt'+playerId+'">'+scoreMap[playerId].pseudo+' : '+scoreMap[playerId].score+'</p>';
 	    		remplacementPlayerList += '    </div>';
 	    		remplacementPlayerList += '  </li>';
 	    		compt+=1;
@@ -158,10 +172,10 @@
 	    			break;
 	    		}
 	    	}
-	    	if (scoreMap.length > 5){
+	    	if (scoreArray.length > 5){
 	    		remplacementPlayerList += ' <li>';
 	    		remplacementPlayerList += '   <div class="playerScore">';
-	    		remplacementPlayerList += '      <p>'+scoreMap.length+' joueurs en course</p>';
+	    		remplacementPlayerList += '      <p>'+scoreArray.length+' joueurs en course</p>';
 	    		remplacementPlayerList += '    </div>';
 	    		remplacementPlayerList += '  </li>';
 	    	}
@@ -182,22 +196,22 @@
             			$('#jeopardySong').get(0).pause();
                     	$('#jeopardySong').get(0).currentTime = 0;
             		}
-	            	var user = data.data;
+	            	var userId = data.id;
 	            	//var user = event.data;
-	            	if ($('#'+user).length==0){
-	            		appendPlayerReponse(user);
+	            	if ($('#'+userId).length==0){
+	            		appendPlayerReponse(userId);
+	            		$('#buzz'+userId).get(0).play();
 	            	}
-	            	$('#buzz'+user).get(0).play();
 	            	
 	            	$('.playerParent').each(function(userDiv){
 	            		
-	            		if ($(this).attr("id") === user){
+	            		if ($(this).attr("id") === userId){
 	            			//$(this).addClass("playerAnswer");
 	            			$(this).removeClass().addClass("playerParent animated flash");
 	            			var el = $(this);
 	            			var wait = window.setTimeout( function(){
 	            				el.removeClass().addClass("playerParent");
-	            				$('#btn'+user).show();
+	            				$('#btn'+userId).show();
 	            				},
 	            				1300
 	            			);
@@ -206,11 +220,12 @@
 	            		}
 	            	});
             	}else if (data.type ==="register"){
-            		scoreMap[''+data.data] = 0;
+            		scoreMap[''+data.id] = {'pseudo':data.data, 'score':0};
+            		scoreArray.push(''+data.id);
             		//initPlayersArea();
             		initScorePlayersArea();
-            		var user = data.data;
-            		chatSocket.send(JSON.stringify({type:"registerDone", data:user}))
+            		var user = data.id;
+            		chatSocket.send(JSON.stringify({type:"registerDone", id:user}))
             	}
             	
             }

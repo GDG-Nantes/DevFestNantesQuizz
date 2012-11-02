@@ -20,15 +20,15 @@
     
         $(function() {
             var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
-	        var chatSocket = new WS("@routes.Application.websocketPlayer(player.pseudo).webSocketURL(request)")
+	        var chatSocket = new WS("@routes.Application.websocketPlayer(player.id).webSocketURL(request)")
             
             var sendMessage = function() {
-                chatSocket.send(JSON.stringify({type:"response", data:"@player.pseudo"}));
+                chatSocket.send(JSON.stringify({type:"response", id:"@player.id", data:"@player.pseudo"}));
                 
             }
             var receiveEvent = function(event) {
             	var data = JSON.parse(event.data);
-            	if (data.type ==="registerDone" && data.data === "@player.pseudo"){
+            	if (data.type ==="registerDone" && ''+data.id === "@player.id"){
             		$("#reponse").show();  
             	}
                 

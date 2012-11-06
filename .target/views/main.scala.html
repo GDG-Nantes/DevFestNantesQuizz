@@ -23,6 +23,11 @@
                 <a class="brand" href="@routes.Application.index()">
                     Question pour un DevFest 
                 </a>
+                <ul class="nav">
+			      <li><a id="navStartGame" href="@routes.Application.startGame()">Démarer le jeu</a></li>
+			      <li><a id="navNext" href="#" onclick="goNext()">Question suivante</a></li>
+			      <li><a id="navPrev" href="#" onclick="goPrevious()">Question précédente</a></li>
+			    </ul>
             </div>
           </div>
         </div>

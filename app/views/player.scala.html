@@ -8,7 +8,7 @@
     <div class="container">
 	    <div id="divLogo">
 	    	<div>
-		    	<h1>Jouer :@player.pseudo</h1>
+		    	<h1>Joueur :@player.pseudo</h1>
 		    	<p>Appuyez sur le bouton "Réponse" pour répondre.
 		    	</p>
 	    	</div>
@@ -38,6 +38,10 @@
             
             $("#reponse")[0].onclick = sendMessage;  
             $("#reponse").hide();  
+            
+            $("#navStartGame").hide();
+            $("#navNext").hide();
+            $("#navPrev").hide();
             
         })
     

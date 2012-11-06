@@ -26,8 +26,10 @@
 	    	<div class="center">
 	    		<div id="divLogo">
 	    			<div style="width:400px">
+	    		<!--  
 		    	 		<button id="prev" class="btn btn-inverse" onclick="goPrevious()">Question précédente</button> 
 		    	 		<button id="next" class="btn btn-inverse" onclick="goNext()">Question suivante</button>			    
+	    		-->
 			    		<span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
 	    			</div>
 	    			<div style="width:400px">
@@ -236,6 +238,10 @@
             initPlayersArea();
             initScorePlayersArea();
             hideBtns();
+            
+            $("#navStartGame").hide();
+            $("#navNext").show();
+            $("#navPrev").show();
             
         });
         

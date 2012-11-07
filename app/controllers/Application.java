@@ -1,8 +1,8 @@
 package controllers;
 
 import models.Game;
+import models.LoginPwd;
 import models.Player;
-
 import org.codehaus.jackson.JsonNode;
 
 import play.data.Form;
@@ -13,20 +13,72 @@ import play.mvc.WebSocket;
 public class Application extends Controller {
 
 	static Form<Player> playerForm = form(Player.class);
+	static Form<LoginPwd> loginForm = form(LoginPwd.class);
 
 	static Game gameDispatcher = new Game();
+	static boolean connectAdmin = false;
 
+	/*
+	 * Index global
+	 */
 	public static Result index() {
-		return redirect(routes.Application.game());
+		return redirect(routes.Application.registerPlayer());
 	}
 
-	public static Result game() {
-		return ok(views.html.index_game.render(Player.all(), playerForm));
+	/*
+	 * 
+	 * Game
+	 */
+
+	// //
+	// //ADMIN
+	// //
+	public static Result adminGame() {
+		return ok(views.html.admin_game.render(loginForm));
+	}
+
+	public static Result connectAdminGame() {
+		Form<LoginPwd> filledForm = loginForm.bindFromRequest();
+		if (filledForm.hasErrors()) {
+			return badRequest(views.html.admin_game.render(filledForm));
+		} else {
+			LoginPwd loginPwd = filledForm.get();
+			if ("admin".equals(loginPwd.login) && "@polytech".equals(loginPwd.password)) {
+				connectAdmin = true;
+				return redirect(routes.Application.game());
+			} else {
+				return redirect(routes.Application.adminGame());
+
+			}
+		}
 	}
 
 	public static Result resetGame() {
-		Player.all().clear();
-		return redirect(routes.Application.game());
+		if (connectAdmin) {
+			connectAdmin = false;
+			Player.all().clear();
+		}
+		return redirect(routes.Application.adminGame());
+	}
+
+	// //
+	// // GAME
+	// //
+
+	public static Result game() {
+		if (!connectAdmin) {
+			return redirect(routes.Application.adminGame());
+		}
+		return ok(views.html.game.render(Player.all()));
+	}
+
+
+	/*
+	 * Players
+	 */
+
+	public static Result registerPlayer() {
+		return ok(views.html.index_register_player.render(Player.all(), playerForm));
 	}
 
 	public static Result player(String playerId) {
@@ -34,18 +86,14 @@ public class Application extends Controller {
 		if (player != null) {
 			return ok(views.html.player.render(player));
 		} else {
-			return badRequest(views.html.index_game.render(Player.all(), playerForm));
+			return badRequest(views.html.index_register_player.render(Player.all(), playerForm));
 		}
-	}
-
-	public static Result startGame() {
-		return ok(views.html.game.render(Player.all()));
 	}
 
 	public static Result newPlayer() {
 		Form<Player> filledForm = playerForm.bindFromRequest();
 		if (filledForm.hasErrors()) {
-			return badRequest(views.html.index_game.render(Player.all(), filledForm));
+			return badRequest(views.html.index_register_player.render(Player.all(), filledForm));
 		} else {
 			Player player = filledForm.get();
 			Player.create(player);
@@ -54,6 +102,9 @@ public class Application extends Controller {
 		}
 	}
 
+	/*
+	 * WebSocket Game
+	 */
 	/**
 	 * Handle the chat websocket.
 	 */
@@ -68,6 +119,10 @@ public class Application extends Controller {
 			}
 		};
 	}
+
+	/*
+	 * WebSocket Player
+	 */
 
 	/**
 	 * Handle the chat websocket.

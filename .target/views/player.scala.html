@@ -1,8 +1,7 @@
 @(player: Player)
 
-@import helper._
 
-@main("Jeux") {
+@main("Joueur") {
     
     
     <div class="container">
@@ -39,7 +38,8 @@
             $("#reponse")[0].onclick = sendMessage;  
             $("#reponse").hide();  
             
-            $("#navStartGame").hide();
+            $("#navStopMusic").hide();
+            $("#navRAZ").hide();
             $("#navNext").hide();
             $("#navPrev").hide();
             

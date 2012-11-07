@@ -9,6 +9,9 @@
 		    	<div class="center">
 		    		<div id="divLogo">
 			    	 	<canvas id="the-canvas" width="400"></canvas>
+	    				<div style="width:400px">
+			    			<span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
+	    				</div>
 			    	</div>
 			  	</div>
 		    </div>
@@ -21,24 +24,6 @@
 		    <ul id="playersList" class="nav nav-pills">
 		    </ul>
 	    </div>
-	     <div class="row">
-		    <h3>Contrôles du jeu</h3>
-	    	<div class="center">
-	    		<div id="divLogo">
-	    			<div style="width:400px">
-	    		<!--  
-		    	 		<button id="prev" class="btn btn-inverse" onclick="goPrevious()">Question précédente</button> 
-		    	 		<button id="next" class="btn btn-inverse" onclick="goNext()">Question suivante</button>			    
-	    		-->
-			    		<span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
-	    			</div>
-	    			<div style="width:400px">
-			    	 	<button id="stopMusic" class="btn btn-inverse" onclick="toggleMusic()">Stopper la musique</button>			    
-			    	 	<button id="raz" class="btn btn-inverse" onclick="RAZReponses()">RAZ réponses</button>			    
-	    			</div>
-		    	 </div>
-		  	</div> 
-	    </div>
 	    <div style="visibility: hidden;">
 		    	<audio id="jeopardySong" src="@routes.Assets.at("media/Jeopardy.mp3")" autoplay="autoplay" />		    	
 		</div>
@@ -49,6 +34,7 @@
     	var scoreMap = new Array();
     	var scoreArray = new Array();
     	var musicOn = true;
+    	var curentPage = 0;
     
     	function hideBtns(){
             $(".btnPlayers").each(function(btn){
@@ -79,8 +65,14 @@
 	    function clickBtnValider(btn){
 	    	$('#reponse').get(0).play();
 	    	var id = btn.getAttribute("id").substring(3);
-	    	var text = $('#pt'+id).text(); 
-	    	scoreMap[id].score = scoreMap[id].score+1;
+	    	var text = $('#pt'+id).text();
+	    	var increment = 5; 
+	    	if (curentPage <=5){
+	    		increment = 1;
+	    	}else if (curentPage <=10){
+	    		increment = 3;
+	    	}
+	    	scoreMap[id].score = scoreMap[id].score+increment;
 	    	$('#pt'+id).replaceWith('<p id="pt'+id+'">'+id+' : '+scoreMap[id].score+'</p>');
         	
 			RAZReponses();        	
@@ -239,7 +231,8 @@
             initScorePlayersArea();
             hideBtns();
             
-            $("#navStartGame").hide();
+            $("#navStopMusic").show();
+            $("#navRAZ").show();
             $("#navNext").show();
             $("#navPrev").show();
             
@@ -266,6 +259,8 @@
     // Get page info from document, resize canvas accordingly, and render page
     //
     function renderPage(num) {
+      curentPage = num;
+      RAZReponses();
       // Using promise to fetch the page
       pdfDoc.getPage(num).then(function(page) {
         var viewport = page.getViewport(scale);

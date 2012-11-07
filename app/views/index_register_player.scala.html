@@ -1,0 +1,42 @@
+@(players: List[Player], playerForm: Form[Player])
+
+@import helper._
+
+@main("Jeux") {
+    
+    
+    	 <div class="page-header">
+	        <h1>Bienvenue dans le grand jeu </h1>
+	    </div>
+	    <div class="row">
+	    	<div class="center">
+	    		<div id="divLogo">
+			    	<img id="logo" src="@routes.Assets.at("images/logo_jeux.png")" class="img-rounded" width="400"/>
+	    		</div>
+	    	</div>
+	    </div>
+	    <div class="row">
+		    <p>Ajouter un nouveau joueur</p>
+		    
+		     @form(routes.Application.newPlayer(), args = 'class -> "form-inline") {
+
+		    	<input id="pseudo" name="pseudo" class="input-small" type="text" placeholder="Pseudo">
+		        <button class="btn" type="submit" value="Create" >Ajouter</button>
+	
+		    }
+	    </div>
+	    
+	      <script type="text/javascript" charset="utf-8">
+    
+        $(function() {
+            $("#navStopMusic").hide();
+            $("#navRAZ").hide();
+            $("#navNext").hide();
+            $("#navPrev").hide();
+            
+        })
+    
+    </script>
+    
+    
+}

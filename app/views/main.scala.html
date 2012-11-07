@@ -24,16 +24,17 @@
                     Question pour un DevFest 
                 </a>
                 <ul class="nav">
-			      <li><a id="navNext" href="#" onclick="goNext()">Question suivante</a></li>
-			      <li><a id="navPrev" href="#" onclick="goPrevious()">Question précédente</a></li>
+			      <li><a id="navNext" href="#" onclick="goNext()">Suivant</a></li>
+			      <li><a id="navPrev" href="#" onclick="goPrevious()">Précédent</a></li>
 			      <li><a id="navStopMusic" href="#" onclick="toggleMusic()">Stopper la musique</a></li>
 			      <li><a id="navRAZ" href="#" onclick="RAZReponses()">RAZ réponses</a></li>
+			      <li><a id="navAllowResp" href="#" onclick="allowResp()">Autoriser réponses</a></li>
 			    </ul>
             </div>
           </div>
         </div>
         <div class="container">
-        	<div class="content">
+        	<div id="mainContent" class="content">
 	        	@content
         	</div>
         	<div id="songs" style="visibility: hidden;">
@@ -41,5 +42,17 @@
 		    	<audio id="reponse" src="@routes.Assets.at("media/reponse.mp3")" />
 		    </div>
         </div>
+        
+         <script type="text/javascript" charset="utf-8">
+    
+        $(function() {
+           
+        	if (!$.browser.webkit && !$.browser.mozilla){
+	            $("#mainContent").replaceWith("<div id='mainContent'><span>Votre navigateur n'est pas supporté pour cette application. Veuillez utiliser Chrome ou Firefox.</span></div>"); 
+        	}
+        	
+        })
+    
+    </script>
     </body>
 </html>

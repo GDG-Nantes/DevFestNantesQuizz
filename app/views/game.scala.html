@@ -35,6 +35,11 @@
     	var scoreArray = new Array();
     	var musicOn = true;
     	var curentPage = 0;
+    	var limitResp = 20;
+    	var limitBuzz = 10;
+    	var nbResp = 0;
+    	var nbBuzz = 0;
+    	var couldTakeResp = false;
     
     	function hideBtns(){
             $(".btnPlayers").each(function(btn){
@@ -78,6 +83,11 @@
 			RAZReponses();        	
 	    }
 	    
+	    function allowResp(){
+	    	couldTakeResp = true;
+	    	
+	    }
+	    
 	    function RAZReponses(){
 	    	var remplacementPlayerList = '';
 	    	remplacementPlayerList += '<ul id="playersList" class="nav nav-pills">';
@@ -86,6 +96,8 @@
 	    	
 	    	initScorePlayersArea();
 	    	hideBtns();
+	    	nbResp=0;
+	    	nbBuzz=0;
 	    	
 	    }
 	    
@@ -115,7 +127,7 @@
 	    		remplacementPlayerList += '      <div class="playerParent" id="'+playerId+'">';
 	    		remplacementPlayerList += '        <div class="player" >';
 	    		remplacementPlayerList += '          <p >'+scoreMap[playerId].pseudo+'</p>';
-	    		remplacementPlayerList += '            <button class="btn btn success btnPlayers" id="btn'+playerId+'" onclick="clickBtnValider(this);">Valider ?</button>';
+	    		remplacementPlayerList += '            <button class="btn danger btnPlayers" id="btn'+playerId+'" onclick="clickBtnValider(this);">Valider ?</button>';
 	    		remplacementPlayerList += '        </div>';
 	    		remplacementPlayerList += '      </div>';
 	    		remplacementPlayerList += '      <div>';
@@ -136,7 +148,7 @@
     		remplacementPlayerList += '      <div class="playerParent" id="'+playerId+'">';
     		remplacementPlayerList += '        <div class="player" >';
     		remplacementPlayerList += '          <p >'+scoreMap[playerId].pseudo+'</p>';
-    		remplacementPlayerList += '            <button class="btn btn success btnPlayers" id="btn'+playerId+'" onclick="clickBtnValider(this);">Valider ?</button>';
+    		remplacementPlayerList += '            <button class="btn danger btnPlayers" id="btn'+playerId+'" onclick="clickBtnValider(this);">Valider ?</button>';
     		remplacementPlayerList += '        </div>';
     		remplacementPlayerList += '      </div>';
     		remplacementPlayerList += '      <div>';
@@ -145,7 +157,7 @@
     		remplacementPlayerList += '    </div>';
     		remplacementPlayerList += '  </li>';
 	    	$('#playersList').append(remplacementPlayerList);
-	    	hideBtns();
+	    	$('#btn'+playerId).hide();
 	    }
 	    
 	    function initScorePlayersArea(){
@@ -186,33 +198,45 @@
             	var data = JSON.parse(event.data);
             	if (data.type ==="response"){
             		
+            		if (!couldTakeResp){
+            			return;
+            		}
+            		
             		if (musicOn){
             			$('#jeopardySong').get(0).pause();
                     	$('#jeopardySong').get(0).currentTime = 0;
             		}
 	            	var userId = data.id;
-	            	//var user = event.data;
-	            	if ($('#'+userId).length==0){
-	            		appendPlayerReponse(userId);
-	            		$('#buzz'+userId).get(0).play();
-	            	}
+		            	//var user = event.data;
+		            	if ($('#'+userId).length==0){
+	            			if (nbResp < limitResp || limitResp == -1){
+		            			appendPlayerReponse(userId);
+			            	}
+	            			nbResp+=1;
+		            		if (nbBuzz < limitBuzz || limitBuzz == -1){
+			            		$('#buzz'+userId).get(0).play();
+		            		}
+	            			nbBuzz+=1;
+		            	}
+		            	
+		            	$('.playerParent').each(function(userDiv){
+		            		
+		            		if ($(this).attr("id") === userId){
+		            			//$(this).addClass("playerAnswer");
+		            			$(this).removeClass().addClass("playerParent animated flash");
+		            			var el = $(this);
+		            			var wait = window.setTimeout( function(){
+		            				el.removeClass().addClass("playerParent");
+		            				$('#btn'+userId).show();
+		            				},
+		            				1300
+		            			);
+		            		}else{
+		            			$(this).removeClass().addClass("playerParent");	
+		            		}
+		            	});
 	            	
-	            	$('.playerParent').each(function(userDiv){
-	            		
-	            		if ($(this).attr("id") === userId){
-	            			//$(this).addClass("playerAnswer");
-	            			$(this).removeClass().addClass("playerParent animated flash");
-	            			var el = $(this);
-	            			var wait = window.setTimeout( function(){
-	            				el.removeClass().addClass("playerParent");
-	            				$('#btn'+userId).show();
-	            				},
-	            				1300
-	            			);
-	            		}else{
-	            			$(this).removeClass().addClass("playerParent");	
-	            		}
-	            	});
+	            	
             	}else if (data.type ==="register"){
             		scoreMap[''+data.id] = {'pseudo':data.data, 'score':0};
             		scoreArray.push(''+data.id);
@@ -235,6 +259,7 @@
             $("#navRAZ").show();
             $("#navNext").show();
             $("#navPrev").show();
+            $("#navAllowResp").show();
             
         });
         

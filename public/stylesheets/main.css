@@ -26,7 +26,7 @@ body {
 }
 
 .container {
-    width: 820px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
+    width: 720px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
 }
 .center {
     margin: 0px auto;
@@ -37,7 +37,7 @@ body {
 
 
 #divLogo{
-	width: 820px;
+	width: 720px;
 }
 
 a .btnPush{
@@ -129,12 +129,12 @@ a:active .btnPush{
 }
 .player {
 	text-align: center;
-	background: #123;
+	background: #A31616;
 	padding: 20px 10px;
 	width: 150px;
 	color: #fff;
 	margin: 30px 30px;
-	border-radius: 5px;
+	border-radius: 70px;
 	font-weight: bold;
 	
 	-webkit-backface-visibility: hidden;

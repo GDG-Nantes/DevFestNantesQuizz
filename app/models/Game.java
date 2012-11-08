@@ -20,6 +20,7 @@ public class Game {
 	private ArrayList<Out<JsonNode>> playerOutList = new ArrayList<WebSocket.Out<JsonNode>>();
 
 	private List<WebSocket.In<JsonNode>> players = new ArrayList<WebSocket.In<JsonNode>>();
+	private List<Player> playerList = new ArrayList<Player>();
 
 	public void registerGameScreen(WebSocket.Out<JsonNode> screen, In<JsonNode> in) {
 		gameOut = screen;
@@ -37,17 +38,31 @@ public class Game {
 
 			}
 		});
+		int compt = 0;
+		ObjectNode event = null;
+		for (Out<JsonNode> outPlayer : playerOutList) {
+			try {
+				event = Json.newObject();
+				event.put("type", "registerDone");
+				event.put("id", playerList.get(compt).id);
+				outPlayer.write(event);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			compt++;
+		}
 	}
 
-	public void registerGamePlayer(WebSocket.In<JsonNode> player, final Out<JsonNode> out, Player playerObj) {
+	public void registerGamePlayer(WebSocket.In<JsonNode> player, final Out<JsonNode> out, final Player playerObj) {
 		if (this.gameOut != null) {
 			ObjectNode event = Json.newObject();
 			event.put("type", "register");
 			event.put("data", playerObj.pseudo);
 			event.put("id", playerObj.id);
 			this.gameOut.write(event);
-			playerOutList.add(out);
 		}
+		playerOutList.add(out);
+		playerList.add(playerObj);
 		player.onMessage(new Callback<JsonNode>() {
 
 			@Override
@@ -64,6 +79,7 @@ public class Game {
 			@Override
 			public void invoke() throws Throwable {
 				playerOutList.remove(out);
+				playerList.remove(out);
 
 			}
 		});

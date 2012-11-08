@@ -8,8 +8,8 @@
 		    <div class="row">
 		    	<div class="center">
 		    		<div id="divLogo">
-			    	 	<canvas id="the-canvas" width="400"></canvas>
-	    				<div style="width:400px">
+			    	 	<canvas id="the-canvas" width="650"></canvas>
+	    				<div style="width:250px">
 			    			<span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
 	    				</div>
 			    	</div>
@@ -17,12 +17,16 @@
 		    </div>
 	    </div>
 	     <div class="row">
+	     	<div class="span6">
 		    <h2>Classement des joueurs</h2>
 			    <ol id="playersListScore">
 			    </ol>
+	     	</div>
+	     	<div class="span6"> 
 		    <h2>Réponses des joueurs</h2>
 		    <ul id="playersList" class="nav nav-pills">
 		    </ul>
+	     	</div>
 	    </div>
 	    <div style="visibility: hidden;">
 		    	<audio id="jeopardySong" src="@routes.Assets.at("media/Jeopardy.mp3")" autoplay="autoplay" />		    	
@@ -83,6 +87,12 @@
 			RAZReponses();        	
 	    }
 	    
+	    function clickBtnRefuser(btn){
+	    	var id = btn.getAttribute("id").substring(4);
+	    	$('#btn'+id).hide();        	
+	    	$('#btnR'+id).hide();        	
+	    }
+	    
 	    function allowResp(){
 	    	couldTakeResp = true;
 	    	
@@ -128,6 +138,7 @@
 	    		remplacementPlayerList += '        <div class="player" >';
 	    		remplacementPlayerList += '          <p >'+scoreMap[playerId].pseudo+'</p>';
 	    		remplacementPlayerList += '            <button class="btn danger btnPlayers" id="btn'+playerId+'" onclick="clickBtnValider(this);">Valider ?</button>';
+	    		remplacementPlayerList += '            <button class="btn danger btnPlayers" id="btnR'+playerId+'" onclick="clickBtnRefuser(this);">Refuser ?</button>';
 	    		remplacementPlayerList += '        </div>';
 	    		remplacementPlayerList += '      </div>';
 	    		remplacementPlayerList += '      <div>';
@@ -149,6 +160,7 @@
     		remplacementPlayerList += '        <div class="player" >';
     		remplacementPlayerList += '          <p >'+scoreMap[playerId].pseudo+'</p>';
     		remplacementPlayerList += '            <button class="btn danger btnPlayers" id="btn'+playerId+'" onclick="clickBtnValider(this);">Valider ?</button>';
+    		remplacementPlayerList += '            <button class="btn danger btnPlayers" id="btnR'+playerId+'" onclick="clickBtnRefuser(this);">Refuser ?</button>';
     		remplacementPlayerList += '        </div>';
     		remplacementPlayerList += '      </div>';
     		remplacementPlayerList += '      <div>';
@@ -158,6 +170,7 @@
     		remplacementPlayerList += '  </li>';
 	    	$('#playersList').append(remplacementPlayerList);
 	    	$('#btn'+playerId).hide();
+	    	$('#btnR'+playerId).hide();
 	    }
 	    
 	    function initScorePlayersArea(){
@@ -228,6 +241,7 @@
 		            			var wait = window.setTimeout( function(){
 		            				el.removeClass().addClass("playerParent");
 		            				$('#btn'+userId).show();
+		            				$('#btnR'+userId).show();
 		            				},
 		            				1300
 		            			);
@@ -276,7 +290,7 @@
         
         var pdfDoc = null,
         pageNum = 1,
-        scale = 0.7,
+        scale = 0.9,
         canvas = document.getElementById('the-canvas'),
         ctx = canvas.getContext('2d');
 

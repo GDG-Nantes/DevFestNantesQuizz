@@ -3,6 +3,7 @@ package controllers;
 import models.Game;
 import models.LoginPwd;
 import models.Player;
+
 import org.codehaus.jackson.JsonNode;
 
 import play.data.Form;
@@ -17,6 +18,7 @@ public class Application extends Controller {
 
 	static Game gameDispatcher = new Game();
 	static boolean connectAdmin = false;
+	static boolean singleConnect = false;
 
 	/*
 	 * Index global
@@ -66,12 +68,12 @@ public class Application extends Controller {
 	// //
 
 	public static Result game() {
-		if (!connectAdmin) {
+		if (!connectAdmin || singleConnect) {
 			return redirect(routes.Application.adminGame());
 		}
+		singleConnect = true;
 		return ok(views.html.game.render(Player.all()));
 	}
-
 
 	/*
 	 * Players

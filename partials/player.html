@@ -1,0 +1,18 @@
+<div>    
+    
+    <div class="container">
+	    <div id="divLogo" ng-show='player.register'>
+	    	<div>
+		    	<h1 ng-bind-template="Joeur : {{player.pseudo}}"></h1>
+		    	<p>Appuyez sur le bouton "Réponse" pour répondre.
+		    	</p>
+	    	</div>
+	 	   <a ng-show="player.register" id="reponse" class="btnPush" ng-click='reponse()'>Réponse ! </a>
+	    </div>	 
+	    <div ng-show='player.load'>Chargement du Joueur en cours</div>
+	    <div ng-show='player.unknown'>
+	    	Joeur non reconnu. Revenez à l'acceuil.
+	    </div>   
+    </div>
+</div>
+    

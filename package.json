@@ -1,0 +1,8 @@
+{
+  "author": "jefBinomed",
+  "name": "workshopHTML5",
+  "dependencies": {
+    "socket.io": "~0.9.14",
+    "connect" : "~2.8.4"
+  }
+}

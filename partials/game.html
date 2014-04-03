@@ -1,0 +1,68 @@
+<div>
+
+	<div class="topbar">
+        <div class="fill">
+            <div class="container">
+            <a class="brand" href="#/main">
+                Question pour un DevFest 
+            </a>
+            <ul class="nav">
+		      <li><a id="navNext" ng-click="goNext()">Suivant</a></li>
+		      <li><a id="navPrev" ng-click="goPrevious()">Précédent</a></li>
+		      <li><a id="navStopMusic" ng-click="toggleMusic()" ng-bind="textToggleMusic"></a></li>
+		      <li><a id="navRAZ" ng-click="RAZReponses()">RAZ réponses</a></li>
+		      <li><a id="navAllowResp"  ng-click="allowResp()">Autoriser réponses</a></li>
+		      <li><a id="navRAZ" ng-click="RAZUtilisateurs()">Nettoyage utilisateurs</a></li>
+		    </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-header">
+	    <div class="row">
+	    	<div class="center">
+	    		<div id="divLogo">
+		    	 	<canvas id="the-canvas" width="650"></canvas>
+    				<div style="width:250px">
+		    			<span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
+    				</div>
+		    	</div>
+		  	</div>
+	    </div>
+    </div>
+     <div class="row">
+     	<div class="span6">
+	    <h2>Classement des joueurs</h2>
+		    <ol id="playersListScore">
+		     	<li ng-repeat="aPlayer in playerArray | orderBy:'-score' | limitTo:5">
+	    		   <div class="playerScore">
+	    		      <p id="pt{{aPlayer.id}}" ng-bind-template="{{aPlayer.pseudo}} : {{aPlayer.score}}"></p>
+	    		    </div>
+	    		</li>
+		    </ol>
+     	</div>
+     	<div class="span6"> 
+	    <h2>Réponses des joueurs</h2>
+	    <ul id="playersList" class="nav nav-pills">
+	    	<li ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:10" ng-show="aPlayer.answer">
+    		  <div class="playerShow">
+    		     <div class="playerParent" id="{{aPlayer.id}}">
+    		       <div class="player" >
+    		         <p ng-bind="aPlayer.pseudo"></p>
+    		           <button ng-hide="aPlayer.anwserTreat" class="btn danger btnPlayers" id="btn{{aPlayer.id}}" ng-click="clickBtnValider(aPlayer);">Valider ?</button>
+    		           <button ng-hide="aPlayer.anwserTreat" class="btn danger btnPlayers" id="btnR{{aPlayer.id}}" ng-click="clickBtnRefuser(aPlayer);">Refuser ?</button>
+    		       </div>
+    		     </div>
+    		     <div>
+    		       <audio id="buzz{{aPlayer.id}}" src="assets/audio/buzz.mp3" style="display:none"/>
+    		     </div>
+    		   </div>
+    		 </li>
+	    </ul>
+     	</div>
+    </div>
+    <div style="display: none;">
+    		<audio id="reponse" src="assets/audio/reponse.mp3" />
+	    	<audio id="jeopardySong" src="assets/audio/Jeopardy.mp3" />
+	</div>
+</div>

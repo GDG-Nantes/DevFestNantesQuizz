@@ -11,6 +11,7 @@ controller('PlayerCtrl', ['$scope', '$rootScope', '$log', '$routeParams','WebSoc
 	$scope.player = model.singlePlayer;
 	$scope.player.id = $routeParams.playerId;
 	$scope.player.load = true;
+	$scope.proximityCompat = window.DeviceProximityEvent;
 
 	$scope.reponse = function(){
 		wsFactory.sendData('response',{

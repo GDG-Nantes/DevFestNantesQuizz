@@ -5,7 +5,8 @@
 *
 * Description
 */
-angular.module('AppQuizz', ['QuizzAdmin','QuizzGame', 'QuizzPlayer', 'QuizzMain','ngRoute']).config(['$routeProvider',function($routeProvider) {
+angular.module('AppQuizz', ['QuizzAdmin','QuizzGame', 'QuizzPlayer', 'QuizzMain', 'QuizzDirectives','ngRoute'])
+.config(['$routeProvider',function($routeProvider) {
 	$routeProvider
 	.when('/main', {
 		controller : 'MainCtrl', templateUrl : 'partials/main.html'

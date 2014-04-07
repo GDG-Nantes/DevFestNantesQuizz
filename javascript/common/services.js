@@ -107,4 +107,101 @@ angular.module('QuizzServices', [])
 		isAdminLogged : isAdminLogged,
 		loggedAdmin : loggedAdmin
 	};
-}]);;
+}])
+.factory('AudioFactory', [ function(){
+
+	var context = null;
+	try{
+		window.AudioContext = window.AudioContext || window.webkitAudioContext;
+		context = new AudioContext();
+	}catch(e){
+		console.log("No WebAPI dectect");
+	}
+
+	var BUZZ = 1;
+	var JEOPARDY = 2;
+	var REPONSE = 3;
+	var buzzBuffer = null;
+	var jeopardyBuffer = null;
+	var reponseBuffer = null;
+	var sourceJeopardy = null;
+
+	function loadSound(url, bufferToUse){
+		var request = new XMLHttpRequest();
+		request.open('GET', url, true);
+		request.responseType = 'arraybuffer';
+
+		// Decode asynchronously
+		request.onload = function() {
+			context.decodeAudioData(request.response, function(buffer) {
+				if (bufferToUse === BUZZ){
+			  		buzzBuffer = buffer;
+				}else if (bufferToUse === JEOPARDY){
+			  		jeopardyBuffer = buffer;
+				}else if (bufferToUse === REPONSE){
+			  		reponseBuffer = buffer;
+				}
+			}, function(e){
+				console.log('Error decoding file', e);
+			});
+		}
+		request.send();
+	}
+
+	function loadBuzzSound(){
+		loadSound("http://"+location.hostname+":80/assets/audio/buzz.mp3", BUZZ);
+	}
+
+	function loadJeopardySound(){
+		loadSound("http://"+location.hostname+":80/assets/audio/Jeopardy.mp3", JEOPARDY);
+	}
+
+	function loadReponseSound(){
+		loadSound("http://"+location.hostname+":80/assets/audio/reponse.mp3", REPONSE);
+	}
+
+	function playSound(buffer){
+		var source = context.createBufferSource(); // creates a sound source
+		source.buffer = buffer;                    // tell the source which sound to play
+		source.connect(context.destination);       // connect the source to the context's destination (the speakers)
+		source.start(0);                           // play the source now
+		return source;
+	}
+
+	loadBuzzSound();
+	loadJeopardySound();
+	loadReponseSound();
+
+	/*****************************
+	******************************
+	* Apis exposed
+	******************************
+	******************************
+	*/
+	
+	function playBuzz(){
+		playSound(buzzBuffer);
+	}
+
+	function playJeopardy(){
+		sourceJeopardy = playSound(jeopardyBuffer);
+	}
+
+	function stopJeopardy(){
+		if (sourceJeopardy && sourceJeopardy.stop){
+			sourceJeopardy.stop(0);
+		}
+	}
+
+	function playReponse(){
+		playSound(reponseBuffer);
+	}
+
+	return{
+		playBuzz : playBuzz,
+		playJeopardy : playJeopardy,
+		stopJeopardy : stopJeopardy,
+		playReponse : playReponse
+		
+	}
+}]);

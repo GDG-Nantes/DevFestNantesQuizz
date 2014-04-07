@@ -3,12 +3,13 @@
     <div class="container">
 	    <div id="divLogo" ng-show='player.register'>
 	    	<div>
-		    	<h1 ng-bind-template="Joeur : {{player.pseudo}}"></h1>
+		    	<h1 ng-bind-template="Joueur : {{player.pseudo}}"></h1>
 		    	<p>Appuyez sur le bouton "Réponse" pour répondre.
 		    	</p>
 	    	</div>
-	 	   <a ng-show="player.register" id="reponse" class="btnPush" ng-click='reponse()'>Réponse ! </a>
+	 	   <a ng-show="player.register" id="reponse" class="btnPush" ng-click='reponse()' push-proximity player="player" >Réponse ! </a>
 	    </div>	 
+	    <div ng-show='proximityCompat'>Vous pouvez utiliser votre téléphone comme buzzer!</div>
 	    <div ng-show='player.load'>Chargement du Joueur en cours</div>
 	    <div ng-show='player.unknown'>
 	    	Joeur non reconnu. Revenez à l'acceuil.

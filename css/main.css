@@ -26,7 +26,7 @@ body {
 }
 
 .container {
-    width: 720px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
+    width: auto; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
 }
 .center {
     margin: 0px auto;
@@ -37,7 +37,7 @@ body {
 
 
 #divLogo{
-	width: 720px;
+	/*width: 720px;*/
 }
 
 a .btnPush{
@@ -65,14 +65,14 @@ a .btnPush{
 	-ms-transition: all .1s ease;
 	-o-transition: all .1s ease;
 	transition: all .1s ease;
+}
 
-a:active .btnPush{
+a:active .btnPush, a.active.btnPush {
     -webkit-box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
     -moz-box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
     box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
     position: relative;
     top: 6px;
-}
 }
 
 #divLogo img, #divLogo canvas, #divLogo div{
@@ -110,7 +110,7 @@ a:active .btnPush{
 	transition: all .1s ease;
 }
 
-#divLogo a:active{
+#divLogo a:active, #divLogo a.active {
 	 -webkit-box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
     -moz-box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
     box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);

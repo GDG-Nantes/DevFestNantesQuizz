@@ -5,8 +5,8 @@
 * Description
 */
 angular.module('QuizzGame', ['QuizzServices']).
-controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'WebSocketFactory',
-	function($scope, $rootScope,$location, model, wsFacotry){
+controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'WebSocketFactory', 'AudioFactory',
+	function($scope, $rootScope,$location, model, wsFacotry, audio){
 
 
 	var index = 0;
@@ -44,6 +44,10 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 				playerFound.index = index;
 				playerFound.answer = true;
 				index++;
+				if (index <= 5 && musicOn){
+					audio.stopJeopardy();
+					audio.playBuzz();
+				}
 				// TODO Jouer un son à limiter à 20
 			}
 		});
@@ -52,6 +56,10 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 	$scope.allowResp = function(){
 		// Permet de prendre en compte les réponses
 		allowResp = true;
+		if (musicOn){
+			audio.stopJeopardy();
+			audio.playJeopardy();
+		}
 	};
 
 	$scope.clickBtnValider = function(player){
@@ -59,6 +67,9 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 		$scope.order = 'score';
 		player.score +=5;
 		player.anwserTreat = true;
+		if (musicOn){
+			audio.playReponse();
+		}
 	};
 
 	$scope.clickBtnRefuser = function(player){
@@ -69,7 +80,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 	};
 
 	$scope.goNext = function(){
-		allowResp = false;
+		allowResp = false;		
 	};
 
 	$scope.goPrevious = function(){
@@ -79,6 +90,9 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 	$scope.toggleMusic = function(){
 		musicOn = !musicOn;
 		$scope.textToggleMusic = musicOn ? "Stopper la musique" : "Remettre la musique";
+		if (!musicOn){
+			audio.stopJeopardy();
+		}
 	};
 
 	$scope.RAZReponses = function(){

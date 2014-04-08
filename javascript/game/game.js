@@ -12,13 +12,15 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 	var index = 0;
 	var allowResp = false;
 	var musicOn = true;
+	$scope.curentPage = 1;
+	$scope.nbPages = 1;
 	$scope.playerArray = [];
 	$scope.textToggleMusic = "Stopper la musique";
 	$scope.order = 'score';
 
-	if (!model.isAdminLogged()){
+	/*if (!model.isAdminLogged()){
 		$location.path('/main');
-	}
+	}*/
 
 	wsFacotry.getPlayers();
 
@@ -81,10 +83,16 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 
 	$scope.goNext = function(){
 		allowResp = false;		
+		if ($scope.curentPage >= $scope.nbPages)
+        	return;
+      	$scope.curentPage++;
 	};
 
 	$scope.goPrevious = function(){
 		allowResp = false;
+		if ($scope.curentPage <= 1)
+        	return;
+      	$scope.curentPage--;
 	};
 	
 	$scope.toggleMusic = function(){

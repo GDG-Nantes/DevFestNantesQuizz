@@ -18,19 +18,8 @@
       </div>
     </div>
 
-    <div class="page-header">
-	    <div class="row">
-	    	<div class="center">
-	    		<div id="divLogo">
-		    	 	<canvas id="the-canvas" width="650"></canvas>
-    				<div style="width:250px">
-		    			<span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
-    				</div>
-		    	</div>
-		  	</div>
-	    </div>
-    </div>
-     <div class="row">
+    <pdf-presentation curent-page='curentPage' nb-pages='nbPages' raz="RAZReponses()"></pdf-presentation>
+    <div class="row">
      	<div class="span6">
 	    <h2>Classement des joueurs</h2>
 		    <ol id="playersListScore">
@@ -46,7 +35,7 @@
 	    <ul id="playersList" class="nav nav-pills">
 	    	<li ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:10" ng-show="aPlayer.answer">
     		  <div class="playerShow">
-    		     <div class="playerParent" id="{{aPlayer.id}}">
+    		     <div class="playerParent" ng-class="{animated:aPlayer.anwser, flash:aPlayer.anwser}"  id="{{aPlayer.id}}">
     		       <div class="player" >
     		         <p ng-bind="aPlayer.pseudo"></p>
     		           <button ng-hide="aPlayer.anwserTreat" class="btn danger btnPlayers" id="btn{{aPlayer.id}}" ng-click="clickBtnValider(aPlayer);">Valider ?</button>
@@ -61,8 +50,4 @@
 	    </ul>
      	</div>
     </div>
-    <div style="display: none;">
-    		<audio id="reponse" src="assets/audio/reponse.mp3" />
-	    	<audio id="jeopardySong" src="assets/audio/Jeopardy.mp3" />
-	</div>
 </div>

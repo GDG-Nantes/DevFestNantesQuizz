@@ -1,4 +1,10 @@
-This is your new Play 2.0 application
-=====================================
 
-This file will be packaged with your application, when using `play dist`.
+Run the server with node server.js
+
+Go to your browser with port :80
+
+For smartphone, choose the correct network interface for changing the qrcode.
+
+== During the game
+
+Each new question have to be approved and the button 'autoriser les réponses' have to be press each time before the candidats answer 

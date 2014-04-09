@@ -118,6 +118,10 @@ a:active .btnPush, a.active.btnPush {
     top: 6px;
 	}
 
+#playersListScore li:first-child>div.playerScore>p{
+	font-weight: 800;
+	font-size: 16px;
+}
 
 .playerAnswer{
 	font-weight: bold;
@@ -134,7 +138,7 @@ a:active .btnPush, a.active.btnPush {
 	width: 150px;
 	color: #fff;
 	margin: 30px 30px;
-	border-radius: 70px;
+	border-radius: 10px;
 	font-weight: bold;
 	
 	-webkit-backface-visibility: hidden;
@@ -167,4 +171,21 @@ a:active .btnPush, a.active.btnPush {
 
 .player p {
 	margin: 10px;
+}
+
+/*
+	QRCodes
+*/
+
+
+.qrCodeDirective{
+	text-align: center;
+}
+
+.qrCodeDirective ul{
+	list-style: none;
+}
+
+.qrCodeDirective img{
+	margin: auto;
 }

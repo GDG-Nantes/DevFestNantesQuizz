@@ -67,8 +67,13 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 	$scope.clickBtnValider = function(player){
 		$scope.order = 'id';
 		$scope.order = 'score';
-		player.score +=5;
-		player.anwserTreat = true;
+		var scoreToAdd = $scope.curentPage < 3 ? 5 : ($scope.curentPage < 6 ? 7 : 12);
+		player.score += scoreToAdd;
+		allowResp = false;
+		_.map($scope.playerArray, function(player){
+			player.anwserTreat = true;
+			return player;
+		});
 		if (musicOn){
 			audio.playReponse();
 		}
@@ -115,7 +120,8 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 	};
 	
 	$scope.RAZUtilisateurs = function(){
-
+		$scope.playerArray = [];
+		wsFacotry.sendData('clearScore');
 	};
 
 /*	

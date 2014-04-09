@@ -5,8 +5,8 @@
 * Description
 */
 angular.module('QuizzPlayer', ['QuizzServices']).
-controller('PlayerCtrl', ['$scope', '$rootScope', '$log', '$routeParams','WebSocketFactory', 'ModelFactory', 
-	function($scope, $rootScope, $log, $routeParams, wsFactory, model){
+controller('PlayerCtrl', ['$scope', '$rootScope', '$log', '$routeParams', '$location','WebSocketFactory', 'ModelFactory', 
+	function($scope, $rootScope, $log, $routeParams, $location, wsFactory, model){
 
 	$scope.player = model.singlePlayer;
 	$scope.player.id = $routeParams.playerId;
@@ -26,6 +26,12 @@ controller('PlayerCtrl', ['$scope', '$rootScope', '$log', '$routeParams','WebSoc
 		$scope.$apply(function(){
 			$scope.player.load = false;
 			$scope.player = data.player;
+		});
+	});
+
+	$rootScope.$on('clearScore', function(evt, data){
+		$scope.$apply(function(){
+			$location.path('/');
 		});
 	});
 }]);

@@ -35,6 +35,12 @@ body {
     margin: 0px auto;	
 }
 
+@media screen and (max-width: 650px) {
+	#logo {
+		width: 200px;
+	}
+}
+
 
 #divLogo{
 	/*width: 720px;*/

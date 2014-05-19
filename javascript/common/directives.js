@@ -75,7 +75,7 @@ var components = angular.module('QuizzDirectives',['QuizzServices'])
 
       //PDF Configuration 
         
-      var url = 'assets/files/QuizzDevoxx2014.pdf';
+      var url = 'assets/files/QuizzBreizhcamp2014.pdf';
       scope.nbPages = 0;
       
       //

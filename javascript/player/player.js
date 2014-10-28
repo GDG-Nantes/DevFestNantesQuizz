@@ -23,15 +23,11 @@ controller('PlayerCtrl', ['$scope', '$rootScope', '$log', '$routeParams', '$loca
 	wsFactory.getPlayer($scope.player.id);
 
 	$rootScope.$on('playerInfo', function(evt, data){
-		$scope.$apply(function(){
-			$scope.player.load = false;
-			$scope.player = data.player;
-		});
+		$scope.player.load = false;
+		$scope.player = data.player;
 	});
 
 	$rootScope.$on('clearScore', function(evt, data){
-		$scope.$apply(function(){
-			$location.path('/');
-		});
+		$location.path('/');
 	});
 }]);

@@ -1,35 +1,11 @@
 <div>
-
-	<div class="topbar">
-        <div class="fill">
-            <div class="container">
-            <a class="brand" href="#/main">
-                Question pour un Breizhcamp 
-            </a>
-            <ul class="nav">
-		      <li><a id="navNext" ng-click="goNext()">Suivant</a></li>
-		      <li><a id="navPrev" ng-click="goPrevious()">Précédent</a></li>
-		      <li><a id="navStopMusic" ng-click="toggleMusic()" ng-bind="textToggleMusic"></a></li>
-		      <li><a id="navRAZ" ng-click="RAZReponses()">RAZ réponses</a></li>
-		      <li><a id="navAllowResp"  ng-click="allowResp()">Autoriser réponses</a></li>
-		      <li><a id="navRAZ" ng-click="RAZUtilisateurs()">Nettoyage utilisateurs</a></li>
-		    </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-        <div class="span6">          
+    <div class="row container">
+        <div class="col-md-6" ng-hide="startGame">          
             <h1>Rejoignez la partie : </h1>  
             <qrcodes></qrcodes>
         </div>
-        <div class="span10">            
-            <pdf-presentation curent-page='curentPage' nb-pages='nbPages' raz="RAZReponses()"></pdf-presentation>
-        </div>
-    </div>
-    <div class="row">
-     	<div class="span6">
-	    <h2>Classement des joueurs</h2>
+     	<div class="col-md-2">
+	       <h2>Classement des joueurs</h2>
 		    <ol id="playersListScore">
 		     	<li ng-repeat="aPlayer in playerArray | orderBy:'-score' | limitTo:5">
 	    		   <div class="playerScore">
@@ -38,15 +14,20 @@
 	    		</li>
 		    </ol>
      	</div>
-     	<div class="span9"> 
+        <div class="col-md-10" ng-show="startGame">            
+            <pdf-presentation curent-page='curentPage' nb-pages='nbPages' raz="RAZReponses()"></pdf-presentation>
+        </div>
+    </div>
+    <div class="row container" ng-show="startGame">
+     	<div class="col-md-9"> 
 	       <h2>Réponses des joueurs</h2>
            <div class="row">
-	    	  <div class="playerShow span3" ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:10" ng-show="aPlayer.answer">
+	    	  <div class="playerShow cold-md-3" ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:10" ng-show="aPlayer.answer">
     		     <div class="playerParent" ng-class="{'animated flash' : aPlayer.answer}"  id="{{aPlayer.id}}">
     		       <div class="player" >
     		          <p ng-bind="aPlayer.pseudo" class="inline"></p>
-		              <button ng-hide="aPlayer.anwserTreat" class="btn success btnPlayers inline" id="btn{{aPlayer.id}}" ng-click="clickBtnValider(aPlayer);">&#10004;</button>
-		              <button ng-hide="aPlayer.anwserTreat" class="btn danger btnPlayers inline" id="btnR{{aPlayer.id}}" ng-click="clickBtnRefuser(aPlayer);">&#10008;</button>
+		              <!--<button ng-hide="aPlayer.anwserTreat" class="btn success btnPlayers inline" id="btn{{aPlayer.id}}" ng-click="clickBtnValider(aPlayer);">&#10004;</button>
+		              <button ng-hide="aPlayer.anwserTreat" class="btn danger btnPlayers inline" id="btnR{{aPlayer.id}}" ng-click="clickBtnRefuser(aPlayer);">&#10008;</button>-->
     		       </div>
     		     </div>
     		   </div>

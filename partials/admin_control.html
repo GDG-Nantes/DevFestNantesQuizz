@@ -1,0 +1,28 @@
+<div>
+    <div class="container">
+        <button type="button" class="btn btn-success" id="navNext" ng-click="startGame()">Démarer Jeux</button>
+        <button type="button" class="btn btn-primary" id="navNext" ng-click="goNext()" ng-show="gameInProgress">Question suivante</button>
+        <button type="button" class="btn btn-primary" id="navPrev" ng-click="goPrevious()" ng-show="gameInProgress">Question précédente</button>
+        <button type="button" class="btn btn-warning" id="navStopMusic" ng-click="toggleMusic()" ng-bind="textToggleMusic" ng-show="gameInProgress"></button>
+        <button type="button" class="btn btn-warning" id="navRAZ" ng-click="RAZReponses()" ng-show="gameInProgress">RAZ réponses</button>
+        <button type="button" class="btn btn-primary" id="navAllowResp"  ng-click="allowResp()" ng-show="gameInProgress">Autoriser réponses</button>
+        <button type="button" class="btn btn-danger" id="navRAZ" ng-click="RAZUtilisateurs()">Nettoyage utilisateurs</button>
+    </div>
+
+    <div class="row">
+     	<div class="col-md-12"> 
+	       <h2>Réponses des joueurs</h2>
+           <div class="row">
+	    	  <div class="playerShow col-xs-4" ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:10" ng-show="aPlayer.answer">
+    		     <div class="playerParent" ng-class="{'animated flash' : aPlayer.answer}"  id="{{aPlayer.id}}">
+    		       <div class="player" >
+    		          <p ng-bind="aPlayer.pseudo" class="inline"></p>
+		              <button ng-hide="aPlayer.anwserTreat" class="btn btn-success btnPlayers inline" id="btn{{aPlayer.id}}" ng-click="clickBtnValider(aPlayer);">&#10004;</button>
+		              <button ng-hide="aPlayer.anwserTreat" class="btn btn-danger btnPlayers inline" id="btnR{{aPlayer.id}}" ng-click="clickBtnRefuser(aPlayer);">&#10008;</button>
+    		       </div>
+    		     </div>
+    		   </div>
+            </div>
+    	</div>
+    </div>
+</div>

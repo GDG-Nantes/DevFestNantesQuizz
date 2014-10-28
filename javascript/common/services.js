@@ -9,19 +9,21 @@ angular.module('QuizzServices', [])
 	var socket = io.connect("http://"+location.hostname+":80");
 
 	socket.on('message', function (data) {
-	    $log.info(data);
-	    if (data.type === "registerDone"){
-	    	model.addPlayer(data);
-	    	if(data.id === model.singlePlayer.id){
-	    		model.singlePlayer.register = true;
+    	$rootScope.$apply(function(){
+		    $log.info(data);
+		    if (data.type === "registerDone"){
+		    	model.addPlayer(data);
+		    	if(data.id === model.singlePlayer.id){
+		    		model.singlePlayer.register = true;
+		    	}
+		    	$rootScope.$broadcast('PlayerRegister', data);
+	    	}else  if (data.type === "adminAuth"){
+	    		model.loggedAdmin();
+		    	$rootScope.$broadcast('adminAuth');	    	
+	    	}else {
+		    	$rootScope.$broadcast(data.type, data);
 	    	}
-	    	$rootScope.$broadcast('PlayerRegister', data);
-    	}else  if (data.type === "adminAuth"){
-    		model.loggedAdmin();
-	    	$rootScope.$broadcast('adminAuth');	    	
-    	}else {
-	    	$rootScope.$broadcast(data.type, data);
-    	}
+    	});
 	});
 
 	function sendData(type, data){

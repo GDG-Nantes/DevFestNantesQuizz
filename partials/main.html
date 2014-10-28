@@ -1,21 +1,13 @@
-<div>
-    	 <div class="page-header">
-	        <h1>Bienvenue dans le grand jeu </h1>
-	    </div>
-	    <div class="row">
-	    	<div class="center">
-	    		<div id="divLogo">
-			    	<img id="logo" src="assets/images/question_pour_logo_bzh_camp.png" class="img-rounded" width="400"/>
-	    		</div>
-	    	</div>
-	    </div>
-	    <div class="row">
-		    <p>Ajouter un nouveau joueur</p>
-		    
-		    <form novalidate class="form-inline">
-		    	<input id="pseudo" name="pseudo" ng-model='player.pseudo' class="input-small" type="text" placeholder="Pseudo" required>
-		        <button ng-disabled="form.$invalid" class="btn" type="submit" value="Create" ng-click='addPlayer()' >Ajouter</button>
-		    </form>
-	
-	    </div>	    
+<div class="main">	    
+	<div class="page-header">
+       	<h1>Bienvenue dans </h1>
+       	<h2>Question pour un DevFest !</h2>
+    </div>	    	
+	<div class="form-player">
+	    <p><h3>Pseudo nouveau joueur<h3></p>		    
+	    <form novalidate class="form-inline center">
+	    	<input id="pseudo" name="pseudo" ng-model='player.pseudo' class="input-small" type="text" placeholder="Pseudo" required>
+	        <button ng-disabled="form.$invalid" class="btn" type="submit" value="Create" ng-click='addPlayer()' >Ajouter</button>
+	    </form>
+    </div>
 </div>

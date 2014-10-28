@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Quizz HTML ! </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
-	<link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.min.css"> 
+	<link rel="stylesheet" type="text/css" media="screen" href="components/bootstrap-3.2.0-dist/css/bootstrap.min.css"> 
     <link rel="stylesheet" media="screen" href="css/main.css">
     <link rel="stylesheet" media="screen" href="css/animate.min.css">
     <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:700' rel='stylesheet' type='text/css'>
@@ -13,15 +13,14 @@
     <link rel="shortcut icon" type="image/ico" href="assets/images/favicon.ico">
 </head>
 <body>
-    <div class="topbar">
-        <div class="fill">
-            <div class="container">
-                <a class="brand" href="#/main">
-                    Question pour un Breizhcamp 
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="#/main">                
+                    Question pour un DevFest 
                 </a>
             </div>            
-        </div>
-      </div>
+        </div>    
     </div>
 	<div ng-view class="content"></div>
 

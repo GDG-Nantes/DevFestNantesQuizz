@@ -49,7 +49,7 @@ wsServer.sockets.on('connection', function(socket) {
     		console.log('### adminConnect: ');
         	console.info(message);
     		socket.emit('message',{
-    			type : (message.data.login === 'admin' && message.data.password === '@devoxxlabs') ? 'adminAuth' : 'adminRefused'
+    			type : (message.data.login === 'admin' && message.data.password === '@frenchio') ? 'adminAuth' : 'adminRefused'
     		});        	
     	}else if (message.type === 'getPlayer'){
             console.log('### getPlayer: ');

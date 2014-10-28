@@ -14,6 +14,9 @@ angular.module('AppQuizz', ['QuizzAdmin','QuizzGame', 'QuizzPlayer', 'QuizzMain'
 	.when('/game', {
 		controller : 'GameCtrl', templateUrl : 'partials/game.html'
 	})
+	.when('/control', {
+		controller : 'ControlCtrl', templateUrl : 'partials/admin_control.html'
+	})
 	.when('/admin',{
 		controller : 'AdminCtrl', templateUrl: 'partials/admin_game.html'
 	})

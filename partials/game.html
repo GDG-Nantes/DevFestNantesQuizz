@@ -1,11 +1,14 @@
 <div>
     <div class="row container">
         <div class="col-md-6" ng-hide="startGame">          
-            <h1>Rejoignez la partie : </h1>  
-            <qrcodes></qrcodes>
+            <h1 class="text-center">Rejoignez la partie : </h1>  
+            <div class="center-block">
+                <qrcodes></qrcodes>
+            </div>
         </div>
      	<div class="col-md-2">
-	       <h2>Classement des joueurs</h2>
+	        <h2 ng-hide="startGame" class="text-center">Joueurs</h2>
+            <h2 ng-show="startGame" class="text-center">Classement des joueurs</h2>
 		    <ol id="playersListScore">
 		     	<li ng-repeat="aPlayer in playerArray | orderBy:'-score' | limitTo:5">
 	    		   <div class="playerScore">
@@ -15,7 +18,18 @@
 		    </ol>
      	</div>
         <div class="col-md-10" ng-show="startGame">            
-            <pdf-presentation curent-page='curentPage' nb-pages='nbPages' raz="RAZReponses()"></pdf-presentation>
+            <div ng-show="currentGame.question" class="question">
+                <h1 class="title" ng-bind-html="currentGame.question.title"></h1>
+                <div class="row">
+                    <div class="col-md-6"><button type="button" class="btn-primary btn-lg btn-block" ng-bind-html="currentGame.question.answer0"></button></div>
+                    <div class="col-md-6"><button type="button" class="btn-primary btn-lg btn-block" ng-bind-html="currentGame.question.answer1"></button></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6"><button type="button" class="btn-primary btn-lg btn-block" ng-bind-html="currentGame.question.answer2"></button></div>
+                    <div class="col-md-6"><button type="button" class="btn-primary btn-lg btn-block" ng-bind-html="currentGame.question.answer3"></button></div>
+                </div>
+            </div>
+            <!--<pdf-presentation curent-page='curentPage' nb-pages='nbPages' raz="RAZReponses()"></pdf-presentation>-->
         </div>
     </div>
     <div class="row container" ng-show="startGame">
@@ -26,8 +40,6 @@
     		     <div class="playerParent" ng-class="{'animated flash' : aPlayer.answer}"  id="{{aPlayer.id}}">
     		       <div class="player" >
     		          <p ng-bind="aPlayer.pseudo" class="inline"></p>
-		              <!--<button ng-hide="aPlayer.anwserTreat" class="btn success btnPlayers inline" id="btn{{aPlayer.id}}" ng-click="clickBtnValider(aPlayer);">&#10004;</button>
-		              <button ng-hide="aPlayer.anwserTreat" class="btn danger btnPlayers inline" id="btnR{{aPlayer.id}}" ng-click="clickBtnRefuser(aPlayer);">&#10008;</button>-->
     		       </div>
     		     </div>
     		   </div>

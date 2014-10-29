@@ -142,6 +142,7 @@ components.directive('qrcodes', function () {
     replace: true,
     restrict: 'EA',
     scope: {        
+      path: '@'
     },    
     link: function postLink($scope, iElement, iAttrs) { 
 
@@ -168,11 +169,11 @@ components.directive('qrcodes', function () {
                for (var i = 0; i < data.length; i++){
                   $('#'+data[i].id).on('click',function(event){
                       qrCode.clear();
-                      qrCode.makeCode("http://"+datas[event.target.id].ip+":80/");
+                      qrCode.makeCode("http://"+datas[event.target.id].ip+":"+(window.location.port ? window.location.port : "80")+"/"+($scope.path ? "#/"+$scope.path : ""));
                   });
               }
               qrCode.clear();
-              qrCode.makeCode("http://"+datas[0].ip+":80/");
+              qrCode.makeCode("http://"+datas[0].ip+":"+(window.location.port ? window.location.port : "80")+"/"+($scope.path ? "#/"+$scope.path : ""));
           
           })
           .error(function() { 

@@ -1,0 +1,19 @@
+/*
+	QRCodes
+*/
+/* line 6, ../scss/qrcode.scss */
+.qrCodeDirective {
+  text-align: center;
+}
+
+/* line 10, ../scss/qrcode.scss */
+.qrCodeDirective ul {
+  list-style: none;
+}
+
+/* line 14, ../scss/qrcode.scss */
+.qrCodeDirective img {
+  margin: auto;
+}
+
+/*# sourceMappingURL=qrcode.css.map */

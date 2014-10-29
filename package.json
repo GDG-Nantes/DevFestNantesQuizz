@@ -1,8 +1,13 @@
 {
   "author": "jefBinomed",
-  "name": "workshopHTML5",
+  "name": "DevFestNantesQuizz",
   "dependencies": {
     "socket.io": "~0.9.14",
-    "connect" : "~2.8.4"
+    "connect" : "~2.8.4",
+    "grunt": "~0.4.1",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-sass": "~0.5.0",
+    "grunt-contrib-compass": "~0.7.0",
+    "load-grunt-tasks": "~0.2.0"
   }
 }

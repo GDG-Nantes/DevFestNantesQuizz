@@ -6,10 +6,10 @@
 angular.module('QuizzServices', [])
 .factory('WebSocketFactory', ['$rootScope', '$log','ModelFactory', function($rootScope, $log, model){
 
-	var socket = io.connect("http://"+location.hostname+":80");
+	var socket = io.connect("http://"+location.hostname+":"+(window.location.port ? window.location.port : "80"));
 
 	socket.on('message', function (data) {
-    	$rootScope.$apply(function(){
+    	//$rootScope.$apply(function(){
 		    $log.info(data);
 		    if (data.type === "registerDone"){
 		    	model.addPlayer(data);
@@ -23,7 +23,7 @@ angular.module('QuizzServices', [])
 	    	}else {
 		    	$rootScope.$broadcast(data.type, data);
 	    	}
-    	});
+    	//});
 	});
 
 	function sendData(type, data){
@@ -151,15 +151,15 @@ angular.module('QuizzServices', [])
 	}
 
 	function loadBuzzSound(){
-		loadSound("http://"+location.hostname+":80/assets/audio/buzz.mp3", BUZZ);
+		loadSound("http://"+location.hostname+":"+(window.location.port ? window.location.port : "80")+"/assets/audio/buzz.mp3", BUZZ);
 	}
 
 	function loadJeopardySound(){
-		loadSound("http://"+location.hostname+":80/assets/audio/Jeopardy.mp3", JEOPARDY);
+		loadSound("http://"+location.hostname+":"+(window.location.port ? window.location.port : "80")+"/assets/audio/Jeopardy.mp3", JEOPARDY);
 	}
 
 	function loadReponseSound(){
-		loadSound("http://"+location.hostname+":80/assets/audio/reponse.mp3", REPONSE);
+		loadSound("http://"+location.hostname+":"+(window.location.port ? window.location.port : "80")+"/assets/audio/reponse.mp3", REPONSE);
 	}
 
 	function playSound(buffer){

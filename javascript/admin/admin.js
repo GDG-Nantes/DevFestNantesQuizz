@@ -9,6 +9,7 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 	function($scope, $rootScope, $log, $location, wsFactory, model){
 
 	$scope.$log = $log;
+	$scope.validUser = false;
 
 	$scope.connect = function(){
 		wsFactory.tryToLogAdmin($scope.admin);
@@ -16,18 +17,26 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 
 	var unregisterAuth = $rootScope.$on('adminAuth', function(){
 		$log.info("adminAuth");
-		$location.path('/game');
+		$scope.validUser = true;
+		//$location.path('/game');
 	});
 
 	var unregisterRefused = $rootScope.$on('adminRefused', function(){
 		$log.info("adminRefused");
+		$scope.validUser = false;
 		$location.path('/main');
+	});
+
+	var unregisterReady = $rootScope.$on('controlReady', function(){
+		$log.info("controlReady");
+		$location.path('/game');
 	});
 
 	$scope.$on('$routeChangeSuccess', function(next, current) { 
 		if (current.$$route.controller != 'AdminCtrl'){
 			unregisterAuth();
 	   		unregisterRefused();
+	   		unregisterReady();
 		}
  	});
 	
@@ -42,32 +51,55 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 	$scope.gameInProgress = false;
 	$scope.playerArray = [];
 	$scope.textToggleMusic = "Stopper la musique";
+	$scope.currentQuestion = null;
 	
 	wsFacotry.getPlayers();
+
+	wsFacotry.sendData('controlReady',{});
 
 	/*
 	* Datas from WebSockets
 	*/
 
-	$rootScope.$on('getPlayers', function(evt, data){
-		$scope.playerArray = data.playerList;
+	var unregisterPlayers = $rootScope.$on('getPlayers', function(evt, data){
+		$scope.$apply(function(){
+			$scope.playerArray = data.playerList;
+		});
 	});
 	
-	$rootScope.$on('PlayerRegister', function(evt, player){
-		$scope.playerArray.push(player);
+	var unregisterPlayer = $rootScope.$on('PlayerRegister', function(evt, player){
+		$scope.$apply(function(){
+			$scope.playerArray.push(player);
+		});
 	});
 
-	$rootScope.$on('response', function(evt, data){
-		if (!allowResp){
-			return;
-		}
-		var playerFound = _.find($scope.playerArray, {id : data.data.id});
-		if (playerFound && !playerFound.answer){
-			playerFound.index = index;
-			playerFound.answer = true;
-			index++;
-		}
+	var unregisterResponse = $rootScope.$on('response', function(evt, data){
+		$scope.$apply(function(){
+			if (!allowResp){
+				return;
+			}
+			var playerFound = _.find($scope.playerArray, {id : data.data.id});
+			if (playerFound && !playerFound.answer){
+				playerFound.index = index;
+				playerFound.answer = true;
+				index++;
+			}
+		});
 	});
+
+	var unregisterCurrentQuestion = $rootScope.$on('currentQuestion', function(evt,data){
+		$scope.$apply(function(){
+			$scope.currentQuestion = data.data;
+		});
+	});
+
+	$scope.$on('$routeChangeSuccess', function(next, current) { 
+		if (current.$$route.controller != 'ControlCtrl'){
+			unregisterPlayers();
+	   		unregisterPlayer();
+	   		unregisterResponse();
+		}
+ 	});
 
 	/*
 	* Actions
@@ -75,6 +107,7 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 
 	$scope.startGame = function(){
 		$scope.gameInProgress = true;
+		$scope.currentQuestion = null;
 		wsFacotry.sendData('startGame',{});
 	}
 

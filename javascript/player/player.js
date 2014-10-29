@@ -23,11 +23,14 @@ controller('PlayerCtrl', ['$scope', '$rootScope', '$log', '$routeParams', '$loca
 	wsFactory.getPlayer($scope.player.id);
 
 	$rootScope.$on('playerInfo', function(evt, data){
-		$scope.player.load = false;
-		$scope.player = data.player;
+		$scope.$apply(function(){
+			$scope.player.load = false;
+			$scope.player = data.player;
+		});
 	});
 
 	$rootScope.$on('clearScore', function(evt, data){
-		$location.path('/');
+		window.location = "http://devfest.gdgnantes.com";
+		//$location.path('/');
 	});
 }]);

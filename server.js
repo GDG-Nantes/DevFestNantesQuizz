@@ -1,5 +1,5 @@
 // Configuration part
-var conf = {port : 80};
+var conf = {port : 8080};
 
 // Server part
 var connect = require('connect');

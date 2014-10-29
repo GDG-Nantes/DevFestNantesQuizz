@@ -131,7 +131,8 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 
 	$scope.goNext = function(){
 		wsFacotry.sendData('goNext',{});
-		allowResp = false;		
+		allowResp = false;
+		$scope.RAZReponses();		
 	};
 
 	$scope.goPrevious = function(){

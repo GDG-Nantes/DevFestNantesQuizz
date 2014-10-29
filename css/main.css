@@ -400,12 +400,12 @@ html input, body input {
   }
 }
 /* line 60, ../scss/main.scss */
-.main {
+.main, .admin {
   height: 100%;
   padding-top: 50px;
 }
 /* line 64, ../scss/main.scss */
-.main img {
+.main img, .admin img {
   max-height: 80%;
   max-width: 80%;
 }

@@ -42,6 +42,10 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 	* Utilities
 	*/
 
+	function getScoreToAdd(){
+		return $scope.currentGame.index < 3 ? 5 : ($scope.currentGame.index < 6 ? 7 : 12);
+	}
+
 	function getUser(userTmp){
 		for (var i = 0; i < $scope.playerArray.length; i++){
 			if (userTmp.id === $scope.playerArray[i].id){
@@ -178,8 +182,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 			var playerTmp = getUser(data.data);
 			$scope.order = 'id';
 			$scope.order = 'score';
-			var scoreToAdd = $scope.currentGame.index < 3 ? 5 : ($scope.currentGame.index < 6 ? 7 : 12);
-			playerTmp.score += scoreToAdd;
+			playerTmp.score += getScoreToAdd();
 			for (var i = 0; i < $scope.playerArray.length; i++){
 				if ($scope.playerArray[i].id === playerTmp.id){
 					$scope.playerArray[i].score = playerTmp.score;

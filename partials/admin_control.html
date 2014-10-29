@@ -1,6 +1,6 @@
 <div id="control">
     <div class="container">
-        <button type="button" class="btn btn-success btn-lg btn-block center-block" id="navNext" ng-click="startGame()">Démarer Jeux</button>
+        <button type="button" class="btn btn-success btn-lg btn-block center-block" id="navNext" ng-click="startGame()">Commencer une partie</button>
         <button type="button" class="btn btn-primary btn-lg btn-block center-block" id="navNext" ng-click="goNext()" ng-show="gameInProgress">Question suivante</button>
         <button type="button" class="btn btn-primary btn-lg btn-block center-block" id="navPrev" ng-click="goPrevious()" ng-show="gameInProgress">Question précédente</button>
         <button type="button" class="btn btn-warning btn-lg btn-block center-block" id="navStopMusic" ng-click="toggleMusic()" ng-bind="textToggleMusic" ng-show="gameInProgress"></button>
@@ -17,9 +17,8 @@
 
     <div class="row">
      	<div class="col-md-12"> 
-	       <h2>Réponses des joueurs</h2>
            <div class="row">
-	    	  <div class="playerShow col-xs-4" ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:10" ng-show="aPlayer.answer">
+	    	  <div class="playerShow col-xs-4" ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:10">
     		     <div class="playerParent" ng-class="{'animated flash' : aPlayer.answer}"  id="{{aPlayer.id}}">
     		       <div class="player" >
     		          <p ng-bind="aPlayer.pseudo" class="inline"></p>

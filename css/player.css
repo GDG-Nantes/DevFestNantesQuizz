@@ -1,29 +1,33 @@
-/* line 2, ../scss/player.scss */
+/* line 5, ../scss/player.scss */
 #playersListScore li:first-child > div.playerScore > p {
   font-weight: 800;
   font-size: 16px;
 }
 
-/* line 7, ../scss/player.scss */
+/* line 10, ../scss/player.scss */
 .playerAnswer {
   font-weight: bold;
 }
 
-/* line 11, ../scss/player.scss */
+/* line 14, ../scss/player.scss */
 .playerShow {
   text-align: center;
   font-weight: bold;
 }
 
-/* line 15, ../scss/player.scss */
+/* line 18, ../scss/player.scss */
 .player {
+  position: relative;
   text-align: center;
-  background: #A31616;
+  background-image: -moz-radial-gradient(45px 45px, #dddddd 10px, #ffffff 30px);
+  background-image: -webkit-radial-gradient(45px 45px, #dddddd 10px, #ffffff 30px);
+  background-image: radial-gradient(45px 45px, #dddddd 10px, #ffffff 30px);
   padding: 20px 10px;
   width: 150px;
+  height: 160px;
   color: #fff;
   margin: 30px 30px;
-  border-radius: 10px;
+  border-radius: 50px 50px 20px 20px / 10px 10px 60px 60px;
   font-weight: bold;
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
@@ -52,12 +56,57 @@
   animation-fill-mode: both;
 }
 
-/* line 53, ../scss/player.scss */
-.player p {
-  margin: 10px;
+/* line 60, ../scss/player.scss */
+.player::before {
+  position: absolute;
+  background: #012792;
+  background-image: -moz-linear-gradient(#012792, #012792 5%, #0192dd 10%, #0192dd 15%, #012792 20%, #0192dd 25%, #0192dd 30%, #012792 35%, #0192dd 40%, #0192dd 45%, #012792 50%, #0192dd 55%, #0192dd 60%, #012792 65%, #0192dd 70%, #0192dd 75%, #012792 80%, #0192dd 85%, #0192dd 90%, #012792 95%, #012792);
+  background-image: -webkit-linear-gradient(#012792, #012792 5%, #0192dd 10%, #0192dd 15%, #012792 20%, #0192dd 25%, #0192dd 30%, #012792 35%, #0192dd 40%, #0192dd 45%, #012792 50%, #0192dd 55%, #0192dd 60%, #012792 65%, #0192dd 70%, #0192dd 75%, #012792 80%, #0192dd 85%, #0192dd 90%, #012792 95%, #012792);
+  background-image: linear-gradient(#012792, #012792 5%, #0192dd 10%, #0192dd 15%, #012792 20%, #0192dd 25%, #0192dd 30%, #012792 35%, #0192dd 40%, #0192dd 45%, #012792 50%, #0192dd 55%, #0192dd 60%, #012792 65%, #0192dd 70%, #0192dd 75%, #012792 80%, #0192dd 85%, #0192dd 90%, #012792 95%, #012792);
+  content: '';
+  border-radius: 29% / 100px;
+  width: 110px;
+  height: 74%;
+  bottom: 10px;
+  left: 50%;
+  margin-left: -55px;
 }
 
-/* line 58, ../scss/player.scss */
+/* line 80, ../scss/player.scss */
+.player p.inline {
+  margin: 10px;
+  width: 120px;
+  background: #012792;
+  border-radius: 5px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -60px;
+}
+
+/* line 91, ../scss/player.scss */
+.player p.score {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  bottom: -40px;
+  left: 0;
+}
+
+/* line 99, ../scss/player.scss */
+.player button {
+  position: absolute;
+  left: 0;
+  bottom: -50px;
+}
+
+/* line 105, ../scss/player.scss */
+.player button.btn-danger {
+  left: inherit;
+  right: 0;
+}
+
+/* line 111, ../scss/player.scss */
 a.btnPush {
   position: relative;
   color: white;
@@ -87,7 +136,7 @@ a.btnPush {
   transition: all .1s ease;
 }
 
-/* line 88, ../scss/player.scss */
+/* line 141, ../scss/player.scss */
 a:active.btnPush, a.active.btnPush {
   -webkit-box-shadow: 0px 3px 0px #db1f05, 0px 3px 6px rgba(0, 0, 0, 0.9);
   -moz-box-shadow: 0px 3px 0px #db1f05, 0px 3px 6px rgba(0, 0, 0, 0.9);

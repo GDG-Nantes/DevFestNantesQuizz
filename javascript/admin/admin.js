@@ -150,7 +150,7 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 		_.map($scope.playerArray, function(player){
 			player.answer = false;
 			player.anwserTreat = false;
-			player.index = 0;
+			player.index = 10;
 			return player;
 		});
 		wsFacotry.sendData('RAZReponses',{});

@@ -1,47 +1,58 @@
-<div>
-    <div class="row container">
-        <div class="col-md-6" ng-hide="startGame">          
+<div class="game">
+    <div class="row">
+        <div class="col-md-12 center-block" ng-hide="startGame">          
             <h1 class="text-center">Rejoignez la partie : </h1>  
             <div class="center-block">
                 <qrcodes></qrcodes>
             </div>
         </div>
-     	<div class="col-md-2">
-	        <h2 ng-hide="startGame" class="text-center">Joueurs</h2>
-            <h2 ng-show="startGame" class="text-center">Classement des joueurs</h2>
-		    <ol id="playersListScore">
+     	<div ng-hide="startGame" class="col-md-12">
+	        <h2 class="text-center">Joueurs</h2>
+            <!--<h2 ng-show="startGame" class="text-center">Classement des joueurs</h2>-->
+		    <!--<ol id="playersListScore">
 		     	<li ng-repeat="aPlayer in playerArray | orderBy:'-score' | limitTo:5">
 	    		   <div class="playerScore">
 	    		      <p id="pt{{aPlayer.id}}" ng-bind-template="{{aPlayer.pseudo}} : {{aPlayer.score}}"></p>
 	    		    </div>
 	    		</li>
-		    </ol>
+		    </ol>-->
+            <div class="playerShow cold-md-2" ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:5" >
+                <div class="player" > 
+                    <p ng-bind="aPlayer.pseudo" class="inline"></p>
+                </div>
+            </div>
      	</div>
-        <div class="col-md-10" ng-show="startGame">            
+        <div class="col-md-12 center-block parent-img" ng-show="startGame">            
+            <div ng-hide="currentGame.question" class="question parent-img">
+                <img src="./assets/images/logo_question_pour_devfest.png" class="center-block"/>
+            </div>
             <div ng-show="currentGame.question" class="question">
-                <h1 class="title" ng-bind-html="currentGame.question.title"></h1>
+                <img src="./assets/images/logo_question_pour_devfest.png" class="tiny"/>
+                <h1 class="title text-center" ng-bind-html="currentGame.question.title"></h1>
                 <div class="row">
-                    <div class="col-md-6"><button type="button" class="btn-primary btn-lg btn-block" ng-bind-html="currentGame.question.answer0"></button></div>
-                    <div class="col-md-6"><button type="button" class="btn-primary btn-lg btn-block" ng-bind-html="currentGame.question.answer1"></button></div>
+                    <div class="col-md-6"><button type="button" class="btn-warning btn-lg btn-block" ng-bind-html="currentGame.question.answer0"></button></div>
+                    <div class="col-md-6"><button type="button" class="btn-warning btn-lg btn-block" ng-bind-html="currentGame.question.answer1"></button></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6"><button type="button" class="btn-primary btn-lg btn-block" ng-bind-html="currentGame.question.answer2"></button></div>
-                    <div class="col-md-6"><button type="button" class="btn-primary btn-lg btn-block" ng-bind-html="currentGame.question.answer3"></button></div>
+                    <div class="col-md-6"><button type="button" class="btn-warning btn-lg btn-block" ng-bind-html="currentGame.question.answer2"></button></div>
+                    <div class="col-md-6"><button type="button" class="btn-warning btn-lg btn-block" ng-bind-html="currentGame.question.answer3"></button></div>
                 </div>
             </div>
             <!--<pdf-presentation curent-page='curentPage' nb-pages='nbPages' raz="RAZReponses()"></pdf-presentation>-->
         </div>
     </div>
     <div class="row container" ng-show="startGame">
-     	<div class="col-md-9"> 
-	       <h2>Réponses des joueurs</h2>
+     	<div class="col-md-12 center-block"> 
+	       <!--<h2>Réponses des joueurs</h2>-->
            <div class="row">
-	    	  <div class="playerShow cold-md-3" ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:10" ng-show="aPlayer.answer">
+	    	  <!--<div class="playerShow cold-md-3" ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:10" ng-show="aPlayer.answer">-->
+              <div class="playerShow cold-md-2" ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:5" >
     		     <div class="playerParent" ng-class="{'animated flash' : aPlayer.answer}"  id="{{aPlayer.id}}">
-    		       <div class="player" >
-    		          <p ng-bind="aPlayer.pseudo" class="inline"></p>
-    		       </div>
-    		     </div>
+    		       <div class="player" > 
+                        <p ng-bind="aPlayer.pseudo" class="inline"></p>
+                        <p ng-bind="aPlayer.score" class="score"></p>
+                   </div>
+                 </div>
     		   </div>
             </div>
     	</div>

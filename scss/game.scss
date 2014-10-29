@@ -1,2 +1,40 @@
 @import "compass";
 
+
+.game{
+	padding-top: 50px;
+	height: 100%;
+
+	img.tiny{
+		width: 100px;		
+	}
+
+	.row:first-child{
+		height: calc(100% - 300px);
+		height: -webkit-calc(100% - 300px);
+	}
+
+	img:not(.tiny){
+		max-height: 100%;		
+	}
+
+	.row{
+		margin-bottom: 20px;
+	}
+
+	button{
+		font-size: 2em;
+	}
+
+	.title{
+		font-family: "RobotoRegular";
+		margin-bottom: 100px;
+		font-size: 4em;
+
+	}
+
+	.parent-img{
+		height: 100%;
+	}
+
+}

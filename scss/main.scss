@@ -1,4 +1,5 @@
 @import "compass";
+@import "compass/css3";
 @import "color";
 @import "qrcode";
 @import "player";
@@ -7,41 +8,28 @@
 @import "font";
 
 html, body {
-    background-color: $bg-color;
+    @include background-image(linear-gradient($color-stop-2, $color-stop-1));
+    //background-color: $bg-color;
     width: 100%;
     height: 100% ;
     margin: 0;
     padding:0;
+
+    input{
+        color: black;
+    }
 }
 
-body {
-    padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
-    height: calc(100% - 40px);
-    height: -webkit-calc(100% - 40px);
-    /*overflow: hidden;
-    background-size:contain;
-    background-image:url(../assets/images/logo.png);
-    background-repeat: no-repeat;
-    background-position: right;*/
-}
 
 /* The white background content wrapper */
 .content {
-    background-color: #f2f2f2;
-    padding: 40px;
-    margin: 0 20px; /* negative indent the amount of the padding to maintain the grid system */
-    -webkit-border-radius: 0 0 6px 6px;
-       -moz-border-radius: 0 0 6px 6px;
-            border-radius: 0 0 6px 6px;
-    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-       -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-            box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    height: 100%;
+    margin: 0 20px;
     min-height: 10px;
 }
 
 .form-player{
-	width: 50%;
-	margin: 0 auto;
+	width: 100%;
 }
 
 /* Page header tweaks */
@@ -68,3 +56,15 @@ body {
 	}
 }
 
+
+.main{
+    height: 100%;
+    padding-top: 50px;
+
+    img{
+        max-height:80%;
+        max-width:80%;
+
+
+    }
+}

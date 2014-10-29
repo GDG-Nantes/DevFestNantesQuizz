@@ -1,4 +1,8 @@
-/* line 5, ../scss/control.scss */
+/* line 3, ../scss/control.scss */
+#control {
+  padding-top: 50px;
+}
+/* line 6, ../scss/control.scss */
 #control button {
   margin-bottom: 10px;
 }

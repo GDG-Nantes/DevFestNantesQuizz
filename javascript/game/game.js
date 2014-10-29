@@ -262,7 +262,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 			_.map($scope.playerArray, function(player){
 				player.answer = false;
 				player.anwserTreat = false;
-				player.index = 0;
+				player.index = 10;
 				return player;
 			});
 		});

@@ -1,13 +1,10 @@
 <div class="main">	    
-	<div class="page-header">
-       	<h1>Bienvenue dans </h1>
-       	<h2>Question pour un DevFest !</h2>
-    </div>	    	
+	<img src="./assets/images/logo_question_pour_devfest.png" class="center-block"/>
 	<div class="form-player">
 	    <p><h3>Pseudo nouveau joueur<h3></p>		    
 	    <form novalidate class="form-inline center">
 	    	<input id="pseudo" name="pseudo" ng-model='player.pseudo' class="input-small" type="text" placeholder="Pseudo" required>
-	        <button ng-disabled="form.$invalid" class="btn" type="submit" value="Create" ng-click='addPlayer()' >Ajouter</button>
+	        <button ng-disabled="form.$invalid" class="btn btn-warning" ng-click='addPlayer()' >Ajouter</button>
 	    </form>
     </div>
 </div>

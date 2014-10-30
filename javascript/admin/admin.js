@@ -16,20 +16,26 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 	};
 
 	var unregisterAuth = $rootScope.$on('adminAuth', function(){
-		$log.info("adminAuth");
-		$scope.validUser = true;
+		$scope.$apply(function(){
+			$log.info("adminAuth");
+			$scope.validUser = true;
+		});
 		//$location.path('/game');
 	});
 
 	var unregisterRefused = $rootScope.$on('adminRefused', function(){
-		$log.info("adminRefused");
-		$scope.validUser = false;
-		$location.path('/main');
+		$scope.$apply(function(){
+			$log.info("adminRefused");
+			$scope.validUser = false;
+			$location.path('/main');
+		});
 	});
 
 	var unregisterReady = $rootScope.$on('controlReady', function(){
-		$log.info("controlReady");
-		$location.path('/game');
+		$scope.$apply(function(){
+			$log.info("controlReady");
+			$location.path('/game');
+		});
 	});
 
 	$scope.$on('$routeChangeSuccess', function(next, current) { 

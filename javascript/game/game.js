@@ -272,9 +272,11 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 	});
 	
 	$rootScope.$on('RAZUtilisateurs', function(evt, data){
-		$scope.startGame = false;
-		$scope.playerArray = [];
-		wsFacotry.sendData('clearScore');
+		$scope.$apply(function(){
+			$scope.startGame = false;
+			$scope.playerArray = [];
+			wsFacotry.sendData('clearScore');
+		});
 	});
 
 }]);

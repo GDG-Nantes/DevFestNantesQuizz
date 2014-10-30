@@ -6,7 +6,7 @@
 angular.module('QuizzServices', [])
 .factory('WebSocketFactory', ['$rootScope', '$log','ModelFactory', function($rootScope, $log, model){
 
-	var socket = io.connect("http://"+location.hostname+":"+(window.location.port ? window.location.port : "80"));
+	var socket = io.connect();//"http://"+location.hostname+":"+(window.location.port ? window.location.port : "80"));
 
 	socket.on('message', function (data) {
     	//$rootScope.$apply(function(){
@@ -76,6 +76,8 @@ angular.module('QuizzServices', [])
 
 	var playerList = [];
 
+	var NB_QUESTIONS = 10;
+
 	function addPlayer(player){
 		var found = false;
 		for  (var i =0; i< playerList.length; i ++){
@@ -107,7 +109,8 @@ angular.module('QuizzServices', [])
 		setPlayer : setPlayer,
 		addPlayer : addPlayer,
 		isAdminLogged : isAdminLogged,
-		loggedAdmin : loggedAdmin
+		loggedAdmin : loggedAdmin,
+		NB_QUESTIONS : NB_QUESTIONS
 	};
 }])
 .factory('AudioFactory', [ function(){

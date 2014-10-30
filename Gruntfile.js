@@ -65,6 +65,19 @@ module.exports = function (grunt) {
       javascript: {
         files: ['<%= src.js.app %>']
       }
+    },
+
+    nodemon: {
+      dev:{
+        script : 'server.js'
+      }
+    },
+
+    concurrent: {
+      serve : ['nodemon', 'compass', 'watch'],
+      options: {
+        logConcurrentOutput: true
+      }
     }
 
   });
@@ -73,6 +86,6 @@ module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
   
   // Declaration des taches
-  grunt.registerTask('serve',        ['compass', 'watch']);
+  grunt.registerTask('serve',        ['concurrent:serve']);
   
 };

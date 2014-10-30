@@ -9,7 +9,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 	function($scope, $rootScope,$location, model, wsFacotry, audio){
 
 
-	var NB_QUESTIONS = 10;
+	var NB_QUESTIONS = model.NB_QUESTIONS;
 	var index = 0;
 	var allowResp = false;
 	var musicOn = true;
@@ -172,7 +172,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 			allowResp = true;
 			if (musicOn){
 				audio.stopJeopardy();
-				audio.playJeopardy();
+				//audio.playJeopardy();
 			}
 		});
 	});
@@ -215,7 +215,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 			}
 			$scope.order = 'id';
 			$scope.order = 'score';
-			player.score = Math.max(player.score - 1,0);
+			player.score = Math.max(player.score - 2,0);
 			player.anwserTreat = true;
 		});
 	});

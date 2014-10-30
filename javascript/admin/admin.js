@@ -47,17 +47,19 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
  	});
 	
 }])
-.controller('ControlCtrl', ['$scope', '$rootScope', 'WebSocketFactory',
-	function($scope, $rootScope, wsFacotry){
+.controller('ControlCtrl', ['$scope', '$rootScope', 'WebSocketFactory', 'ModelFactory',
+	function($scope, $rootScope, wsFacotry, model){
 
 
 	var musicOn = true;
 	var index = 0;
+	var indexQuestions = 0;
 	var allowResp = false;
 	$scope.gameInProgress = false;
 	$scope.playerArray = [];
 	$scope.textToggleMusic = "Stopper la musique";
 	$scope.currentQuestion = null;
+	$scope.gameFinish = false;
 	
 	wsFacotry.getPlayers();
 
@@ -112,6 +114,8 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 	*/
 
 	$scope.startGame = function(){
+		$scope.gameFinish = false;
+		indexQuestions = 0;
 		$scope.gameInProgress = true;
 		$scope.currentQuestion = null;
 		wsFacotry.sendData('startGame',{});
@@ -136,9 +140,15 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 	};
 
 	$scope.goNext = function(){
-		wsFacotry.sendData('goNext',{});
-		allowResp = false;
-		$scope.RAZReponses();		
+		if (indexQuestions < model.NB_QUESTIONS){
+			indexQuestions++;
+			wsFacotry.sendData('goNext',{});
+			allowResp = false;
+			$scope.RAZReponses();		
+			$scope.allowResp();
+		}else{
+			$scope.gameFinish = true;
+		}
 	};
 
 	$scope.goPrevious = function(){
@@ -164,6 +174,8 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 	};
 	
 	$scope.RAZUtilisateurs = function(){
+		indexQuestions = 0;
+		$scope.gameFinish = false;
 		$scope.gameInProgress = false;
 		wsFacotry.sendData('RAZUtilisateurs',{});
 		$scope.playerArray = [];

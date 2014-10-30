@@ -1,7 +1,6 @@
 {
 "version": 3,
-"mappings": ";;;;AAKA,gBAAgB;EACf,UAAU,EAAE,MAAM;;;;AAGnB,mBAAmB;EAClB,UAAU,EAAE,IAAI;;;;AAGjB,oBAAoB;EACnB,MAAM,EAAE,IAAI",
+"mappings": ";;;;AAIA,WAAW;EACV,MAAM,EAAG,gBAAgB;;;;AAG1B,IAAI;EACH,UAAU,EAAE,MAAM;;;;AAGnB,gBAAgB;EACf,UAAU,EAAE,MAAM;;;;AAGnB,mBAAmB;EAClB,UAAU,EAAE,IAAI;;;;AAGjB,oBAAoB;EACnB,MAAM,EAAE,IAAI",
 "sources": ["../scss/qrcode.scss"],
-"names": [],
 "file": "qrcode.css"
 }

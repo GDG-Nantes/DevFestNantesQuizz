@@ -1,12 +1,12 @@
 <div id="control">
     <div class="container">
         <button type="button" class="btn btn-success btn-lg btn-block center-block" id="navNext" ng-click="startGame()" ng-hide="gameInProgress">Commencer une partie</button>
-        <button type="button" class="btn btn-primary btn-lg btn-block center-block" id="navNext" ng-click="goNext()" ng-show="gameInProgress">Question suivante</button>
-        <!--<button type="button" class="btn btn-primary btn-lg btn-block center-block" id="navPrev" ng-click="goPrevious()" ng-show="gameInProgress">Question précédente</button>
+        <button type="button" class="btn btn-primary btn-lg btn-block center-block" id="navNext" ng-click="goNext()" ng-show="gameInProgress&&!gameFinish">Question suivante</button>
+        <!--<button type="button" class="btn btn-primary btn-lg btn-block center-block" id="navPrev" ng-click="goPrevious()" ng-show="gameInProgress">Question précédente</button>-->
         <button type="button" class="btn btn-warning btn-lg btn-block center-block" id="navStopMusic" ng-click="toggleMusic()" ng-bind="textToggleMusic" ng-show="gameInProgress"></button>
-        <button type="button" class="btn btn-warning btn-lg btn-block center-block" id="navRAZ" ng-click="RAZReponses()" ng-show="gameInProgress">RAZ réponses</button>-->
-        <button type="button" class="btn btn-primary btn-lg btn-block center-block" id="navAllowResp"  ng-click="allowResp()" ng-show="gameInProgress">Autoriser réponses</button>
-        <button type="button" class="btn btn-danger btn-lg btn-block center-block" id="navRAZ" ng-click="RAZUtilisateurs()" ng-show="gameInProgress">Nettoyage utilisateurs</button>
+        <!--<button type="button" class="btn btn-warning btn-lg btn-block center-block" id="navRAZ" ng-click="RAZReponses()" ng-show="gameInProgress">RAZ réponses</button>-->
+        <!--<button type="button" class="btn btn-primary btn-lg btn-block center-block" id="navAllowResp"  ng-click="allowResp()" ng-show="gameInProgress">Autoriser réponses</button>-->
+        <button type="button" class="btn btn-danger btn-lg btn-block center-block" id="navRAZ" ng-click="RAZUtilisateurs()" ng-show="gameFinish">Nettoyage utilisateurs</button>
     </div>
     <div ng-show="currentQuestion" class="row">
         <h1> Question : </h1>

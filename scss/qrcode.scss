@@ -2,6 +2,13 @@
 	QRCodes
 */
 
+#qrCode img{
+	border : white solid 20px;
+}
+
+#url{
+	text-align: center;
+}
 
 .qrCodeDirective{
 	text-align: center;

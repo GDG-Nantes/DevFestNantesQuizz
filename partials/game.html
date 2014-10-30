@@ -6,7 +6,7 @@
                 <qrcodes></qrcodes>
             </div>
         </div>
-     	<div ng-hide="startGame" class="col-md-12">
+     	<div ng-hide="startGame" class="col-md-12 center-block">
 	        <h2 class="text-center">Joueurs</h2>
             <!--<h2 ng-show="startGame" class="text-center">Classement des joueurs</h2>-->
 		    <!--<ol id="playersListScore">
@@ -16,9 +16,11 @@
 	    		    </div>
 	    		</li>
 		    </ol>-->
-            <div class="playerShow cold-md-2" ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:5" >
-                <div class="player" > 
-                    <p ng-bind="aPlayer.pseudo" class="inline"></p>
+            <div class="row">
+                <div class="playerShow col-md-3" ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:4" >
+                    <div class="player" > 
+                        <p ng-bind="aPlayer.pseudo" class="inline"></p>
+                    </div>
                 </div>
             </div>
      	</div>
@@ -46,11 +48,11 @@
 	       <!--<h2>Réponses des joueurs</h2>-->
            <div class="row">
 	    	  <!--<div class="playerShow cold-md-3" ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:10" ng-show="aPlayer.answer">-->
-              <div class="playerShow cold-md-2" ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:5" >
+              <div class="playerShow col-md-2" ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:5" >
     		     <div class="playerParent" ng-class="{'animated flash' : aPlayer.answer}"  id="{{aPlayer.id}}">
     		       <div class="player" > 
-                        <p ng-bind="aPlayer.pseudo" class="inline"></p>
-                        <p ng-bind="aPlayer.score" class="score"></p>
+                        <p ng-bind-html="aPlayer.pseudo" class="inline"></p>
+                        <p ng-bind-html="aPlayer.score" class="score"></p>
                    </div>
                  </div>
     		   </div>

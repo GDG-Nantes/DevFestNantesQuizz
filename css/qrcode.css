@@ -1,17 +1,27 @@
 /*
 	QRCodes
 */
-/* line 6, ../scss/qrcode.scss */
+/* line 5, ../scss/qrcode.scss */
+#qrCode img {
+  border: white solid 20px;
+}
+
+/* line 9, ../scss/qrcode.scss */
+#url {
+  text-align: center;
+}
+
+/* line 13, ../scss/qrcode.scss */
 .qrCodeDirective {
   text-align: center;
 }
 
-/* line 10, ../scss/qrcode.scss */
+/* line 17, ../scss/qrcode.scss */
 .qrCodeDirective ul {
   list-style: none;
 }
 
-/* line 14, ../scss/qrcode.scss */
+/* line 21, ../scss/qrcode.scss */
 .qrCodeDirective img {
   margin: auto;
 }

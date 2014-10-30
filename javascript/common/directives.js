@@ -169,11 +169,15 @@ components.directive('qrcodes', function () {
                for (var i = 0; i < data.length; i++){
                   $('#'+data[i].id).on('click',function(event){
                       qrCode.clear();
-                      qrCode.makeCode("http://"+datas[event.target.id].ip+":"+(window.location.port ? window.location.port : "80")+"/"+($scope.path ? "#/"+$scope.path : ""));
+                      var url = "http://"+datas[event.target.id].ip+":"+(window.location.port ? window.location.port : "80")+"/"+($scope.path ? "#/"+$scope.path : "");
+                      qrCode.makeCode(url);
+                      $('#url').html(url);
                   });
               }
               qrCode.clear();
-              qrCode.makeCode("http://"+datas[0].ip+":"+(window.location.port ? window.location.port : "80")+"/"+($scope.path ? "#/"+$scope.path : ""));
+              var url = "http://"+datas[0].ip+":"+(window.location.port ? window.location.port : "80")+"/"+($scope.path ? "#/"+$scope.path : "");
+              qrCode.makeCode(url);
+              $('#url').html(url);
           
           })
           .error(function() { 

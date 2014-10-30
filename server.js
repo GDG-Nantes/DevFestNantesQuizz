@@ -2,8 +2,22 @@
 var conf = {port : 8080};
 
 // Server part
-var connect = require('connect');
-    console.log(__dirname);
+var express = require('express');
+var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+var port = process.env.PORT || 8080;
+var gameStart = false;
+
+server.listen(port, function(){
+  console.log('Server listening at port %d', port);
+});
+
+// Routing
+app.use(express.static(__dirname));
+
+/*var connect = require('connect');
+console.log(__dirname);
 console.log(process.cwd());
 var app = connect.createServer(
     connect.static(process.cwd())
@@ -13,37 +27,40 @@ console.log('Start server on port : '+conf.port);
 // Define socket part
 var io   = require('socket.io');
 var wsServer = io.listen(app);
-
+*/
 var playerList = [];
 
-wsServer.sockets.on('connection', function(socket) {
+//wsServer.sockets.on('connection', function(socket) {
+io.on('connection', function(socket) {    
     console.log('### connection');
     socket.on('message', function(message) {
         console.info(message);
         if (message.type === 'registerPlayer'){
             console.log('### registerAsk: ');
-    		var data = {
-    			type: 'registerDone',
-    			pseudo : message.data.pseudo,
-                score : 0,
-    			id : message.data.id
-    		};
+            if (!gameStart && playerList.length < 4){                
+                var data = {
+                    type: 'registerDone',
+                    pseudo : message.data.pseudo,
+                    score : 0,
+                    id : message.data.id
+                };
 
-            var found = false;
-            for (var i = 0;i < playerList.length; i++){
-                if (playerList[i].id === data.id){
-                    found = true;
-                    break; 
+                var found = false;
+                for (var i = 0;i < playerList.length; i++){
+                    if (playerList[i].id === data.id){
+                        found = true;
+                        break; 
+                    }
                 }
-            }
-            if (!found){
-                playerList.push(data);
-            }
+                if (!found){
+                    playerList.push(data);
+                }
 
-            socket.emit('message',data);
-            socket.broadcast.emit('message', data);
-            console.log('### registerDone: ');
-            console.info(data);
+                socket.emit('message',data);
+                socket.broadcast.emit('message', data);
+                console.log('### registerDone: ');
+                console.info(data);
+            }
 
     	}else if (message.type === 'adminConnect'){
     		console.log('### adminConnect: ');
@@ -68,6 +85,11 @@ wsServer.sockets.on('connection', function(socket) {
                     id : message.data,
                     unknown : true
                 };
+                if (gameStart){
+                    player.gameStart = true;
+                }else if (playerList.length === 4){
+                    player.gameFull = true;
+                }
             }
             socket.emit('message',{
                 type : 'playerInfo',
@@ -79,8 +101,12 @@ wsServer.sockets.on('connection', function(socket) {
                 type : 'getPlayers',
                 'playerList' : playerList
             });
+        }else if (message.type === 'startGame'){
+            gameStart = true;
+            socket.broadcast.emit('message', message);
         }else if (message.type === 'clearScore'){
             console.log('### Clear Scores: ');
+            gameStart = false;
             socket.broadcast.emit('message',{
                 type : 'clearScore'
             });
@@ -90,6 +116,11 @@ wsServer.sockets.on('connection', function(socket) {
 	        socket.broadcast.emit('message', message);
     	}
     });    
+
+ socket.on('disconnect', function(){
+    socket.disconnect();
+    console.log('quit !');
+  });
 });
 
 

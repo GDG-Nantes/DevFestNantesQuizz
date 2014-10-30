@@ -5,11 +5,17 @@
 	    	<p>Appuyez sur le bouton "Réponse" pour répondre.
 	    	</p>
     	</div>
- 	   	<a ng-show="player.register" id="reponse" class="btnPush center-block" ng-click='reponse()' push-proximity player="player" >Réponse ! </a>
+ 	   	<a ng-show="player.register" id="reponse" class="btnPush center-block" ng-click='reponse()' push-proximity player="player" >Buzzer</a>
     </div>	 
     <div ng-show='proximityCompat'>Vous pouvez utiliser votre téléphone comme buzzer!</div>
-    <div ng-show='player.load'>Chargement du Joueur en cours</div>
+    <div ng-show='player.load'><h1>Chargement du Joueur en cours</h1></div>
     <div ng-show='player.unknown'>
-    	Joeur non reconnu. Revenez à l'acceuil.
+    	<h1>Joueur non reconnu. <br><A href="#/main">Revenez à l'acceuil.</A></h1>
+    </div>   
+    <div ng-show='player.gameStart'>
+        <h1>Une partie est déjà en cours. Attendez votre tour ;)<br><A href="#/main">Revenez à l'acceuil.</A></h1>
+    </div>   
+    <div ng-show='player.gameFull'>
+        <h1>La prochaine partie est complète. Attendez votre tour ;)<br><A href="#/main">Revenez à l'acceuil.</A></h1>
     </div>   
 </div>

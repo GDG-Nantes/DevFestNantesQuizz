@@ -183,6 +183,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 			$scope.order = 'id';
 			$scope.order = 'score';
 			playerTmp.score += getScoreToAdd();
+			console.log(playerTmp.score);
 			for (var i = 0; i < $scope.playerArray.length; i++){
 				if ($scope.playerArray[i].id === playerTmp.id){
 					$scope.playerArray[i].score = playerTmp.score;

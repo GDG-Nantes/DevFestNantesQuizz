@@ -146,6 +146,9 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 			allowResp = false;
 			$scope.RAZReponses();		
 			$scope.allowResp();
+			if (indexQuestions === model.NB_QUESTIONS){
+				$scope.gameFinish = true;
+			}
 		}else{
 			$scope.gameFinish = true;
 		}

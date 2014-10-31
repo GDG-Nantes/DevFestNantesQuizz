@@ -43,7 +43,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 	*/
 
 	function getScoreToAdd(){
-		return $scope.currentGame.index < 3 ? 5 : ($scope.currentGame.index < 6 ? 7 : 12);
+		return $scope.currentGame.index === 0 ? 0 : $scope.currentGame.index < 3 ? 5 : ($scope.currentGame.index < 6 ? 7 : 12);
 	}
 
 	function getUser(userTmp){
@@ -190,13 +190,20 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 				}
 			}
 			allowResp = false;
-			_.map($scope.playerArray, function(player){
+			/*_.map($scope.playerArray, function(player){
 				player.anwserTreat = true;
 				return player;
-			});
+			});*/
+			for (var i = 0; i < $scope.playerArray.length; i++){
+				$scope.playerArray[i].anwserTreat = true;				
+			}
 			if (musicOn){
 				audio.playReponse();
-			}
+			}		
+
+			try{
+				$scope.$digest();
+			}catch(e){}
 		});
 	});
 
@@ -226,11 +233,25 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 			/*if ($scope.curentPage >= $scope.nbPages)
 	        	return;
 	      	$scope.curentPage++;*/
-	      	if ($scope.currentGame.index > NB_QUESTIONS)
+	      	if ($scope.currentGame.index >= NB_QUESTIONS){
 	      		return;
+	      	}
+	      	$scope.winner = null;
 	      	$scope.currentGame.index++;
-	      	$scope.currentGame.question = getNextQuestion();
-	      	wsFacotry.sendData('currentQuestion', $scope.currentGame.question);
+	      	if ($scope.currentGame.index === NB_QUESTIONS){
+	      		var max = 0;
+	      		$scope.winner = null;
+	      		for (var i = 0; i < $scope.playerArray.length; i++){
+					if ($scope.playerArray[i].score > max){
+						$scope.winner = $scope.playerArray[i];
+						max = $scope.winner.score;
+					}
+				}
+	      		return;
+	      	}else{
+		      	$scope.currentGame.question = getNextQuestion();
+		      	wsFacotry.sendData('currentQuestion', $scope.currentGame.question);	      		
+	      	}
 	    });
 	});
 

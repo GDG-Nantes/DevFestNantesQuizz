@@ -28,8 +28,8 @@
             <div ng-hide="currentGame.question" class="question parent-img">
                 <img src="./assets/images/logo_question_pour_devfest.png" class="center-block"/>
             </div>
-            <div ng-show="currentGame.question" class="question">
-                <img src="./assets/images/logo_question_pour_devfest.png" class="tiny"/>
+            <div ng-show="currentGame.question&&!winner" class="question">
+                <img src="./assets/images/logo_question_pour_devfest.png" class="tiny"/>                
                 <h1 class="title text-center" ng-bind-html="currentGame.question.title"></h1>
                 <div class="row">
                     <div class="col-md-6"><button type="button" class="btn-warning btn-lg btn-block" ng-bind-html="currentGame.question.answer0"></button></div>
@@ -40,10 +40,15 @@
                     <div class="col-md-6"><button type="button" class="btn-warning btn-lg btn-block" ng-bind-html="currentGame.question.answer3"></button></div>
                 </div>
             </div>
+            <div ng-show="winner">
+                <img src="./assets/images/question pour un devfest winner.png" class="center-block"/>
+                <h1 class="title text-center">Le champion est</h1>
+                <h1 class="title winner text-center">{{winner.pseudo}}</h1>
+            </div>
             <!--<pdf-presentation curent-page='curentPage' nb-pages='nbPages' raz="RAZReponses()"></pdf-presentation>-->
         </div>
     </div>
-    <div class="row container" ng-show="startGame">
+    <div class="row container" ng-show="startGame&&!winner">
      	<div class="col-md-12 center-block"> 
 	       <!--<h2>Réponses des joueurs</h2>-->
            <div class="row">

@@ -31,6 +31,10 @@
   font-size: 4em;
 }
 /* line 36, ../scss/game.scss */
+.game .title.winner {
+  color: black;
+}
+/* line 40, ../scss/game.scss */
 .game .parent-img {
   height: 100%;
 }

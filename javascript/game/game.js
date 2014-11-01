@@ -160,6 +160,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 	$rootScope.$on('startGame', function(evt, data){
 		$scope.$apply(function(){
 			$scope.startGame = true;
+			$scope.winner = null;
 			$scope.currentGame.question = null;
 			$scope.currentGame.index = 0;
 			$scope.currentGame.questions = [];
@@ -234,7 +235,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 			/*if ($scope.curentPage >= $scope.nbPages)
 	        	return;
 	      	$scope.curentPage++;*/
-	      	if ($scope.currentGame.index >= NB_QUESTIONS){
+	      	if ($scope.currentGame.index > NB_QUESTIONS){
 	      		return;
 	      	}
 	      	$scope.winner = null;

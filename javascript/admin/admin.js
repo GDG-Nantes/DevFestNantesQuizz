@@ -140,7 +140,7 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 	};
 
 	$scope.goNext = function(){
-		if (indexQuestions < model.NB_QUESTIONS){
+		if (indexQuestions <= model.NB_QUESTIONS){
 			indexQuestions++;
 			wsFacotry.sendData('goNext',{});
 			allowResp = false;

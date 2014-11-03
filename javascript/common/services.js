@@ -76,7 +76,7 @@ angular.module('QuizzServices', [])
 
 	var playerList = [];
 
-	var NB_QUESTIONS = 10;
+	var NB_QUESTIONS = 5;
 
 	function addPlayer(player){
 		var found = false;

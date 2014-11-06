@@ -28,7 +28,7 @@
             <div ng-hide="currentGame.question" class="question parent-img">
                 <img src="./assets/images/logo_question_pour_devfest.png" class="center-block"/>
             </div>
-            <div ng-show="currentGame.question&&!winner" class="question">
+            <div ng-show="currentGame.question&&!winner&&currentGame.canShow" class="question">
                 <img src="./assets/images/logo_question_pour_devfest.png" class="tiny"/>                
                 <h1 class="title text-center" ng-bind-html="currentGame.question.title"></h1>
                 <div class="row">
@@ -53,8 +53,8 @@
 	       <!--<h2>Réponses des joueurs</h2>-->
            <div class="row">
 	    	  <!--<div class="playerShow cold-md-3" ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:10" ng-show="aPlayer.answer">-->
-              <div class="playerShow col-md-2" ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:5" >
-    		     <div class="playerParent" ng-class="{'animated flash' : aPlayer.answer}"  id="{{aPlayer.id}}">
+              <div class="playerShow col-md-3" ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:4" >
+    		     <div class="playerParent index-{{aPlayer.index}}" ng-class="{'animated flash' : aPlayer.answer, treat : aPlayer.answerTreat}"  id="{{aPlayer.id}}">
     		       <div class="player" > 
                         <p ng-bind-html="aPlayer.pseudo" class="inline"></p>
                         <p ng-bind-html="aPlayer.score" class="score"></p>

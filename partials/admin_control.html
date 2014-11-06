@@ -5,10 +5,10 @@
         <!--<button type="button" class="btn btn-primary btn-lg btn-block center-block" id="navPrev" ng-click="goPrevious()" ng-show="gameInProgress">Question précédente</button>-->
         <button type="button" class="btn btn-warning btn-lg btn-block center-block" id="navStopMusic" ng-click="toggleMusic()" ng-bind="textToggleMusic" ng-show="gameInProgress"></button>
         <!--<button type="button" class="btn btn-warning btn-lg btn-block center-block" id="navRAZ" ng-click="RAZReponses()" ng-show="gameInProgress">RAZ réponses</button>-->
-        <!--<button type="button" class="btn btn-primary btn-lg btn-block center-block" id="navAllowResp"  ng-click="allowResp()" ng-show="gameInProgress">Autoriser réponses</button>-->
+        <button type="button" class="btn btn-primary btn-lg btn-block center-block" id="navAllowResp"  ng-click="allowResp()" ng-show="gameInProgress&&!gameFinish">Autoriser de nouvelles réponses</button>
         <button type="button" class="btn btn-danger btn-lg btn-block center-block" id="navRAZ" ng-click="RAZUtilisateurs()" ng-show="gameFinish">Nettoyage utilisateurs</button>
     </div>
-    <div ng-show="currentQuestion" class="row">
+    <div ng-show="currentQuestion&&gameInProgress&&!gameFinish" class="row">
         <h1> Question : </h1>
         <h2 ng-bind-html="currentQuestion.title"></h2>
         <h1> Réponse : </h1>
@@ -18,12 +18,12 @@
     <div class="row">
      	<div class="col-md-12"> 
            <div class="row">
-	    	  <div class="playerShow col-xs-4" ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:10">
-    		     <div class="playerParent" ng-class="{'animated flash' : aPlayer.answer}"  id="{{aPlayer.id}}">
+	    	  <div class="playerShow col-md-4" ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:4">
+    		     <div class="playerParent"  id="{{aPlayer.id}}">
     		       <div class="player" >
     		          <p ng-bind="aPlayer.pseudo" class="inline"></p>
-		              <button ng-hide="aPlayer.anwserTreat" class="btn btn-success btnPlayers inline" id="btn{{aPlayer.id}}" ng-click="clickBtnValider(aPlayer);">&#10004;</button>
-		              <button ng-hide="aPlayer.anwserTreat" class="btn btn-danger btnPlayers inline" id="btnR{{aPlayer.id}}" ng-click="clickBtnRefuser(aPlayer);">&#10008;</button>
+		              <button ng-hide="aPlayer.answerTreat||!aPlayer.answer" class="btn btn-success btnPlayers inline" id="btn{{aPlayer.id}}" ng-click="clickBtnValider(aPlayer);">&#10004;</button>
+		              <button ng-hide="aPlayer.answerTreat||!aPlayer.answer" class="btn btn-danger btnPlayers inline" id="btnR{{aPlayer.id}}" ng-click="clickBtnRefuser(aPlayer);">&#10008;</button>
     		       </div>
     		     </div>
     		   </div>

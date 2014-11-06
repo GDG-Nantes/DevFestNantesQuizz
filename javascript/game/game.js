@@ -23,6 +23,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 	$scope.currentGame = {
 		question : null,
 		index : 0,
+		canShow : true,
 		questions : []
 	}
 
@@ -138,6 +139,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 			if (!allowResp){
 				return;
 			}
+			$scope.currentGame.canShow = false;
 			var playerFound = _.find($scope.playerArray, {id : data.data.id});
 			if (playerFound && !playerFound.answer){
 				playerFound.index = index;
@@ -171,6 +173,19 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 		$scope.$apply(function(){
 			// Permet de prendre en compte les réponses
 			allowResp = true;
+			index = 0;
+			$scope.currentGame.canShow = true;
+			angular.forEach($scope.playerArray,
+			//_.map($scope.playerArray, 
+				function(player){
+
+				// Si des joueurs ont déjà répondu on leur permet pas de répondre à nouveau sur la question
+				if (!player.answerTreat){
+					player.answer = false;
+				}
+				player.index = 10;
+				return player;
+			});
 			if (musicOn){
 				audio.stopJeopardy();
 				//audio.playJeopardy();
@@ -188,16 +203,17 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 			for (var i = 0; i < $scope.playerArray.length; i++){
 				if ($scope.playerArray[i].id === playerTmp.id){
 					$scope.playerArray[i].score = playerTmp.score;
+					console.log($scope.playerArray[i].score);
 					break;
 				}
 			}
 			allowResp = false;
 			/*_.map($scope.playerArray, function(player){
-				player.anwserTreat = true;
+				player.answerTreat = true;
 				return player;
 			});*/
 			for (var i = 0; i < $scope.playerArray.length; i++){
-				$scope.playerArray[i].anwserTreat = true;				
+				$scope.playerArray[i].answerTreat = true;				
 			}
 			if (musicOn){
 				audio.playReponse();
@@ -205,6 +221,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 
 			try{
 				$scope.$digest();
+				$rootScope.$digest();
 			}catch(e){}
 		});
 	});
@@ -225,7 +242,8 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 			$scope.order = 'id';
 			$scope.order = 'score';
 			player.score = Math.max(player.score - 2,0);
-			player.anwserTreat = true;
+			player.answerTreat = true;
+			player.index = 10;
 		});
 	});
 
@@ -250,7 +268,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 					}
 				}
 	      		return;
-	      	}else{
+	      	}else{		      	
 		      	$scope.currentGame.question = getNextQuestion();
 		      	wsFacotry.sendData('currentQuestion', $scope.currentGame.question);	      		
 	      	}
@@ -285,9 +303,11 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 		$scope.$apply(function(){
 			// Normallement remet les compteurs à zéro pour la prochaine question
 			index = 0;
-			_.map($scope.playerArray, function(player){
+			angular.forEach($scope.playerArray,
+			//_.map($scope.playerArray, 
+				function(player){
 				player.answer = false;
-				player.anwserTreat = false;
+				player.answerTreat = false;
 				player.index = 10;
 				return player;
 			});

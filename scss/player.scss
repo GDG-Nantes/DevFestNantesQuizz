@@ -15,66 +15,92 @@
 	text-align: center;
 	font-weight: bold;
 }
+
 .player {
 	position: relative;
 	text-align: center;
-	//background: #A31616;
-	@include background-image(radial-gradient(45px 45px, #dddddd 10px, white 30px));
-	padding: 20px 10px;
 	width: 150px;
-	height: 160px;
+	height: 50px;
 	color: #fff;
 	margin: 30px 30px;
-	border-radius: 50px 50px 20px 20px / 10px 10px 60px 60px;
-	//border-radius: 10px;
+	margin-bottom: 60px;
 	font-weight: bold;
-	
-	-webkit-backface-visibility: hidden;
-	-moz-backface-visibility: hidden;
-	-ms-backface-visibility: hidden;
-	-o-backface-visibility: hidden;
-	backface-visibility: hidden;
-	
-	-webkit-animation-duration: 1s;
-	-webkit-animation-delay: .2s;
-	-webkit-animation-timing-function: ease;
-	-webkit-animation-fill-mode: both;
-	-moz-animation-duration: 1s;
-	-moz-animation-delay: .2s;
-	-moz-animation-timing-function: ease;
-	-moz-animation-fill-mode: both;
-	-ms-animation-duration: 1s;
-	-ms-animation-delay: .2s;
-	-ms-animation-timing-function: ease;
-	-ms-animation-fill-mode: both;
-	-o-animation-duration: 1s;
-	-o-animation-delay: .2s;
-	-o-animation-timing-function: ease;
-	-o-animation-fill-mode: both;
-	animation-duration: 1s;
-	animation-delay: .2s;
-	animation-timing-function: ease;
-	animation-fill-mode: both;
 }
 
-.player::before{
-	position: absolute;
-	background: #012792;
-	@include background-image(linear-gradient(#012792, #012792 5%
-		, #0192dd 10%, #0192dd 15%, #012792 20%
-		, #0192dd 25%, #0192dd 30%, #012792 35%
-		, #0192dd 40%, #0192dd 45%, #012792 50%
-		, #0192dd 55%, #0192dd 60%, #012792 65%
-		, #0192dd 70%, #0192dd 75%, #012792 80%
-		, #0192dd 85%, #0192dd 90%, #012792 95%
-		, #012792));
-	content: '';
-	border-radius: 29% / 100px;
-	width: 110px;
-	height: 74%;
-	bottom: 10px;
-	left: 50%;
-	margin-left: -55px;
+.game{
+
+	.player {
+		position: relative;
+		text-align: center;
+		@include background-image(radial-gradient(45px 45px, #dddddd 10px, white 30px));
+		padding: 20px 10px;
+		width: 150px;
+		height: 160px;
+		color: #fff;
+		margin: 30px 30px;
+		margin-bottom: 60px;
+		border-radius: 50px 50px 20px 20px / 10px 10px 60px 60px;
+		font-weight: bold;
+		
+		-webkit-backface-visibility: hidden;
+		-moz-backface-visibility: hidden;
+		-ms-backface-visibility: hidden;
+		-o-backface-visibility: hidden;
+		backface-visibility: hidden;
+		
+		-webkit-animation-duration: 1s;
+		-webkit-animation-delay: .2s;
+		-webkit-animation-timing-function: ease;
+		-webkit-animation-fill-mode: both;
+		-moz-animation-duration: 1s;
+		-moz-animation-delay: .2s;
+		-moz-animation-timing-function: ease;
+		-moz-animation-fill-mode: both;
+		-ms-animation-duration: 1s;
+		-ms-animation-delay: .2s;
+		-ms-animation-timing-function: ease;
+		-ms-animation-fill-mode: both;
+		-o-animation-duration: 1s;
+		-o-animation-delay: .2s;
+		-o-animation-timing-function: ease;
+		-o-animation-fill-mode: both;
+		animation-duration: 1s;
+		animation-delay: .2s;
+		animation-timing-function: ease;
+		animation-fill-mode: both;
+	}
+
+	.playerParent.animated.flash.index-0 .player{
+		@include background-image(radial-gradient(45px 45px, #dddddd 10px, #93C47D 30px));
+	}
+
+	.playerParent.animated.flash:not(.index-0) .player{
+		@include background-image(radial-gradient(45px 45px, #dddddd  10px, #C47D7D 30px));
+	}
+
+	.playerParent.animated.flash:not(.index-0).treat .player{
+		@include background-image(radial-gradient(45px 45px, #dddddd  10px, #8A2D2D 30px));
+	}
+
+	.player::before{ 
+		position: absolute;
+		background: #012792;
+		@include background-image(linear-gradient(#012792, #012792 5%
+			, #0192dd 10%, #0192dd 15%, #012792 20%
+			, #0192dd 25%, #0192dd 30%, #012792 35%
+			, #0192dd 40%, #0192dd 45%, #012792 50%
+			, #0192dd 55%, #0192dd 60%, #012792 65%
+			, #0192dd 70%, #0192dd 75%, #012792 80%
+			, #0192dd 85%, #0192dd 90%, #012792 95%
+			, #012792));
+		content: '';
+		border-radius: 29% / 100px;
+		width: 110px;
+		height: 74%;
+		bottom: 10px;
+		left: 50%;
+		margin-left: -55px;
+	}
 }
 
 .player p.inline {

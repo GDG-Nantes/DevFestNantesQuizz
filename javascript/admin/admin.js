@@ -129,14 +129,17 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 
 	$scope.clickBtnValider = function(player){
 		wsFacotry.sendData('clickBtnValider',player);
-		_.map($scope.playerArray, function(player){
-			player.anwserTreat = true;
+		angular.forEach($scope.playerArray, 
+		//_.map($scope.playerArray, 
+			function(player){			
+			player.answerTreat = true;
 			return player;
 		});
 	};
 
 	$scope.clickBtnRefuser = function(player){
 		wsFacotry.sendData('clickBtnRefuser',player);
+		player.answerTreat = true;
 	};
 
 	$scope.goNext = function(){
@@ -167,9 +170,11 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 
 	$scope.RAZReponses = function(){
 		index = 0;
-		_.map($scope.playerArray, function(player){
+		angular.forEach($scope.playerArray,
+		//_.map($scope.playerArray, 
+			function(player){
 			player.answer = false;
-			player.anwserTreat = false;
+			player.answerTreat = false;
 			player.index = 10;
 			return player;
 		});

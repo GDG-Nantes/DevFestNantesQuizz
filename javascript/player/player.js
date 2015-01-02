@@ -12,11 +12,14 @@ controller('PlayerCtrl', ['$scope', '$rootScope', '$log', '$routeParams', '$loca
 	$scope.player.id = $routeParams.playerId;
 	$scope.player.load = true;
 	$scope.proximityCompat = window.DeviceProximityEvent;
+	$scope.modeFifo = false;
+	$scope.modeRumble = false;
 
-	$scope.reponse = function(){
+	$scope.reponse = function(choice){
 		wsFactory.sendData('response',{
 			id: $scope.player.id,
-			data : $scope.player.pseudo
+			data : $scope.player.pseudo,
+			anwser : choice
 		});
 	};
 
@@ -36,9 +39,18 @@ controller('PlayerCtrl', ['$scope', '$rootScope', '$log', '$routeParams', '$loca
 		});
 	});
 
+
+
 	
 	$rootScope.$on('clearScore', function(evt, data){
 		window.location = "http://devfest.gdgnantes.com";
 		//$location.path('/');
+	});
+
+	$rootScope.$on('readyEvt', function(evt, data){
+		$scope.$apply(function(){
+			$scope.modeFifo = model.config().mode === model.MODE_FIFO;
+			$scope.modeRumble = model.config().mode === model.MODE_RUMBLE;
+		});
 	});
 }]);

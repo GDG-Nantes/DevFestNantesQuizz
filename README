@@ -1,9 +1,18 @@
 
 Run the server with node server.js
 
-Go to your browser with port :80
+Go to your browser with port :8080 (or the one you specify in assets/conf/config.js)
 
 For smartphone, choose the correct network interface for changing the qrcode.
+
+
+== To play the game.
+
+You need to have at least 3 tabs open : 
+
+1. Open the main screen at http://myip:myport/#/game
+2. The game master console : first acess to http://myip:myport/#/admin to log you and then you have the choice to continue with your phone by scanning the qrcode or by clicking on the QrCode
+3. Let the users connecting to the game by scanning the qrcode or by enter the url below the qrcode
 
 == During the game
 

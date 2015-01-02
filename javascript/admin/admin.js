@@ -51,15 +51,18 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 	function($scope, $rootScope, wsFacotry, model){
 
 
-	var musicOn = true;
-	var index = 0;
-	var indexQuestions = 0;
-	var allowResp = false;
+	var musicOn = true,
+		index = 0,
+		indexQuestions = 0,
+		allowResp = false,
+		NB_QUESTIONS = -1;
 	$scope.gameInProgress = false;
 	$scope.playerArray = [];
 	$scope.textToggleMusic = "Stopper la musique";
 	$scope.currentQuestion = null;
 	$scope.gameFinish = false;
+	$scope.modeFifo = false;
+	$scope.modeRumble = false;
 	
 	wsFacotry.getPlayers();
 
@@ -101,11 +104,18 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 		});
 	});
 
+	var unregisterNbQuestions = $rootScope.$on('configEvt', function(evt, data){
+		NB_QUESTIONS = data.data.nbQuestions;
+		$scope.modeFifo = data.data.mode === model.MODE_FIFO;
+		$scope.modeRumble = data.data.mode === model.MODE_RUMBLE;
+	});
+
 	$scope.$on('$routeChangeSuccess', function(next, current) { 
 		if (current.$$route.controller != 'ControlCtrl'){
 			unregisterPlayers();
 	   		unregisterPlayer();
 	   		unregisterResponse();
+	   		unregisterNbQuestions();
 		}
  	});
 
@@ -127,6 +137,10 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 		wsFacotry.sendData('allowResp',{});
 	};
 
+	$scope.showResp = function(){
+		wsFacotry.sendData('showResp',{});	
+	};
+
 	$scope.clickBtnValider = function(player){
 		wsFacotry.sendData('clickBtnValider',player);
 		angular.forEach($scope.playerArray, 
@@ -143,13 +157,13 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 	};
 
 	$scope.goNext = function(){
-		if (indexQuestions <= model.NB_QUESTIONS){
+		if (indexQuestions <= NB_QUESTIONS){
 			indexQuestions++;
 			wsFacotry.sendData('goNext',{});
 			allowResp = false;
 			$scope.RAZReponses();		
 			$scope.allowResp();
-			if (indexQuestions === model.NB_QUESTIONS){
+			if (indexQuestions === NB_QUESTIONS){
 				$scope.gameFinish = true;
 			}
 		}else{
@@ -175,7 +189,8 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 			function(player){
 			player.answer = false;
 			player.answerTreat = false;
-			player.index = 10;
+			player.index = 100;
+			player.choice = null;
 			return player;
 		});
 		wsFacotry.sendData('RAZReponses',{});

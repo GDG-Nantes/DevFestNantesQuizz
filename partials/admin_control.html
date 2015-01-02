@@ -2,11 +2,12 @@
     <div class="container">
         <button type="button" class="btn btn-success btn-lg btn-block center-block" id="navNext" ng-click="startGame()" ng-hide="gameInProgress">Commencer une partie</button>
         <button type="button" class="btn btn-primary btn-lg btn-block center-block" id="navNext" ng-click="goNext()" ng-show="gameInProgress&&!gameFinish">Question suivante</button>
-        <!--<button type="button" class="btn btn-primary btn-lg btn-block center-block" id="navPrev" ng-click="goPrevious()" ng-show="gameInProgress">Question précédente</button>-->
         <button type="button" class="btn btn-warning btn-lg btn-block center-block" id="navStopMusic" ng-click="toggleMusic()" ng-bind="textToggleMusic" ng-show="gameInProgress"></button>
-        <!--<button type="button" class="btn btn-warning btn-lg btn-block center-block" id="navRAZ" ng-click="RAZReponses()" ng-show="gameInProgress">RAZ réponses</button>-->
-        <button type="button" class="btn btn-primary btn-lg btn-block center-block" id="navAllowResp"  ng-click="allowResp()" ng-show="gameInProgress&&!gameFinish">Autoriser de nouvelles réponses</button>
+        <button type="button" class="btn btn-primary btn-lg btn-block center-block" id="navAllowResp"  ng-click="allowResp()" ng-show="modeFifo&&gameInProgress&&!gameFinish">Autoriser de nouvelles réponses</button>
+        <button type="button" class="btn btn-primary btn-lg btn-block center-block" id="navShowResp"  ng-click="showResp()" ng-show="modeRumble&&gameInProgress&&!gameFinish">Afficher la réponse</button>
         <button type="button" class="btn btn-danger btn-lg btn-block center-block" id="navRAZ" ng-click="RAZUtilisateurs()" ng-show="gameFinish">Nettoyage utilisateurs</button>
+        <!--<button type="button" class="btn btn-primary btn-lg btn-block center-block" id="navPrev" ng-click="goPrevious()" ng-show="gameInProgress">Question précédente</button>-->
+        <!--<button type="button" class="btn btn-warning btn-lg btn-block center-block" id="navRAZ" ng-click="RAZReponses()" ng-show="gameInProgress">RAZ réponses</button>-->
     </div>
     <div ng-show="currentQuestion&&gameInProgress&&!gameFinish" class="row">
         <h1> Question : </h1>

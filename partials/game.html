@@ -32,12 +32,12 @@
                 <img src="./assets/images/logo_question_pour_devfest.png" class="tiny"/>                
                 <h1 class="title text-center" ng-bind-html="currentGame.question.title"></h1>
                 <div class="row">
-                    <div class="col-md-6"><button type="button" class="btn-warning btn-lg btn-block" ng-bind-html="currentGame.question.answer0"></button></div>
-                    <div class="col-md-6"><button type="button" class="btn-warning btn-lg btn-block" ng-bind-html="currentGame.question.answer1"></button></div>
+                    <div class="col-md-6"><button type="button" class="btn-lg btn-block" ng-class="currentGame.question.classAnswer0" ng-bind-html="currentGame.question.answer0"></button></div>
+                    <div class="col-md-6"><button type="button" class="btn-lg btn-block" ng-class="currentGame.question.classAnswer1" ng-bind-html="currentGame.question.answer1"></button></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6"><button type="button" class="btn-warning btn-lg btn-block" ng-bind-html="currentGame.question.answer2"></button></div>
-                    <div class="col-md-6"><button type="button" class="btn-warning btn-lg btn-block" ng-bind-html="currentGame.question.answer3"></button></div>
+                    <div class="col-md-6"><button type="button" class="btn-lg btn-block" ng-class="currentGame.question.classAnswer2" ng-bind-html="currentGame.question.answer2"></button></div>
+                    <div class="col-md-6"><button type="button" class="btn-lg btn-block" ng-class="currentGame.question.classAnswer3" ng-bind-html="currentGame.question.answer3"></button></div>
                 </div>
             </div>
             <div ng-show="winner">

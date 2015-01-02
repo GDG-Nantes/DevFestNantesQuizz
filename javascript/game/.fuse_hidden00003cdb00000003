@@ -9,7 +9,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 	function($scope, $rootScope,$location, model, wsFacotry, audio){
 
 
-	var NB_QUESTIONS = model.config().NB_QUESTIONS;
+	var NB_QUESTIONS = model.config.NB_QUESTIONS;
 	var index = 0;
 	var allowResp = false;
 	var musicOn = true;
@@ -30,13 +30,13 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 	// On charge les questions
 	$scope.questions = [];
 	function readyToPlay(){
-		NB_QUESTIONS = model.config().NB_QUESTIONS;		
-		Papa.parse(model.URL+'/assets/csv/'+model.config().csv, {
+		NB_QUESTIONS = model.config.NB_QUESTIONS;		
+		Papa.parse(model.URL+'/assets/csv/'+model.config.csv, {
 			download: true,
 			delimiter : ';',
 			complete: function(results){
 				$scope.questions = results.data;
-				if (model.config().NB_QUESTIONS === -1){
+				if (model.config.NB_QUESTIONS === -1){
 					NB_QUESTIONS = results.data.length;
 				}
 				sendConfig(); 
@@ -68,7 +68,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 		var index = -1;
 		// On cherche une question non exploitée
 		while (!found){
-			if (model.config().mode === model.MODE_FIFO){ // En mode Fifo, on renvoie dans l'ordre
+			if (model.config.mode === model.MODE_FIFO){ // En mode Fifo, on renvoie dans l'ordre
 				index = Math.floor(Math.random() * $scope.questions.length);
 			}else{
 				index++;
@@ -142,7 +142,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 	function sendConfig(){
 		wsFacotry.sendData('configEvt', {
 			nbQuestions : NB_QUESTIONS,
-			mode : model.config().mode
+			mode : model.config.mode
 		});
 	}
 
@@ -177,7 +177,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 			if (!allowResp){
 				return;
 			}
-			$scope.currentGame.canShow = model.config().mode === model.MODE_FIFO ? false : true;
+			$scope.currentGame.canShow = model.config.mode === model.MODE_FIFO ? false : true;
 			var playerFound = _.find($scope.playerArray, {id : data.data.id});
 			if (playerFound && !playerFound.answer){
 				playerFound.index = index;

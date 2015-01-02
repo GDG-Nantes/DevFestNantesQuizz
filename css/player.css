@@ -31,6 +31,8 @@
 .game .player {
   position: relative;
   text-align: center;
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjQ1cHgiIGN5PSI0NXB4IiByPSIzMCUiPjxzdG9wIG9mZnNldD0iMzMuMzMzMzMlIiBzdG9wLWNvbG9yPSIjZGRkZGRkIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmZmZmZmIi8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
+  background-size: 100%;
   background-image: -moz-radial-gradient(45px 45px, #dddddd 10px, #ffffff 30px);
   background-image: -webkit-radial-gradient(45px 45px, #dddddd 10px, #ffffff 30px);
   background-image: radial-gradient(45px 45px, #dddddd 10px, #ffffff 30px);
@@ -70,18 +72,24 @@
 }
 /* line 73, ../scss/player.scss */
 .game .playerParent.animated.flash.index-0 .player {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjQ1cHgiIGN5PSI0NXB4IiByPSIzMCUiPjxzdG9wIG9mZnNldD0iMzMuMzMzMzMlIiBzdG9wLWNvbG9yPSIjZGRkZGRkIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjOTNjNDdkIi8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
+  background-size: 100%;
   background-image: -moz-radial-gradient(45px 45px, #dddddd 10px, #93c47d 30px);
   background-image: -webkit-radial-gradient(45px 45px, #dddddd 10px, #93c47d 30px);
   background-image: radial-gradient(45px 45px, #dddddd 10px, #93c47d 30px);
 }
 /* line 77, ../scss/player.scss */
 .game .playerParent.animated.flash:not(.index-0) .player {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjQ1cHgiIGN5PSI0NXB4IiByPSIzMCUiPjxzdG9wIG9mZnNldD0iMzMuMzMzMzMlIiBzdG9wLWNvbG9yPSIjZGRkZGRkIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjYzQ3ZDdkIi8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
+  background-size: 100%;
   background-image: -moz-radial-gradient(45px 45px, #dddddd 10px, #c47d7d 30px);
   background-image: -webkit-radial-gradient(45px 45px, #dddddd 10px, #c47d7d 30px);
   background-image: radial-gradient(45px 45px, #dddddd 10px, #c47d7d 30px);
 }
 /* line 81, ../scss/player.scss */
 .game .playerParent.animated.flash:not(.index-0).treat .player {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjQ1cHgiIGN5PSI0NXB4IiByPSIzMCUiPjxzdG9wIG9mZnNldD0iMzMuMzMzMzMlIiBzdG9wLWNvbG9yPSIjZGRkZGRkIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjOGEyZDJkIi8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
+  background-size: 100%;
   background-image: -moz-radial-gradient(45px 45px, #dddddd 10px, #8a2d2d 30px);
   background-image: -webkit-radial-gradient(45px 45px, #dddddd 10px, #8a2d2d 30px);
   background-image: radial-gradient(45px 45px, #dddddd 10px, #8a2d2d 30px);
@@ -90,6 +98,9 @@
 .game .player::before {
   position: absolute;
   background: #012792;
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAxMjc5MiIvPjxzdG9wIG9mZnNldD0iNSUiIHN0b3AtY29sb3I9IiMwMTI3OTIiLz48c3RvcCBvZmZzZXQ9IjEwJSIgc3RvcC1jb2xvcj0iIzAxOTJkZCIvPjxzdG9wIG9mZnNldD0iMTUlIiBzdG9wLWNvbG9yPSIjMDE5MmRkIi8+PHN0b3Agb2Zmc2V0PSIyMCUiIHN0b3AtY29sb3I9IiMwMTI3OTIiLz48c3RvcCBvZmZzZXQ9IjI1JSIgc3RvcC1jb2xvcj0iIzAxOTJkZCIvPjxzdG9wIG9mZnNldD0iMzAlIiBzdG9wLWNvbG9yPSIjMDE5MmRkIi8+PHN0b3Agb2Zmc2V0PSIzNSUiIHN0b3AtY29sb3I9IiMwMTI3OTIiLz48c3RvcCBvZmZzZXQ9IjQwJSIgc3RvcC1jb2xvcj0iIzAxOTJkZCIvPjxzdG9wIG9mZnNldD0iNDUlIiBzdG9wLWNvbG9yPSIjMDE5MmRkIi8+PHN0b3Agb2Zmc2V0PSI1MCUiIHN0b3AtY29sb3I9IiMwMTI3OTIiLz48c3RvcCBvZmZzZXQ9IjU1JSIgc3RvcC1jb2xvcj0iIzAxOTJkZCIvPjxzdG9wIG9mZnNldD0iNjAlIiBzdG9wLWNvbG9yPSIjMDE5MmRkIi8+PHN0b3Agb2Zmc2V0PSI2NSUiIHN0b3AtY29sb3I9IiMwMTI3OTIiLz48c3RvcCBvZmZzZXQ9IjcwJSIgc3RvcC1jb2xvcj0iIzAxOTJkZCIvPjxzdG9wIG9mZnNldD0iNzUlIiBzdG9wLWNvbG9yPSIjMDE5MmRkIi8+PHN0b3Agb2Zmc2V0PSI4MCUiIHN0b3AtY29sb3I9IiMwMTI3OTIiLz48c3RvcCBvZmZzZXQ9Ijg1JSIgc3RvcC1jb2xvcj0iIzAxOTJkZCIvPjxzdG9wIG9mZnNldD0iOTAlIiBzdG9wLWNvbG9yPSIjMDE5MmRkIi8+PHN0b3Agb2Zmc2V0PSI5NSUiIHN0b3AtY29sb3I9IiMwMTI3OTIiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMTI3OTIiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #012792), color-stop(5%, #012792), color-stop(10%, #0192dd), color-stop(15%, #0192dd), color-stop(20%, #012792), color-stop(25%, #0192dd), color-stop(30%, #0192dd), color-stop(35%, #012792), color-stop(40%, #0192dd), color-stop(45%, #0192dd), color-stop(50%, #012792), color-stop(55%, #0192dd), color-stop(60%, #0192dd), color-stop(65%, #012792), color-stop(70%, #0192dd), color-stop(75%, #0192dd), color-stop(80%, #012792), color-stop(85%, #0192dd), color-stop(90%, #0192dd), color-stop(95%, #012792), color-stop(100%, #012792));
   background-image: -moz-linear-gradient(#012792, #012792 5%, #0192dd 10%, #0192dd 15%, #012792 20%, #0192dd 25%, #0192dd 30%, #012792 35%, #0192dd 40%, #0192dd 45%, #012792 50%, #0192dd 55%, #0192dd 60%, #012792 65%, #0192dd 70%, #0192dd 75%, #012792 80%, #0192dd 85%, #0192dd 90%, #012792 95%, #012792);
   background-image: -webkit-linear-gradient(#012792, #012792 5%, #0192dd 10%, #0192dd 15%, #012792 20%, #0192dd 25%, #0192dd 30%, #012792 35%, #0192dd 40%, #0192dd 45%, #012792 50%, #0192dd 55%, #0192dd 60%, #012792 65%, #0192dd 70%, #0192dd 75%, #012792 80%, #0192dd 85%, #0192dd 90%, #012792 95%, #012792);
   background-image: linear-gradient(#012792, #012792 5%, #0192dd 10%, #0192dd 15%, #012792 20%, #0192dd 25%, #0192dd 30%, #012792 35%, #0192dd 40%, #0192dd 45%, #012792 50%, #0192dd 55%, #0192dd 60%, #012792 65%, #0192dd 70%, #0192dd 75%, #012792 80%, #0192dd 85%, #0192dd 90%, #012792 95%, #012792);

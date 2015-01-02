@@ -1,1 +1,1 @@
-[{"id":0,"name":"Connexion au réseau local","ip":"192.168.1.102"},{"id":1,"name":"VirtualBox Host-Only Network","ip":"192.168.56.1"},{"id":2,"name":"Loopback Pseudo-Interface 1","ip":"127.0.0.1"}]
+[{"id":0,"name":"lo","ip":"127.0.0.1"},{"id":1,"name":"eth0","ip":"192.168.1.57"}]

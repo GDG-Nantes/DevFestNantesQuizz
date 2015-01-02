@@ -121,11 +121,6 @@ io.on('connection', function(socket) {
                 type : 'clearScore'
             });
             playerList = [];
-        }else if (message.type === 'getConfig'){
-            socket.emit('message',{
-                type : 'config',
-                'conf' : conf.game
-            });     
         }else{    		
 	        console.log('### message: '+message);
 	        socket.broadcast.emit('message', message);

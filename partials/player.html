@@ -5,7 +5,15 @@
 	    	<p>Appuyez sur le bouton "Réponse" pour répondre.
 	    	</p>
     	</div>
- 	   	<a ng-show="player.register" id="reponse" class="btnPush center-block" ng-click='reponse()' push-proximity player="player" >Buzzer</a>
+        <div class="row" ng-show="modeRumble">
+            <div class="col-md-6"><button type="button" class="btn-warning btn-lg btn-block" ng-click="reponse(0);">A</button></div>
+            <div class="col-md-6"><button type="button" class="btn-warning btn-lg btn-block" ng-click="reponse(1);">B</button></div>
+        </div>
+        <div class="row">
+            <div class="col-md-6"><button type="button" class="btn-warning btn-lg btn-block" ng-click="reponse(2);">C</button></div>
+            <div class="col-md-6"><button type="button" class="btn-warning btn-lg btn-block" ng-click="reponse(3);">D</button></div>
+        </div>
+ 	   	<a ng-show="modeFifo" id="reponse" class="btnPush center-block" ng-click='reponse()' push-proximity player="player" >Buzzer</a>
     </div>	 
     <div ng-show='proximityCompat'>Vous pouvez utiliser votre téléphone comme buzzer!</div>
     <div ng-show='player.load'><h1>Chargement du Joueur en cours</h1></div>

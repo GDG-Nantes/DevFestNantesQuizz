@@ -27,12 +27,6 @@ angular.module('QuizzServices', [])
     	}
 	});
 
-	function getConfig(){
-		socket.emit('message',{
-			'type' : 'getConfig'
-		});
-	}
-
 	function sendData(type, data){
 		socket.emit('message',{
 			'type' : type,
@@ -69,7 +63,6 @@ angular.module('QuizzServices', [])
 
 	return {
 		sendData : sendData,
-		getConfig : getConfig,
 		registerPlayer : registerPlayer,
 		tryToLogAdmin : tryToLogAdmin,
 		getPlayer : getPlayer,
@@ -82,17 +75,12 @@ angular.module('QuizzServices', [])
 		adminLogged = false, // Use to know if we are authenticate
 		playerList = [], // The list of other player
 		URL = 'http://'+location.hostname+':'+(location.port ? location.port : '80'), // The Url of server
+		NB_QUESTIONS = -1, // The number of questions
+		CSV_FILE = 'openquizzdb_fr.csv', // The path of csv question file
+		ponderation = [[-1, 1]], // The ponderation of each questions
 		// Game Modes
 		MODE_FIFO = 'fifo', 
-		MODE_RUMBLE = 'rumble',
-		// Game Config
-		config = {			
-			NB_QUESTIONS : -1, // The number of questions
-			csv : 'openquizzdb_fr.csv', // The path of csv question file
-			ponderation : [[-1, 1]], // The ponderation of each questions
-			mode : MODE_FIFO,
-			timeout : -1
-		};
+		MODE_RUMBLE = 'rumble';
 
  
 
@@ -109,8 +97,10 @@ angular.module('QuizzServices', [])
 		}
 	}
 
-	function setConfig(configuration){
-		config = configuration;		
+	function setConfig(config){
+		NB_QUESTIONS = config.NB_QUESTIONS;
+		CSV_FILE = config.csv;
+		ponderation = config.ponderation;
 	}
 
 	function setPlayer(player){
@@ -126,14 +116,10 @@ angular.module('QuizzServices', [])
 		adminLogged = true;
 	}
 
-	function getConfig(){
-		return config;
-	}
-
 	function getPonderation(index){		
-		for (var compt = 0; compt < config.ponderation.length; compt++){
-			var number = config.ponderation[compt][0];
-			var value = config.ponderation[compt][1];
+		for (var compt = 0; compt < ponderation.length; compt++){
+			var number = ponderation[compt][0];
+			var value = ponderation[compt][1];
 			if (number === -1 || index <= number){
 				return value;
 			}
@@ -149,7 +135,8 @@ angular.module('QuizzServices', [])
 		loggedAdmin : loggedAdmin,
 		setConfig : setConfig,
 		getPonderation : getPonderation,		
-		config : getConfig,
+		NB_QUESTIONS : NB_QUESTIONS,
+		CSV_FILE : CSV_FILE,
 		URL : URL,
 		MODE_FIFO : MODE_FIFO,
 		MODE_RUMBLE : MODE_RUMBLE

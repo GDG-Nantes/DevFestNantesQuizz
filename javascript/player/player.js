@@ -35,6 +35,9 @@ controller('PlayerCtrl', ['$scope', '$rootScope', '$log', '$routeParams', '$loca
 			}else if ($scope.player.unknown && $scope.player.gameFull){
 				$scope.player.unknown = false;
 				$scope.player.gameFull = true;
+			}else if (!$scope.player.unknown){
+				$scope.modeFifo = model.config().mode === model.MODE_FIFO;
+				$scope.modeRumble = model.config().mode === model.MODE_RUMBLE;				
 			}
 		});
 	});
@@ -47,10 +50,5 @@ controller('PlayerCtrl', ['$scope', '$rootScope', '$log', '$routeParams', '$loca
 		//$location.path('/');
 	});
 
-	$rootScope.$on('readyEvt', function(evt, data){
-		$scope.$apply(function(){
-			$scope.modeFifo = model.config().mode === model.MODE_FIFO;
-			$scope.modeRumble = model.config().mode === model.MODE_RUMBLE;
-		});
-	});
+	
 }]);

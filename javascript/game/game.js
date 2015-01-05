@@ -61,6 +61,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 				return $scope.playerArray[i];
 			}
 		}
+		return null;
 	}
 
 	function getNextQuestion(){
@@ -183,6 +184,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 				playerFound.index = index;
 				playerFound.answer = true;
 				playerFound.choice = data.data.answer;
+				playerFound.timestamp = new Date().getTime();
 				index++;
 				if (index <= 5 && musicOn){
 					audio.stopJeopardy();
@@ -210,7 +212,29 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 				question.classAnswer3 = 'btn-success';
 			}
 
-			angular.forEach($scope.playerArray,
+			// Pour le bonnes réponses on ajoute les bons points
+			var index = 0;
+			_.forEach(
+				_.sortBy(
+					_.reject($scope.playerArray,{timestamp : 0}), 'timestamp'),
+				function(playerTmp){
+					var scopePlayer = getUser(playerTmp);
+					var scoreToAdd = getScoreToAdd();					
+					scopePlayer.score += index ===0 ? scoreToAdd : (scoreToAdd - 1 > 0 ? scoreToAdd - 1 : 1);
+					scopePlayer.answerTreat = true;
+			});
+			// On filtre les mauvaises réponses et on retire -1
+			_.forEach(
+				_.filter(
+					_.reject($scope.playerArray,{timestamp : 0}), 
+					function(playerTmp){return player.choice != rightAnswer},
+				function(playerTmp){
+					var scopePlayer = getUser(playerTmp);
+					scopePlayer.score = Math.max(player.score - 1,0);
+					scopePlayer.answerTreat = true;
+			});
+
+			/*angular.forEach($scope.playerArray,
 				function(player){
 					if (player.choice){						
 						if (player.choice === rightAnswer){
@@ -221,7 +245,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 					}	
 					player.answerTreat = true;						
 				return player;
-			});
+			});*/
 		});
 	});
 
@@ -256,6 +280,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 				}
 				player.index = 100;
 				player.choice = null;
+				player.timestamp = 0;
 				return player;
 			});
 			if (musicOn){
@@ -313,6 +338,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 			player.answerTreat = true;
 			player.index = 100;
 			player.choice = null;
+			player.timestamp = 0;
 		});
 	});
 
@@ -379,6 +405,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 				player.answerTreat = false;
 				player.index = 100;
 				player.choice = null;
+				player.timestamp = 0;
 				return player;
 			});
 		});

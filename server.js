@@ -31,8 +31,8 @@ io.on('connection', function(socket) {
         if (message.type === 'registerPlayer'){
             console.log('### registerAsk: ');
             if (!gameStart 
-                && (playerList.length < conf.game.NB_PLAYER
-                    || conf.game.NB_PLAYER === -1)){                
+                && (playerList.length < conf.game.NB_PLAYERS
+                    || conf.game.NB_PLAYERS === -1)){                
                 var data = {
                     type: 'registerDone',
                     pseudo : message.data.pseudo,

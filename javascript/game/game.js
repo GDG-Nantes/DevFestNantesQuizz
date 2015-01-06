@@ -227,7 +227,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 			_.forEach(
 				_.filter(
 					_.reject($scope.playerArray,{timestamp : 0}), 
-					function(playerTmp){return player.choice != rightAnswer},
+					function(playerTmp){return player.choice != rightAnswer}),
 				function(playerTmp){
 					var scopePlayer = getUser(playerTmp);
 					scopePlayer.score = Math.max(player.score - 1,0);

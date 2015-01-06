@@ -1,1 +1,1 @@
-[{"id":0,"name":"Connexion réseau sans fil 4","ip":"10.33.44.81"},{"id":1,"name":"Connexion au réseau local","ip":"10.33.44.83"},{"id":2,"name":"VMware Network Adapter VMnet1","ip":"192.168.19.1"},{"id":3,"name":"VMware Network Adapter VMnet8","ip":"192.168.70.1"},{"id":4,"name":"VirtualBox Host-Only Network","ip":"192.168.56.1"},{"id":5,"name":"Loopback Pseudo-Interface 1","ip":"127.0.0.1"}]
+[{"id":0,"name":"lo","ip":"127.0.0.1"},{"id":1,"name":"eth0","ip":"192.168.1.66"}]

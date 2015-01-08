@@ -9,8 +9,7 @@ var conf = {
 		"timeout" : 30 * 1000, // Timeout before considering a player has not anwser
 		"NB_QUESTIONS" : -1, // Number of questions (-1 mean that you will follow the order of questions from csv)
 		"NB_PLAYERS" : -1, // Number of users accepted (-1 for unlimeted)
-		"NB_PODIUM" : 5, // Number of person in podium
-		"csv"  : "questionsTSG_SLE_final.csv", // CSV file to use
+		"csv"  : "openquizzdb_fr.csv", // CSV file to use
 		"ponderation" : [
 			[0 , 0], // Index <=0 => 0
 			[3 , 1], // Index <=3 => 1

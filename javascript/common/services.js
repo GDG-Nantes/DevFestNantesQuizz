@@ -88,6 +88,7 @@ angular.module('QuizzServices', [])
 		// Game Config
 		config = {			
 			NB_QUESTIONS : -1, // The number of questions
+			NB_PODIUM : 5, // Length of podium
 			csv : 'openquizzdb_fr.csv', // The path of csv question file
 			ponderation : [[-1, 1]], // The ponderation of each questions
 			mode : MODE_FIFO,

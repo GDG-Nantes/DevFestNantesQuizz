@@ -17,6 +17,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 	$scope.curentPage = 1;
 	$scope.nbPages = 1;
 	$scope.playerArray = [];
+	$scope.podium = [];
 	$scope.textToggleMusic = "Stopper la musique";
 	$scope.order = 'score';
 	$scope.questionsPlayed = {};
@@ -212,26 +213,40 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 				question.classAnswer3 = 'btn-success';
 			}
 
-			// Pour le bonnes réponses on ajoute les bons points
-			var index = 0;
+			// Pour le bonnes réponses on ajoute les bons points			
 			_.forEach(
 				_.sortBy(
-					_.reject($scope.playerArray,{timestamp : 0}), 'timestamp'),
-				function(playerTmp){
-					var scopePlayer = getUser(playerTmp);
+					_.filter(
+						_.reject($scope.playerArray,{timestamp : 0}), // On rejete les gens qui n'ont pas répondus
+						function(playerTmp){return playerTmp.choice === rightAnswer}) // On ne prend que ceux qui ont eu bon
+					, 'timestamp'), // On trie dans l'ordre
+				function(playerTmp, index){
 					var scoreToAdd = getScoreToAdd();					
-					scopePlayer.score += index ===0 ? scoreToAdd : (scoreToAdd - 1 > 0 ? scoreToAdd - 1 : 1);
-					scopePlayer.answerTreat = true;
+					playerTmp.score += index ===0 ? scoreToAdd : (scoreToAdd - 1 > 0 ? scoreToAdd - 1 : 1);
+					for (var i = 0; i < $scope.playerArray.length; i++){
+						if ($scope.playerArray[i].id === playerTmp.id){
+							$scope.playerArray[i].score = playerTmp.score;
+							$scope.playerArray[i].answerTreat = true;
+							console.log($scope.playerArray[i].score);
+							break;
+						}
+					}
 			});
 			// On filtre les mauvaises réponses et on retire -1
 			_.forEach(
 				_.filter(
-					_.reject($scope.playerArray,{timestamp : 0}), 
-					function(playerTmp){return player.choice != rightAnswer}),
+					_.reject($scope.playerArray,{timestamp : 0}),  // On rejete les gens qui n'ont pas répondus
+					function(playerTmp){return playerTmp.choice != rightAnswer}), // On ne prend que ceux qui ont eu tord
 				function(playerTmp){
-					var scopePlayer = getUser(playerTmp);
-					scopePlayer.score = Math.max(player.score - 1,0);
-					scopePlayer.answerTreat = true;
+					playerTmp.score = Math.max(playerTmp.score - 1,0);
+					for (var i = 0; i < $scope.playerArray.length; i++){
+						if ($scope.playerArray[i].id === playerTmp.id){
+							$scope.playerArray[i].score = playerTmp.score;
+							$scope.playerArray[i].answerTreat = true;
+							console.log($scope.playerArray[i].score);
+							break;
+						}
+					}
 			});
 
 			/*angular.forEach($scope.playerArray,
@@ -356,11 +371,16 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 	      	if ($scope.currentGame.index === NB_QUESTIONS){
 	      		var max = 0;
 	      		$scope.winner = null;
-	      		for (var i = 0; i < $scope.playerArray.length; i++){
+	      		/*for (var i = 0; i < $scope.playerArray.length; i++){
 					if ($scope.playerArray[i].score > max){
 						$scope.winner = $scope.playerArray[i];
 						max = $scope.winner.score;
 					}
+				}*/
+				$scope.winner = _.max($scope.playerArray, function(playerTmp){return playerTmp.score});
+				if (model.config().mode === model.MODE_RUMBLE) {					
+					$scope.podium = _.filter(_.sortBy($scope.playerArray,'score').reverse(),function(playerTmp, index){return index>0 && index < 4 && index < $scope.playerArray.length -1});
+					$scope.looser = _.min($scope.playerArray, function(playerTmp){return playerTmp.score});
 				}
 	      		return;
 	      	}else{		      	

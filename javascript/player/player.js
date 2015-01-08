@@ -19,7 +19,7 @@ controller('PlayerCtrl', ['$scope', '$rootScope', '$log', '$routeParams', '$loca
 		wsFactory.sendData('response',{
 			id: $scope.player.id,
 			data : $scope.player.pseudo,
-			anwser : choice
+			answer : choice
 		});
 	};
 

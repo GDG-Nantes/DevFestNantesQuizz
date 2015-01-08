@@ -24,4 +24,13 @@ angular.module('AppQuizz', ['QuizzAdmin','QuizzGame', 'QuizzPlayer', 'QuizzMain'
 		controller : 'PlayerCtrl', templateUrl: 'partials/player.html'
 	})
 	.otherwise({redirectTo : '/main'});
-}]);
+}])
+.filter('reverse', function() {
+  return function(items) {
+    return items.slice().reverse();
+  };
+}).filter('slice', function() {
+  return function(arr, start, end) {
+    return (arr || []).slice(start, end);
+  };
+});

@@ -68,6 +68,25 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 
 	wsFacotry.sendData('controlReady',{});
 
+	// On restore l'état précédent
+	if (localStorage['stateControl']){
+		var state = JSON.parse(localStorage['stateControl']);
+		$scope.playerArray = state.playerList;
+		$scope.gameInProgress = state.gameInProgress;
+		$scope.currentQuestion = 	state.currentQuestion;
+		indexQuestions = state.indexQuestions; 
+	}
+
+
+	function saveState(){
+		localStorage['stateControl'] = JSON.stringify({
+			playerList : $scope.playerArray,
+			gameInProgress : $scope.gameInProgress,
+			currentQuestion : $scope.currentQuestion,
+			'indexQuestions' : indexQuestions
+		});
+	}
+
 	/*
 	* Datas from WebSockets
 	*/
@@ -139,6 +158,7 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 
 	$scope.showResp = function(){
 		wsFacotry.sendData('showResp',{});	
+		saveState();
 	};
 
 	$scope.clickBtnValider = function(player){
@@ -149,11 +169,13 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 			player.answerTreat = true;
 			return player;
 		});
+		saveState();
 	};
 
 	$scope.clickBtnRefuser = function(player){
 		wsFacotry.sendData('clickBtnRefuser',player);
 		player.answerTreat = true;
+		saveState();
 	};
 
 	$scope.goNext = function(){
@@ -202,6 +224,7 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 		$scope.gameInProgress = false;
 		wsFacotry.sendData('RAZUtilisateurs',{});
 		$scope.playerArray = [];
+		localStorage.clear();
 	};
 
 }]);

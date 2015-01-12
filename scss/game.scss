@@ -1,4 +1,5 @@
 @import "compass";
+@import "color";
 
 
 .game{
@@ -34,7 +35,7 @@
 	}
 
 	.title.winner{
-		color:black;
+		color:$color-winner-title;
 	}
 
 	.parent-img{

@@ -7,6 +7,8 @@ var conf = {
 	game : {
 		"mode":"rumble", // fifo or ramble : fifo = first to anwser block other player / rumble = wait for response of everyone
 		"timeout" : 30 * 1000, // Timeout before considering a player has not anwser
+		"uniqLogin" : true, // If true, there can be only one player with a login (in lowercase), if false, you
+		"allowUserDuringGame" : true, // If true, new players can join the game during the game
 		"NB_QUESTIONS" : -1, // Number of questions (-1 mean that you will follow the order of questions from csv)
 		"NB_PLAYERS" : -1, // Number of users accepted (-1 for unlimeted)
 		"NB_PODIUM" : 5, // Number of person in podium

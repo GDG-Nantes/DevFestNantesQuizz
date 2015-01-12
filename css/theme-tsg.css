@@ -1,0 +1,57 @@
+/* line 10, ../scss/theme-tsg.scss */
+html, body {
+  background: white;
+  color: #111211;
+}
+
+/* line 15, ../scss/theme-tsg.scss */
+body {
+  padding-top: 70px;
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2RhMGUxYSIvPjxzdG9wIG9mZnNldD0iNzBweCIgc3RvcC1jb2xvcj0iI2RhMGUxYSIvPjxzdG9wIG9mZnNldD0iNzBweCIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #da0e1a), color-stop(70px, #da0e1a), color-stop(70px, #ffffff), color-stop(100%, #ffffff));
+  background-image: -moz-linear-gradient(#da0e1a, #da0e1a 70px, #ffffff 70px, #ffffff);
+  background-image: -webkit-linear-gradient(#da0e1a, #da0e1a 70px, #ffffff 70px, #ffffff);
+  background-image: linear-gradient(#da0e1a, #da0e1a 70px, #ffffff 70px, #ffffff);
+}
+
+/* line 21, ../scss/theme-tsg.scss */
+body:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  text-align: center;
+  content: 'TSG 4 ANS !';
+  font-size: 2em;
+  line-height: 70px;
+  color: white;
+}
+
+/* line 34, ../scss/theme-tsg.scss */
+a {
+  color: #da0e1a;
+}
+
+/* line 39, ../scss/theme-tsg.scss */
+.game button, .game button:hover, .game button:active, .game button:focus,
+.main button, .main button:hover, .main button:active, .main button:focus,
+.player-screen button, .player-screen button:hover {
+  background-color: #636363;
+  border-color: #4a4a4a;
+}
+
+/* line 46, ../scss/theme-tsg.scss */
+.player-screen button:active, .player-screen button:focus {
+  background-color: #303030;
+  border-color: #171717;
+}
+
+/* line 51, ../scss/theme-tsg.scss */
+.game button.btn-success, .game button.btn-success:hover, .game button.btn-success:active, .game button.btn-success:focus {
+  background-color: #da0e1a;
+  border-color: #aa0b14;
+}
+
+/*# sourceMappingURL=theme-tsg.css.map */

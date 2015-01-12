@@ -1,17 +1,19 @@
-<div class="container">
+<div class="container player-screen">
     <div id="divLogo" ng-show='player.register'>
     	<div>
 	    	<h1 ng-bind-template="Joueur : {{player.pseudo}}"></h1>
-	    	<p>Appuyez sur le bouton "Réponse" pour répondre.
+	    	<p ng-show="modeFifo">Appuyez sur le bouton "Réponse" pour répondre.
 	    	</p>
+            <p ng-show="modeRumble">Choisissez la bonne réponse.
+            </p>
     	</div>
         <div class="row" ng-show="modeRumble">
-            <div class="col-md-6"><button type="button" class="btn-warning btn-lg btn-block" ng-click="reponse(0);">A</button></div>
-            <div class="col-md-6"><button type="button" class="btn-warning btn-lg btn-block" ng-click="reponse(1);">B</button></div>
+            <div class="col-xs-6"><button type="button" class="btn-warning btn-lg btn-block" ng-click="reponse(0);">A</button></div>
+            <div class="col-xs-6"><button type="button" class="btn-warning btn-lg btn-block" ng-click="reponse(1);">B</button></div>
         </div>
         <div class="row" ng-show="modeRumble">
-            <div class="col-md-6"><button type="button" class="btn-warning btn-lg btn-block" ng-click="reponse(2);">C</button></div>
-            <div class="col-md-6"><button type="button" class="btn-warning btn-lg btn-block" ng-click="reponse(3);">D</button></div>
+            <div class="col-xs-6"><button type="button" class="btn-warning btn-lg btn-block" ng-click="reponse(2);">C</button></div>
+            <div class="col-xs-6"><button type="button" class="btn-warning btn-lg btn-block" ng-click="reponse(3);">D</button></div>
         </div>
  	   	<a ng-show="modeFifo" id="reponse" class="btnPush center-block" ng-click='reponse()' push-proximity player="player" >Buzzer</a>
     </div>	 
@@ -25,5 +27,8 @@
     </div>   
     <div ng-show='player.gameFull'>
         <h1>La prochaine partie est complète. Attendez votre tour ;)<br><A href="#/main">Revenez à l'acceuil.</A></h1>
+    </div>   
+    <div ng-show='player.usePseudo'>
+        <h1>Désolé mais quelqu'un utilise déjà ce pseudo, veuillez en choisir un autre<br><A href="#/main">Revenez à l'acceuil.</A></h1>
     </div>   
 </div>

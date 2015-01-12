@@ -48,6 +48,16 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 	wsFacotry.getPlayers();
 	wsFacotry.getConfig();
 
+	// On restore l'état précédent
+	if (localStorage['stateGame']){
+		var state = JSON.parse(localStorage['stateGame']);
+		$scope.playerArray = state.playerList;
+		$scope.currentGame = state.currentGame;
+		$scope.startGame = 	state.startGame;
+		$scope.questionsPlayed = state.questionsPlayed; 
+		wsFacotry.sendData('currentQuestion', $scope.currentGame.question);	     
+	}
+
 	/*
 	* Utilities
 	*/
@@ -145,6 +155,25 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 		wsFacotry.sendData('configEvt', {
 			nbQuestions : NB_QUESTIONS,
 			mode : model.config().mode
+		});
+
+	}
+
+	function sendScores(){
+		var listScores = [];
+		for (var i = 0; i < $scope.playerArray.length; i++){
+			listScores.push({
+				id : $scope.playerArray[i].id,
+				score : $scope.playerArray[i].score
+			});
+		}
+		wsFacotry.sendData('updateScore', listScores);
+
+		localStorage['stateGame'] = JSON.stringify({
+			playerList : $scope.playerArray,
+			currentGame : $scope.currentGame,
+			startGame : $scope.startGame,
+			questionsPlayed : $scope.questionsPlayed
 		});
 	}
 
@@ -249,18 +278,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 					}
 			});
 
-			/*angular.forEach($scope.playerArray,
-				function(player){
-					if (player.choice){						
-						if (player.choice === rightAnswer){
-							player.score += getScoreToAdd();
-						}else{
-							player.score = Math.max(player.score - 1,0);
-						}
-					}	
-					player.answerTreat = true;						
-				return player;
-			});*/
+			sendScores();
 		});
 	});
 
@@ -327,6 +345,8 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 				audio.playReponse();
 			}		
 
+			sendScores();
+
 			try{
 				$scope.$digest();
 				$rootScope.$digest();
@@ -354,6 +374,8 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 			player.index = 100;
 			player.choice = null;
 			player.timestamp = 0;
+
+			sendScores();
 		});
 	});
 
@@ -436,6 +458,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 			$scope.startGame = false;
 			$scope.playerArray = [];
 			wsFacotry.sendData('clearScore');
+			localStorage.clear();
 		});
 	});
 

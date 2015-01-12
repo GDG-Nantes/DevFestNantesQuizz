@@ -1,0 +1,54 @@
+@import "compass";
+@import "compass/css3";
+
+$noir-sqli : rgb(17,18,17);
+$rouge-sqli : rgb(218,14,26);
+$gris-sqli : rgb(99,99,99);
+
+$header-height : 70px;
+
+html, body {
+    background: white;
+    color:$noir-sqli;
+}
+
+body{
+	padding-top: $header-height;
+	@include background-image(linear-gradient($rouge-sqli, $rouge-sqli $header-height
+			, white $header-height, white));
+}
+
+body:before{
+	position: absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height: $header-height;
+	text-align:center;
+	content:'TSG 4 ANS !';
+	font-size:2em;
+	line-height:$header-height;
+	color: white;
+}
+
+a{
+	color:$rouge-sqli;	
+}
+
+
+.game button, .game button:hover, .game button:active, .game button:focus, 
+.main button, .main button:hover, .main button:active, .main button:focus, 
+.player-screen button, .player-screen button:hover{
+	background-color : $gris-sqli;
+	border-color : darken($gris-sqli, 10%);
+}
+
+.player-screen button:active, .player-screen button:focus{
+	background-color : darken($gris-sqli,20%);
+	border-color : darken($gris-sqli, 30%);	
+}
+
+.game button.btn-success, .game button.btn-success:hover, .game button.btn-success:active, .game button.btn-success:focus{
+	background-color : $rouge-sqli;
+	border-color : darken($rouge-sqli,10%);
+}

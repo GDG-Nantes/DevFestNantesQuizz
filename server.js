@@ -21,6 +21,7 @@ server.listen(port, function(){
 
 // Game Part
 var playerList = [];
+var rejectPlayers = [];
 var gameStart = false;
 
 // Web Socket Part
@@ -30,7 +31,7 @@ io.on('connection', function(socket) {
         console.info(message);
         if (message.type === 'registerPlayer'){
             console.log('### registerAsk: ');
-            if (!gameStart 
+            if ( (conf.game.allowUserDuringGame || (!conf.game.allowUserDuringGame  && !gameStart))
                 && (playerList.length < conf.game.NB_PLAYERS
                     || conf.game.NB_PLAYERS === -1)){                
                 var data = {
@@ -46,16 +47,17 @@ io.on('connection', function(socket) {
                         found = true;
                         break; 
                     }
+                    if (playerList[i].pseudo.toLowerCase() === data.pseudo.toLowerCase()){
+                        found = true;
+                        rejectPlayers.push(data);
+                        break;    
+                    }
                 }
                 if (!found){
                     playerList.push(data);
                 }
 
-                // We send the configuration to the player
-                socket.emit('message',{
-                    type : 'config',
-                    'conf' : conf.game
-                    });
+               
 
                 // We send the information to all the players
                 socket.emit('message',data);
@@ -95,12 +97,25 @@ io.on('connection', function(socket) {
                     id : message.data,
                     unknown : true
                 };
+                // We search for similars pseudo in order 
+                for (var i = 0;i < rejectPlayers.length; i++){
+                    if (rejectPlayers[i].id === message.data){
+                        player.usePseudo = true;
+                        break; 
+                    }
+                }
                 if (gameStart){
                     player.gameStart = true;
                 }else if (playerList.length === 4){
                     player.gameFull = true;
                 }
             }
+            // We send the configuration to the player
+            socket.emit('message',{
+                type : 'config',
+                'conf' : conf.game
+                });
+
             socket.emit('message',{
                 type : 'playerInfo',
                 player : player
@@ -121,11 +136,21 @@ io.on('connection', function(socket) {
                 type : 'clearScore'
             });
             playerList = [];
+            rejectPlayers = [];
         }else if (message.type === 'getConfig'){
             socket.emit('message',{
                 type : 'config',
                 'conf' : conf.game
             });     
+        }else if (message.type === 'updateScore'){
+            for (var i = 0; i < message.data.length; i++){
+                lblPlayers: for (var j = 0; j < playerList.length; j++){
+                    if (message.data[i].id === playerList[j].id){
+                        playerList[j].score = message.data[i].score;
+                        break lblPlayers;
+                    }
+                }
+            }
         }else{    		
 	        console.log('### message: '+message);
 	        socket.broadcast.emit('message', message);

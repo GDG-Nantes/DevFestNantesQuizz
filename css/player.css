@@ -27,7 +27,12 @@
   font-weight: bold;
 }
 
-/* line 32, ../scss/player.scss */
+/* line 31, ../scss/player.scss */
+.player-screen .row {
+  margin-bottom: 20px;
+}
+
+/* line 38, ../scss/player.scss */
 .game .player {
   position: relative;
   text-align: center;
@@ -70,7 +75,7 @@
   animation-timing-function: ease;
   animation-fill-mode: both;
 }
-/* line 73, ../scss/player.scss */
+/* line 79, ../scss/player.scss */
 .game .playerParent.animated.flash.index-0 .player {
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjQ1cHgiIGN5PSI0NXB4IiByPSIzMCUiPjxzdG9wIG9mZnNldD0iMzMuMzMzMzMlIiBzdG9wLWNvbG9yPSIjZGRkZGRkIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjOTNjNDdkIi8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
   background-size: 100%;
@@ -78,7 +83,7 @@
   background-image: -webkit-radial-gradient(45px 45px, #dddddd 10px, #93c47d 30px);
   background-image: radial-gradient(45px 45px, #dddddd 10px, #93c47d 30px);
 }
-/* line 77, ../scss/player.scss */
+/* line 83, ../scss/player.scss */
 .game .playerParent.animated.flash:not(.index-0) .player {
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjQ1cHgiIGN5PSI0NXB4IiByPSIzMCUiPjxzdG9wIG9mZnNldD0iMzMuMzMzMzMlIiBzdG9wLWNvbG9yPSIjZGRkZGRkIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjYzQ3ZDdkIi8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
   background-size: 100%;
@@ -86,7 +91,7 @@
   background-image: -webkit-radial-gradient(45px 45px, #dddddd 10px, #c47d7d 30px);
   background-image: radial-gradient(45px 45px, #dddddd 10px, #c47d7d 30px);
 }
-/* line 81, ../scss/player.scss */
+/* line 87, ../scss/player.scss */
 .game .playerParent.animated.flash:not(.index-0).treat .player {
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjQ1cHgiIGN5PSI0NXB4IiByPSIzMCUiPjxzdG9wIG9mZnNldD0iMzMuMzMzMzMlIiBzdG9wLWNvbG9yPSIjZGRkZGRkIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjOGEyZDJkIi8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
   background-size: 100%;
@@ -94,7 +99,7 @@
   background-image: -webkit-radial-gradient(45px 45px, #dddddd 10px, #8a2d2d 30px);
   background-image: radial-gradient(45px 45px, #dddddd 10px, #8a2d2d 30px);
 }
-/* line 85, ../scss/player.scss */
+/* line 91, ../scss/player.scss */
 .game .player::before {
   position: absolute;
   background: #012792;
@@ -113,7 +118,7 @@
   margin-left: -55px;
 }
 
-/* line 106, ../scss/player.scss */
+/* line 112, ../scss/player.scss */
 .player p.inline {
   margin: 10px;
   width: 120px;
@@ -125,7 +130,7 @@
   margin-left: -60px;
 }
 
-/* line 117, ../scss/player.scss */
+/* line 123, ../scss/player.scss */
 .player p.score {
   position: absolute;
   width: 100%;
@@ -134,20 +139,20 @@
   left: 0;
 }
 
-/* line 125, ../scss/player.scss */
+/* line 131, ../scss/player.scss */
 .player button {
   position: absolute;
   left: 0;
   bottom: -50px;
 }
 
-/* line 131, ../scss/player.scss */
+/* line 137, ../scss/player.scss */
 .player button.btn-danger {
   left: inherit;
   right: 0;
 }
 
-/* line 137, ../scss/player.scss */
+/* line 143, ../scss/player.scss */
 a.btnPush {
   position: relative;
   color: white;
@@ -177,7 +182,7 @@ a.btnPush {
   transition: all .1s ease;
 }
 
-/* line 167, ../scss/player.scss */
+/* line 173, ../scss/player.scss */
 a:active.btnPush, a.active.btnPush {
   -webkit-box-shadow: 0px 3px 0px #db1f05, 0px 3px 6px rgba(0, 0, 0, 0.9);
   -moz-box-shadow: 0px 3px 0px #db1f05, 0px 3px 6px rgba(0, 0, 0, 0.9);

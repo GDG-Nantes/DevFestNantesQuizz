@@ -1,21 +1,15 @@
 <div class="game">
     <div class="row">
+        <!-- Affiché au début du jeux avant le démarage de la partie -->
         <div class="col-md-12 center-block" ng-hide="startGame">          
             <h1 class="text-center">Rejoignez la partie : </h1>  
             <div class="center-block">
                 <qrcodes></qrcodes>
             </div>
         </div>
+        <!-- Affichage des joeurs qui arrivent dans la partie -->
      	<div ng-hide="startGame" class="col-md-12 center-block">
 	        <h2 class="text-center">Joueurs</h2>
-            <!--<h2 ng-show="startGame" class="text-center">Classement des joueurs</h2>-->
-		    <!--<ol id="playersListScore">
-		     	<li ng-repeat="aPlayer in playerArray | orderBy:'-score' | limitTo:5">
-	    		   <div class="playerScore">
-	    		      <p id="pt{{aPlayer.id}}" ng-bind-template="{{aPlayer.pseudo}} : {{aPlayer.score}}"></p>
-	    		    </div>
-	    		</li>
-		    </ol>-->
             <div class="row">
                 <div class="playerShow col-md-3" ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:4" >
                     <div class="player" > 
@@ -24,13 +18,16 @@
                 </div>
             </div>
      	</div>
+        <!-- Affichage pendant le jeux -->
         <div class="col-md-12 center-block parent-img" ng-show="startGame">            
             <div ng-hide="currentGame.question" class="question parent-img">
                 <img src="./assets/images/logo_question_pour_devfest.png" class="center-block"/>
             </div>
             <div ng-show="currentGame.question&&!winner&&currentGame.canShow" class="question">
                 <img src="./assets/images/logo_question_pour_devfest.png" class="tiny"/>                
+                <!-- Affichage de la question -->
                 <h1 class="title text-center" ng-bind-html="currentGame.question.title"></h1>
+                <!-- Affichage des questions -->
                 <div class="row">
                     <div class="col-md-6"><button type="button" class="btn-lg btn-block" ng-class="currentGame.question.classAnswer0" ng-bind-html="currentGame.question.answer0"></button></div>
                     <div class="col-md-6"><button type="button" class="btn-lg btn-block" ng-class="currentGame.question.classAnswer1" ng-bind-html="currentGame.question.answer1"></button></div>
@@ -40,6 +37,7 @@
                     <div class="col-md-6"><button type="button" class="btn-lg btn-block" ng-class="currentGame.question.classAnswer3" ng-bind-html="currentGame.question.answer3"></button></div>
                 </div>
             </div>
+            <!-- Affiché au moment du résultat -->
             <div ng-show="winner">
                 <img src="./assets/images/question pour un devfest winner.png" class="center-block"/>
                 <h1 class="title text-center">Le champion est</h1>
@@ -50,12 +48,11 @@
             <!--<pdf-presentation curent-page='curentPage' nb-pages='nbPages' raz="RAZReponses()"></pdf-presentation>-->
         </div>
     </div>
+    <!-- Affichage des joueurs en live -->
     <div class="row container" ng-show="startGame&&!winner">
      	<div class="col-md-12 center-block"> 
-	       <!--<h2>Réponses des joueurs</h2>-->
-           <div class="row">
-	    	  <!--<div class="playerShow cold-md-3" ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:10" ng-show="aPlayer.answer">-->
-              <div class="playerShow col-md-3" ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:4" >
+	       <div class="row">
+	    	   <div class="playerShow col-md-3" ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:4" >
     		     <div class="playerParent index-{{aPlayer.index}}" ng-class="{'animated flash' : aPlayer.answer, treat : aPlayer.answerTreat}"  id="{{aPlayer.id}}">
     		       <div class="player" > 
                         <p ng-bind-html="aPlayer.pseudo" class="inline"></p>

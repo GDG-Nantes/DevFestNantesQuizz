@@ -1,40 +1,40 @@
-/* line 4, ../scss/game.scss */
+/* line 5, ../scss/game.scss */
 .game {
   padding-top: 50px;
   height: 100%;
 }
-/* line 8, ../scss/game.scss */
+/* line 9, ../scss/game.scss */
 .game img.tiny {
   width: 100px;
 }
-/* line 12, ../scss/game.scss */
+/* line 13, ../scss/game.scss */
 .game .row:first-child {
   height: calc(100% - 300px);
   height: -webkit-calc(100% - 300px);
 }
-/* line 17, ../scss/game.scss */
+/* line 18, ../scss/game.scss */
 .game img:not(.tiny) {
   max-height: 100%;
 }
-/* line 21, ../scss/game.scss */
+/* line 22, ../scss/game.scss */
 .game .row {
   margin-bottom: 20px;
 }
-/* line 25, ../scss/game.scss */
+/* line 26, ../scss/game.scss */
 .game button {
   font-size: 2em;
 }
-/* line 29, ../scss/game.scss */
+/* line 30, ../scss/game.scss */
 .game .title {
   font-family: "RobotoRegular";
   margin-bottom: 100px;
   font-size: 4em;
 }
-/* line 36, ../scss/game.scss */
+/* line 37, ../scss/game.scss */
 .game .title.winner {
   color: black;
 }
-/* line 40, ../scss/game.scss */
+/* line 41, ../scss/game.scss */
 .game .parent-img {
   height: 100%;
 }

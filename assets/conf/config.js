@@ -13,6 +13,7 @@ var conf = {
 		"NB_PLAYERS" : -1, // Number of users accepted (-1 for unlimeted)
 		"NB_PODIUM" : 5, // Number of person in podium
 		"csv"  : "questionsTSG_SLE_final.csv", // CSV file to use
+		"logo" : "qui_veut_gagner_tsg.png", // Logo of game
 		"ponderation" : [
 			[0 , 0], // Index <=0 => 0
 			[3 , 1], // Index <=3 => 1

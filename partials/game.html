@@ -21,10 +21,10 @@
         <!-- Affichage pendant le jeux -->
         <div class="col-md-12 center-block parent-img" ng-show="startGame">            
             <div ng-hide="currentGame.question" class="question parent-img">
-                <img src="./assets/images/logo_question_pour_devfest.png" class="center-block"/>
+                <img ng-src="./assets/images/{{logo}}" class="center-block"/>
             </div>
             <div ng-show="currentGame.question&&!winner&&currentGame.canShow" class="question">
-                <img src="./assets/images/logo_question_pour_devfest.png" class="tiny"/>                
+                <img ng-src="./assets/images/{{logo}}" class="tiny"/>                
                 <!-- Affichage de la question -->
                 <h1 class="title text-center" ng-bind-html="currentGame.question.title"></h1>
                 <!-- Affichage des questions -->

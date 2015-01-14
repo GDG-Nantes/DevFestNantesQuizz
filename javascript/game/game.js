@@ -21,6 +21,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 	$scope.textToggleMusic = "Stopper la musique";
 	$scope.order = 'score';
 	$scope.questionsPlayed = {};
+	$scope.logo = "";
 	$scope.currentGame = {
 		question : null,
 		index : 0,
@@ -31,6 +32,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 	// On charge les questions
 	$scope.questions = [];
 	function readyToPlay(){
+		$scope.logo = model.config().logo;
 		NB_QUESTIONS = model.config().NB_QUESTIONS;		
 		Papa.parse(model.URL+'/assets/csv/'+model.config().csv, {
 			download: true,

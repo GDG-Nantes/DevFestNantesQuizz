@@ -10,10 +10,19 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 
 	$scope.$log = $log;
 	$scope.validUser = false;
+	$scope.logo = "";
+
+	
 
 	$scope.connect = function(){
 		wsFactory.tryToLogAdmin($scope.admin);
 	};
+
+	var unregisterReadyEvt = $rootScope.$on('readyEvt', function(evt, data){
+		$scope.$apply(function(){
+			$scope.logo = model.config().logo;
+		});
+	});
 
 	var unregisterAuth = $rootScope.$on('adminAuth', function(){
 		$scope.$apply(function(){
@@ -43,8 +52,11 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 			unregisterAuth();
 	   		unregisterRefused();
 	   		unregisterReady();
+	   		unregisterReadyEvt(); 
 		}
  	});
+
+ 	wsFactory.getConfig();
 	
 }])
 .controller('ControlCtrl', ['$scope', '$rootScope', 'WebSocketFactory', 'ModelFactory',

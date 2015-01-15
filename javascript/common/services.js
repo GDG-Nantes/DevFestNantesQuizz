@@ -169,9 +169,13 @@ angular.module('QuizzServices', [])
 	var BUZZ = 1;
 	var JEOPARDY = 2;
 	var REPONSE = 3;
+	var DOH = 4;
+	var DONUTS = 5;
 	var buzzBuffer = null;
 	var jeopardyBuffer = null;
 	var reponseBuffer = null;
+	var dohBuffer = null;
+	var donutsBuffer = null;
 	var sourceJeopardy = null;
 
 	function loadSound(url, bufferToUse){
@@ -188,6 +192,10 @@ angular.module('QuizzServices', [])
 			  		jeopardyBuffer = buffer;
 				}else if (bufferToUse === REPONSE){
 			  		reponseBuffer = buffer;
+				}else if (bufferToUse === DOH){
+			  		dohBuffer = buffer;
+				}else if (bufferToUse === DONUTS){
+			  		donutsBuffer = buffer;
 				}
 			}, function(e){
 				console.log('Error decoding file', e);
@@ -208,6 +216,14 @@ angular.module('QuizzServices', [])
 		loadSound(model.URL+"/assets/audio/reponse.mp3", REPONSE);
 	}
 
+	function loadDohSound(){
+		loadSound(model.URL+"/assets/audio/Doh.wav", DOH);
+	}
+
+	function loadDonutsSound(){
+		loadSound(model.URL+"/assets/audio/Mmmm_donuts.wav", DONUTS);
+	}
+
 	function playSound(buffer){
 		var source = context.createBufferSource(); // creates a sound source
 		source.buffer = buffer;                    // tell the source which sound to play
@@ -219,6 +235,8 @@ angular.module('QuizzServices', [])
 	loadBuzzSound();
 	loadJeopardySound();
 	loadReponseSound();
+	loadDohSound();
+	loadDonutsSound();
 
 	/*****************************
 	******************************
@@ -245,11 +263,21 @@ angular.module('QuizzServices', [])
 		playSound(reponseBuffer);
 	}
 
+	function playDoh(){
+		playSound(dohBuffer);
+	}
+
+	function playDonuts(){
+		playSound(donutsBuffer);
+	}
+
 	return{
 		playBuzz : playBuzz,
 		playJeopardy : playJeopardy,
 		stopJeopardy : stopJeopardy,
-		playReponse : playReponse
+		playReponse : playReponse,
+		playDoh : playDoh,
+		playDonuts : playDonuts
 		
 	}
 }]);

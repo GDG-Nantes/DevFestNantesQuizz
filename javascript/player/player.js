@@ -5,8 +5,8 @@
 * Description
 */
 angular.module('QuizzPlayer', ['QuizzServices']).
-controller('PlayerCtrl', ['$scope', '$rootScope', '$log', '$routeParams', '$location', '$timeout','WebSocketFactory', 'ModelFactory', 
-	function($scope, $rootScope, $log, $routeParams, $location, $timeout, wsFactory, model){
+controller('PlayerCtrl', ['$scope', '$rootScope', '$log', '$routeParams', '$location', '$timeout','WebSocketFactory', 'ModelFactory', 'AudioFactory', 
+	function($scope, $rootScope, $log, $routeParams, $location, $timeout, wsFactory, model, audio){
 
 	$scope.player = model.singlePlayer;
 	$scope.player.id = $routeParams.playerId;
@@ -51,6 +51,18 @@ controller('PlayerCtrl', ['$scope', '$rootScope', '$log', '$routeParams', '$loca
 	$rootScope.$on('clearScore', function(evt, data){
 		window.location = "http://devfest.gdgnantes.com";
 		//$location.path('/');
+	});
+
+	$rootScope.$on('winnerEvt', function(evt, data){
+		if (data.data === $scope.player.id){
+			audio.playDonuts();
+		}
+	});
+
+	$rootScope.$on('looserEvt', function(evt, data){
+		if (data.data === $scope.player.id){
+			audio.playDoh();
+		}
 	});
 
 	

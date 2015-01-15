@@ -88,4 +88,9 @@ a {
   height: auto;
 }
 
+/* line 85, ../scss/theme-tsg.scss */
+.game .timer.alert {
+  color: #da0e1a;
+}
+
 /*# sourceMappingURL=theme-tsg.css.map */

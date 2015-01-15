@@ -63,7 +63,11 @@
             </div>
             <!--<pdf-presentation curent-page='curentPage' nb-pages='nbPages' raz="RAZReponses()"></pdf-presentation>-->
         </div>
+        <div class="row container center-block text-center" ng-show="startGame&&!winner&&modeRumble&&currentGame.canShow">
+            <span class="timer {{classTimer}}">{{min}}:{{sec}}</span>
+        </div>
     </div>
+    <!-- Afficage du timer -->
     <!-- Affichage des joueurs en live -->
     <div class="row container" ng-show="startGame&&!winner&&modeFifo">
      	<div class="col-md-12 center-block"> 

@@ -13,6 +13,8 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', '$timeout', 'ModelF
 	var index = 0;
 	var allowResp = false;
 	var musicOn = true;
+	var cancelTimer = false;
+	var TIME_JEOPARDY_SONG = 34 * 1000; //34s
 	$scope.startGame = false;
 	$scope.curentPage = 1;
 	$scope.nbPages = 1;
@@ -25,6 +27,9 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', '$timeout', 'ModelF
 	$scope.modeFifo = false;
 	$scope.modeRumble = false;
 	$scope.rank = [];
+	$scope.min = "00";
+	$scope.sec = "00";
+	$scope.time = 0;	
 	$scope.currentGame = {
 		question : null,
 		index : 0,
@@ -189,6 +194,101 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', '$timeout', 'ModelF
 		$scope.rank = _.sortBy($scope.playerArray,'score').reverse();
 	}
 
+	function manageTimer(){
+		if (cancelTimer){
+			return;
+		}
+		var currentTime = new Date().getTime();
+		if (currentTime - $scope.time > TIME_JEOPARDY_SONG){
+			$scope.allowResp = false;
+			showResp();
+			return;
+		}
+		var totalDiff = TIME_JEOPARDY_SONG - (currentTime - $scope.time);
+		$scope.min = zeroPadInteger(parseInt( ( totalDiff / ( 1000 * 60 ) ) % 60 ));
+        $scope.sec = zeroPadInteger(parseInt( ( totalDiff / 1000 ) % 60 ));
+        if (totalDiff >= 10 *1000){
+        	$scope.classTimer = '';
+        }else if (totalDiff < 10 *1000 && $scope.classTimer != 'alert'){
+        	$scope.classTimer = 'alert';
+        }
+        $timeout(manageTimer, 500);
+
+	}
+
+	function zeroPadInteger(num){
+        var str = "00" + parseInt( num );
+        return str.substring( str.length - 2 );
+    }
+
+    function showResp(){
+    	if (musicOn){
+    		audio.stopJeopardy();
+    	}
+		cancelTimer = true;
+		var question = $scope.currentGame.question;
+		var rightAnswer = 0;
+		if (question.answer === question.answer0){
+			question.classAnswer0 = 'btn-success';
+		}else if (question.answer === question.answer1){
+			rightAnswer = 1;
+			question.classAnswer1 = 'btn-success';
+		}else if (question.answer === question.answer2){
+			rightAnswer = 2;
+			question.classAnswer2 = 'btn-success';
+		}else if (question.answer === question.answer3){
+			rightAnswer = 3;
+			question.classAnswer3 = 'btn-success';
+		}
+
+		// Pour le bonnes réponses on ajoute les bons points			
+		_.forEach(
+			_.sortBy(
+				_.filter(
+					_.reject($scope.playerArray,{timestamp : 0}), // On rejete les gens qui n'ont pas répondus
+					function(playerTmp){return playerTmp.choice === rightAnswer}) // On ne prend que ceux qui ont eu bon
+				, 'timestamp'), // On trie dans l'ordre
+			function(playerTmp, index){
+				var scoreToAdd = getScoreToAdd();					
+				playerTmp.score += index ===0 ? scoreToAdd : (scoreToAdd - 1 > 0 ? scoreToAdd - 1 : 1);
+				for (var i = 0; i < $scope.playerArray.length; i++){
+					if ($scope.playerArray[i].id === playerTmp.id){
+						$scope.playerArray[i].score = playerTmp.score;
+						$scope.playerArray[i].answerTreat = true;
+						console.log($scope.playerArray[i].score);
+						break;
+					}
+				}
+		});
+		// On filtre les mauvaises réponses et on retire -1
+		_.forEach(
+			_.filter(
+				_.reject($scope.playerArray,{timestamp : 0}),  // On rejete les gens qui n'ont pas répondus
+				function(playerTmp){return playerTmp.choice != rightAnswer}), // On ne prend que ceux qui ont eu tord
+			function(playerTmp){
+				playerTmp.score = Math.max(playerTmp.score - 1,0);
+				for (var i = 0; i < $scope.playerArray.length; i++){
+					if ($scope.playerArray[i].id === playerTmp.id){
+						$scope.playerArray[i].score = playerTmp.score;
+						$scope.playerArray[i].answerTreat = true;
+						console.log($scope.playerArray[i].score);
+						break;
+					}
+				}
+		});
+
+		sendScores();
+
+		$timeout(function(){
+			$scope.currentGame.canShow = false;
+
+			var winner = _.max($scope.playerArray, function(playerTmp){return playerTmp.score});
+			var looser = _.min($scope.playerArray, function(playerTmp){return playerTmp.score});
+			wsFacotry.sendData('winnerEvt', winner.id);
+			wsFacotry.sendData('looserEvt', looser.id);
+		}, 5000);
+	};
+
 	/*
 	* Datas From Ws
 	*/
@@ -229,7 +329,9 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', '$timeout', 'ModelF
 				playerFound.timestamp = new Date().getTime();
 				index++;
 				if (index <= 5 && musicOn){
-					audio.stopJeopardy();
+					if (model.config().mode === model.MODE_FIFO){
+						audio.stopJeopardy();
+					}
 					audio.playBuzz();
 				}
 				// TODO Jouer un son à limiter à 20
@@ -238,64 +340,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', '$timeout', 'ModelF
 	});
 
 	$rootScope.$on('showResp', function(evt,data){
-		$scope.$apply(function(){
-			var question = $scope.currentGame.question;
-			var rightAnswer = 0;
-			if (question.answer === question.answer0){
-				question.classAnswer0 = 'btn-success';
-			}else if (question.answer === question.answer1){
-				rightAnswer = 1;
-				question.classAnswer1 = 'btn-success';
-			}else if (question.answer === question.answer2){
-				rightAnswer = 2;
-				question.classAnswer2 = 'btn-success';
-			}else if (question.answer === question.answer3){
-				rightAnswer = 3;
-				question.classAnswer3 = 'btn-success';
-			}
-
-			// Pour le bonnes réponses on ajoute les bons points			
-			_.forEach(
-				_.sortBy(
-					_.filter(
-						_.reject($scope.playerArray,{timestamp : 0}), // On rejete les gens qui n'ont pas répondus
-						function(playerTmp){return playerTmp.choice === rightAnswer}) // On ne prend que ceux qui ont eu bon
-					, 'timestamp'), // On trie dans l'ordre
-				function(playerTmp, index){
-					var scoreToAdd = getScoreToAdd();					
-					playerTmp.score += index ===0 ? scoreToAdd : (scoreToAdd - 1 > 0 ? scoreToAdd - 1 : 1);
-					for (var i = 0; i < $scope.playerArray.length; i++){
-						if ($scope.playerArray[i].id === playerTmp.id){
-							$scope.playerArray[i].score = playerTmp.score;
-							$scope.playerArray[i].answerTreat = true;
-							console.log($scope.playerArray[i].score);
-							break;
-						}
-					}
-			});
-			// On filtre les mauvaises réponses et on retire -1
-			_.forEach(
-				_.filter(
-					_.reject($scope.playerArray,{timestamp : 0}),  // On rejete les gens qui n'ont pas répondus
-					function(playerTmp){return playerTmp.choice != rightAnswer}), // On ne prend que ceux qui ont eu tord
-				function(playerTmp){
-					playerTmp.score = Math.max(playerTmp.score - 1,0);
-					for (var i = 0; i < $scope.playerArray.length; i++){
-						if ($scope.playerArray[i].id === playerTmp.id){
-							$scope.playerArray[i].score = playerTmp.score;
-							$scope.playerArray[i].answerTreat = true;
-							console.log($scope.playerArray[i].score);
-							break;
-						}
-					}
-			});
-
-			sendScores();
-
-			$timeout(function(){
-				$scope.currentGame.canShow = false;
-			}, 5000);
-		});
+		$scope.$apply(showResp);
 	});
 
 
@@ -334,7 +379,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', '$timeout', 'ModelF
 			});
 			if (musicOn){
 				audio.stopJeopardy();
-				//audio.playJeopardy();
+				audio.playJeopardy();
 			}
 		});
 	});
@@ -423,7 +468,10 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', '$timeout', 'ModelF
 	      		return;
 	      	}else{		      	
 		      	$scope.currentGame.question = getNextQuestion();
-		      	wsFacotry.sendData('currentQuestion', $scope.currentGame.question);	      		
+		      	wsFacotry.sendData('currentQuestion', $scope.currentGame.question);	   
+		      	$scope.time = new Date().getTime();
+		      	cancelTimer = false;
+		      	manageTimer();
 	      	}
 	    });
 	});

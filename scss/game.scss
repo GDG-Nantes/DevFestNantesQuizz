@@ -1,6 +1,6 @@
 @import "compass";
 @import "color";
-
+@import "compass/css3/animation";
 
 .game{
 	padding-top: 50px;
@@ -42,4 +42,21 @@
 		height: 100%;
 	}
 
+	.timer{
+		font-size: 2em;
+	}
+
+	.timer.alert{
+		@include animation(blink 0.5s infinite);
+	}
+
+}
+
+@include keyframes(blink){
+	0%{
+		opacity: 1;
+	}
+	100%{
+		opacity: 0;
+	}
 }

@@ -54,4 +54,38 @@ a {
   border-color: #aa0b14;
 }
 
+/* line 56, ../scss/theme-tsg.scss */
+.classement {
+  font-size: 1.5em;
+  height: 80%;
+  overflow-y: auto;
+}
+
+/* line 62, ../scss/theme-tsg.scss */
+.classement .row:nth-child(odd):not(.header-classement) {
+  background-color: #636363;
+  color: white;
+}
+
+/* line 67, ../scss/theme-tsg.scss */
+.classement .row:nth-child(2):not(.header-classement) {
+  font-size: 2em;
+}
+
+/* line 71, ../scss/theme-tsg.scss */
+.classement .row:not(.header-classement) {
+  margin-bottom: 0;
+  height: 2em;
+  line-height: 2em;
+}
+
+/* line 77, ../scss/theme-tsg.scss */
+.game .classement .row.header-classement {
+  font-size: 2em;
+  background-color: #111211;
+  color: white;
+  font-weight: 800;
+  height: auto;
+}
+
 /*# sourceMappingURL=theme-tsg.css.map */

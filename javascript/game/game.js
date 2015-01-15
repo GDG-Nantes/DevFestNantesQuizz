@@ -5,8 +5,8 @@
 * Description
 */
 angular.module('QuizzGame', ['QuizzServices']).
-controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'WebSocketFactory', 'AudioFactory',
-	function($scope, $rootScope,$location, model, wsFacotry, audio){
+controller('GameCtrl', ['$scope', '$rootScope', '$location', '$timeout', 'ModelFactory', 'WebSocketFactory', 'AudioFactory',
+	function($scope, $rootScope,$location, $timeout, model, wsFacotry, audio){
 
 
 	var NB_QUESTIONS = model.config().NB_QUESTIONS;
@@ -22,6 +22,9 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 	$scope.order = 'score';
 	$scope.questionsPlayed = {};
 	$scope.logo = "";
+	$scope.modeFifo = false;
+	$scope.modeRumble = false;
+	$scope.rank = [];
 	$scope.currentGame = {
 		question : null,
 		index : 0,
@@ -33,6 +36,8 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 	$scope.questions = [];
 	function readyToPlay(){
 		$scope.logo = model.config().logo;
+		$scope.modeFifo = model.config().mode === model.MODE_FIFO;
+		$scope.modeRumble = model.config().mode === model.MODE_RUMBLE;			
 		NB_QUESTIONS = model.config().NB_QUESTIONS;		
 		Papa.parse(model.URL+'/assets/csv/'+model.config().csv, {
 			download: true,
@@ -58,6 +63,9 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 		$scope.startGame = 	state.startGame;
 		$scope.questionsPlayed = state.questionsPlayed; 
 		wsFacotry.sendData('currentQuestion', $scope.currentGame.question);	     
+		if (state.startGame){
+			wsFacotry.sendData('startGame',{});
+		}
 	}
 
 	/*
@@ -177,6 +185,8 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 			startGame : $scope.startGame,
 			questionsPlayed : $scope.questionsPlayed
 		});
+
+		$scope.rank = _.sortBy($scope.playerArray,'score').reverse();
 	}
 
 	/*
@@ -281,6 +291,10 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', 'ModelFactory', 'We
 			});
 
 			sendScores();
+
+			$timeout(function(){
+				$scope.currentGame.canShow = false;
+			}, 5000);
 		});
 	});
 

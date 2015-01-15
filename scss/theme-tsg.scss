@@ -52,3 +52,32 @@ a{
 	background-color : $rouge-sqli;
 	border-color : darken($rouge-sqli,10%);
 }
+
+.classement{
+	font-size: 1.5em;
+	height: 80%;
+	overflow-y: auto;
+}
+
+.classement .row:nth-child(odd):not(.header-classement){
+	background-color: $gris-sqli;
+	color:white;
+}
+
+.classement .row:nth-child(2):not(.header-classement){
+	font-size:2em;
+}
+
+.classement .row:not(.header-classement){
+	margin-bottom: 0;
+	height: 2em;
+	line-height: 2em;
+}
+
+.game .classement .row.header-classement{
+	font-size: 2em;
+	background-color: $noir-sqli;
+	color: white;
+	font-weight: 800;
+	height:auto;
+}

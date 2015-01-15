@@ -19,10 +19,12 @@
             </div>
      	</div>
         <!-- Affichage pendant le jeux -->
-        <div class="col-md-12 center-block parent-img" ng-show="startGame">            
+        <div class="col-md-12 center-block parent-img" ng-show="startGame"> 
+            <!-- Logo du jeux -->           
             <div ng-hide="currentGame.question" class="question parent-img">
                 <img ng-src="./assets/images/{{logo}}" class="center-block"/>
             </div>
+            <!-- La question avec les réponses -->
             <div ng-show="currentGame.question&&!winner&&currentGame.canShow" class="question">
                 <img ng-src="./assets/images/{{logo}}" class="tiny"/>                
                 <!-- Affichage de la question -->
@@ -37,6 +39,20 @@
                     <div class="col-md-6"><button type="button" class="btn-lg btn-block" ng-class="currentGame.question.classAnswer3" ng-bind-html="currentGame.question.answer3"></button></div>
                 </div>
             </div>
+            <!-- Le classement temporaire -->
+            <div ng-show="currentGame.question&&!winner&&!currentGame.canShow&&modeRumble" class="container classement">
+                <div class="row header-classement">
+                    <div class="col-md-2">Position</div>
+                    <div class="col-md-8">Pseudo</div>
+                    <div class="col-md-2">Score</div>
+                </div>
+                <div ng-repeat="playerTmp in rank" class="row">
+                    <div class="col-md-2">{{$index}}</div>
+                    <div class="col-md-8">{{playerTmp.pseudo}}</div>
+                    <div class="col-md-2">{{playerTmp.score}}</div>
+                    </div>
+                </div>
+            </div>
             <!-- Affiché au moment du résultat -->
             <div ng-show="winner">
                 <img src="./assets/images/question pour un devfest winner.png" class="center-block"/>
@@ -49,7 +65,7 @@
         </div>
     </div>
     <!-- Affichage des joueurs en live -->
-    <div class="row container" ng-show="startGame&&!winner">
+    <div class="row container" ng-show="startGame&&!winner&&modeFifo">
      	<div class="col-md-12 center-block"> 
 	       <div class="row">
 	    	   <div class="playerShow col-md-3" ng-repeat="aPlayer in playerArray | orderBy:'index' | limitTo:4" >

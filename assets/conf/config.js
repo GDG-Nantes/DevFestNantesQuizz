@@ -15,13 +15,13 @@ var conf = {
 		"csv"  : "questionsTSG_SLE_final.csv", // CSV file to use
 		"logo" : "qui_veut_gagner_tsg.png", // Logo of game
 		"ponderation" : [
-			[0 , 0], // Index <=0 => 0
-			[3 , 1], // Index <=3 => 1
-			[6 , 2], // Index <=6 => 2
-			[10 , 3], // Index <=10 => 3
-			[15 , 4], // Index <=15 => 4
-			[25 , 6], // Index <=25 => 6
-			[30 , 10] // Index <=30 => 10
+			[0 , 0, 0], // Index <=0 => 0
+			[10 , 1, 1], // Index <=10 => 1
+			[20 , 2, 1], // Index <=20 => 2
+			[30 , 4, 2], // Index <=30 => 4
+			[40 , 6, 2], // Index <=30 => 10
+			[50 , 8, 3], // Index <=30 => 10
+			[100 , 10, 4] // Index <=30 => 10
 		] // The ponderation of answer to the questions
 	},
 	// Authent part

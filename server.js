@@ -49,6 +49,7 @@ io.on('connection', function(socket) {
                     }
                     if (playerList[i].pseudo.toLowerCase() === data.pseudo.toLowerCase()){
                         found = true;
+                        data.type = 'registerCancel';
                         rejectPlayers.push(data);
                         break;    
                     }

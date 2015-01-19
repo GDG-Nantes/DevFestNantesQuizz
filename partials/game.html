@@ -28,15 +28,15 @@
             <div ng-show="currentGame.question&&!winner&&currentGame.canShow" class="question">
                 <img ng-src="./assets/images/{{logo}}" class="tiny"/>                
                 <!-- Affichage de la question -->
-                <h1 class="title text-center" ng-bind-html="currentGame.question.title"></h1>
+                <h1 class="title text-center" ng-bind-html="currentGame.index+' - '+currentGame.question.title"></h1>
                 <!-- Affichage des questions -->
                 <div class="row">
-                    <div class="col-md-6"><button type="button" class="btn-lg btn-block" ng-class="currentGame.question.classAnswer0" ng-bind-html="currentGame.question.answer0"></button></div>
-                    <div class="col-md-6"><button type="button" class="btn-lg btn-block" ng-class="currentGame.question.classAnswer1" ng-bind-html="currentGame.question.answer1"></button></div>
+                    <div class="col-md-6"><button type="button" class="btn-lg btn-block" ng-class="currentGame.question.classAnswer0" ng-bind-html="'A - '+currentGame.question.answer0"></button></div>
+                    <div class="col-md-6"><button type="button" class="btn-lg btn-block" ng-class="currentGame.question.classAnswer1" ng-bind-html="'B - '+currentGame.question.answer1"></button></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6"><button type="button" class="btn-lg btn-block" ng-class="currentGame.question.classAnswer2" ng-bind-html="currentGame.question.answer2"></button></div>
-                    <div class="col-md-6"><button type="button" class="btn-lg btn-block" ng-class="currentGame.question.classAnswer3" ng-bind-html="currentGame.question.answer3"></button></div>
+                    <div class="col-md-6"><button type="button" class="btn-lg btn-block" ng-class="currentGame.question.classAnswer2" ng-bind-html="'C - '+currentGame.question.answer2"></button></div>
+                    <div class="col-md-6"><button type="button" class="btn-lg btn-block" ng-class="currentGame.question.classAnswer3" ng-bind-html="'D - '+currentGame.question.answer3"></button></div>
                 </div>
             </div>
             <!-- Le classement temporaire -->

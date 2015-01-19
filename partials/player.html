@@ -2,20 +2,21 @@
     <div id="divLogo" ng-show='player.register'>
     	<div>
 	    	<h1 ng-bind-template="Joueur : {{player.pseudo}}"></h1>
+            <p>Question N° : </p>
 	    	<p ng-show="modeFifo">Appuyez sur le bouton "Réponse" pour répondre.
 	    	</p>
             <p ng-show="modeRumble">Choisissez la bonne réponse.
             </p>
     	</div>
-        <div class="row" ng-show="modeRumble">
-            <div class="col-xs-6"><button type="button" class="btn-warning btn-lg btn-block" ng-click="reponse(0);">A</button></div>
-            <div class="col-xs-6"><button type="button" class="btn-warning btn-lg btn-block" ng-click="reponse(1);">B</button></div>
+        <div class="row" ng-show="modeRumble&&canShow">
+            <div class="col-xs-6"><button type="button" class="btn-warning btn-lg btn-block" ng-class="classAnswer1" ng-click="reponse(0);">A</button></div>
+            <div class="col-xs-6"><button type="button" class="btn-warning btn-lg btn-block" ng-class="classAnswer2" ng-click="reponse(1);">B</button></div>
         </div>
-        <div class="row" ng-show="modeRumble">
-            <div class="col-xs-6"><button type="button" class="btn-warning btn-lg btn-block" ng-click="reponse(2);">C</button></div>
-            <div class="col-xs-6"><button type="button" class="btn-warning btn-lg btn-block" ng-click="reponse(3);">D</button></div>
+        <div class="row" ng-show="modeRumble&&canShow">
+            <div class="col-xs-6"><button type="button" class="btn-warning btn-lg btn-block" ng-class="classAnswer3" ng-click="reponse(2);">C</button></div>
+            <div class="col-xs-6"><button type="button" class="btn-warning btn-lg btn-block" ng-class="classAnswer4" ng-click="reponse(3);">D</button></div>
         </div>
- 	   	<a ng-show="modeFifo" id="reponse" class="btnPush center-block" ng-click='reponse()' push-proximity player="player" >Buzzer</a>
+ 	   	<a ng-show="modeFifo&&canShow" id="reponse" class="btnPush center-block" ng-click='reponse()' push-proximity player="player" >Buzzer</a>
     </div>	 
     <div ng-show='proximityCompat'>Vous pouvez utiliser votre téléphone comme buzzer!</div>
     <div ng-show='player.load'><h1>Chargement du Joueur en cours</h1></div>

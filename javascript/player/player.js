@@ -14,8 +14,26 @@ controller('PlayerCtrl', ['$scope', '$rootScope', '$log', '$routeParams', '$loca
 	$scope.proximityCompat = window.DeviceProximityEvent;
 	$scope.modeFifo = false;
 	$scope.modeRumble = false;
+	$scope.canShow = false;
+	$scope.classAnswer1 = '';
+	$scope.classAnswer2 = '';
+	$scope.classAnswer3 = '';
+	$scope.classAnswer4 = '';
+	$scope.alreadyAnwser = false;
 
 	$scope.reponse = function(choice){
+		if (!$scope.alreadyAnwser){
+			if (choice === 0){
+				$scope.classAnswer1 = 'btn-success';
+			}else if (choice === 1){
+				$scope.classAnswer2 = 'btn-success';
+			}else if (choice === 2){
+				$scope.classAnswer3 = 'btn-success';
+			}else{
+				$scope.classAnswer4 = 'btn-success';
+			}
+		}
+		$scope.alreadyAnwser = true;
 		wsFactory.sendData('response',{
 			id: $scope.player.id,
 			data : $scope.player.pseudo,
@@ -46,6 +64,22 @@ controller('PlayerCtrl', ['$scope', '$rootScope', '$log', '$routeParams', '$loca
 	});
 
 
+	$rootScope.$on('showResp', function(evt,data){
+		$scope.$apply(function(){
+			$scope.canShow = false;
+		});
+	});
+
+	$rootScope.$on('goNext', function(evt, data){
+		$scope.$apply(function(){
+			$scope.canShow = true;
+			$scope.classAnswer1 = '';
+			$scope.classAnswer2 = '';
+			$scope.classAnswer3 = '';
+			$scope.classAnswer4 = '';
+			$scope.alreadyAnwser = false;
+		});
+	});
 
 	
 	$rootScope.$on('clearScore', function(evt, data){

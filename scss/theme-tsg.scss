@@ -48,6 +48,7 @@ a{
 	border-color : darken($gris-sqli, 30%);	
 }
 
+.player-screen button.btn-success, .player-screen button.btn-success:hover, .player-screen button.btn-success:active, .player-screen button.btn-success:focus,
 .game button.btn-success, .game button.btn-success:hover, .game button.btn-success:active, .game button.btn-success:focus{
 	background-color : $rouge-sqli;
 	border-color : darken($rouge-sqli,10%);

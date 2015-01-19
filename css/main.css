@@ -263,12 +263,6 @@ a:active.btnPush, a.active.btnPush {
 .game .timer {
   font-size: 2em;
 }
-/* line 49, ../scss/game.scss */
-.game .timer.alert {
-  -moz-animation: blink 0.5s infinite;
-  -webkit-animation: blink 0.5s infinite;
-  animation: blink 0.5s infinite;
-}
 
 @-moz-keyframes blink {
   0% {

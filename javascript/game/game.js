@@ -201,7 +201,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', '$timeout', 'ModelF
 		var currentTime = new Date().getTime();
 		if (currentTime - $scope.time > TIME_JEOPARDY_SONG){
 			$scope.allowResp = false;
-			showResp();
+			wsFacotry.sendData('showResp',{});				
 			return;
 		}
 		var totalDiff = TIME_JEOPARDY_SONG - (currentTime - $scope.time);
@@ -249,8 +249,10 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', '$timeout', 'ModelF
 					function(playerTmp){return playerTmp.choice === rightAnswer}) // On ne prend que ceux qui ont eu bon
 				, 'timestamp'), // On trie dans l'ordre
 			function(playerTmp, index){
-				var scoreToAdd = getScoreToAdd();					
-				playerTmp.score += index ===0 ? scoreToAdd : (scoreToAdd - 1 > 0 ? scoreToAdd - 1 : 1);
+				var ponderation = getScoreToAdd();					
+				var scoreToAdd = ponderation[0];					
+				var addFirst = ponderation[1];					
+				playerTmp.score += index ===0 ? scoreToAdd + addFirst : scoreToAdd;
 				for (var i = 0; i < $scope.playerArray.length; i++){
 					if ($scope.playerArray[i].id === playerTmp.id){
 						$scope.playerArray[i].score = playerTmp.score;
@@ -389,7 +391,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', '$timeout', 'ModelF
 			var playerTmp = getUser(data.data);
 			$scope.order = 'id';
 			$scope.order = 'score';
-			playerTmp.score += getScoreToAdd();
+			playerTmp.score += getScoreToAdd()[0];
 			console.log(playerTmp.score);
 			for (var i = 0; i < $scope.playerArray.length; i++){
 				if ($scope.playerArray[i].id === playerTmp.id){
@@ -521,6 +523,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', '$timeout', 'ModelF
 		$scope.$apply(function(){
 			$scope.startGame = false;
 			$scope.playerArray = [];
+			$scope.questionsPlayed = {};
 			wsFacotry.sendData('clearScore');
 			localStorage.clear();
 		});

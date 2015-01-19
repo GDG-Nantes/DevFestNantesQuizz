@@ -49,37 +49,38 @@ a {
 }
 
 /* line 51, ../scss/theme-tsg.scss */
+.player-screen button.btn-success, .player-screen button.btn-success:hover, .player-screen button.btn-success:active, .player-screen button.btn-success:focus,
 .game button.btn-success, .game button.btn-success:hover, .game button.btn-success:active, .game button.btn-success:focus {
   background-color: #da0e1a;
   border-color: #aa0b14;
 }
 
-/* line 56, ../scss/theme-tsg.scss */
+/* line 57, ../scss/theme-tsg.scss */
 .classement {
   font-size: 1.5em;
   height: 80%;
   overflow-y: auto;
 }
 
-/* line 62, ../scss/theme-tsg.scss */
+/* line 63, ../scss/theme-tsg.scss */
 .classement .row:nth-child(odd):not(.header-classement) {
   background-color: #636363;
   color: white;
 }
 
-/* line 67, ../scss/theme-tsg.scss */
+/* line 68, ../scss/theme-tsg.scss */
 .classement .row:nth-child(2):not(.header-classement) {
   font-size: 2em;
 }
 
-/* line 71, ../scss/theme-tsg.scss */
+/* line 72, ../scss/theme-tsg.scss */
 .classement .row:not(.header-classement) {
   margin-bottom: 0;
   height: 2em;
   line-height: 2em;
 }
 
-/* line 77, ../scss/theme-tsg.scss */
+/* line 78, ../scss/theme-tsg.scss */
 .game .classement .row.header-classement {
   font-size: 2em;
   background-color: #111211;
@@ -88,7 +89,7 @@ a {
   height: auto;
 }
 
-/* line 85, ../scss/theme-tsg.scss */
+/* line 86, ../scss/theme-tsg.scss */
 .game .timer.alert {
   color: #da0e1a;
 }

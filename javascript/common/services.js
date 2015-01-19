@@ -90,7 +90,7 @@ angular.module('QuizzServices', [])
 			NB_QUESTIONS : -1, // The number of questions
 			NB_PODIUM : 5, // Length of podium
 			csv : 'openquizzdb_fr.csv', // The path of csv question file
-			ponderation : [[-1, 1]], // The ponderation of each questions
+			ponderation : [[-1, 1, 1]], // The ponderation of each questions
 			mode : MODE_FIFO,
 			timeout : -1
 		};
@@ -135,11 +135,12 @@ angular.module('QuizzServices', [])
 		for (var compt = 0; compt < config.ponderation.length; compt++){
 			var number = config.ponderation[compt][0];
 			var value = config.ponderation[compt][1];
+			var add = config.ponderation[compt][2];
 			if (number === -1 || index <= number){
-				return value;
+				return [value, add];
 			}
 		}
-		return 1;
+		return [1, 1];
 	}
 
 	return {

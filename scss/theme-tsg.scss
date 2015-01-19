@@ -55,9 +55,10 @@ a{
 }
 
 .classement{
-	font-size: 1.5em;
-	height: 80%;
+	font-size: 1.3em;
+	height: 900px;
 	overflow-y: auto;
+	margin-top: -40px;
 }
 
 .classement .row:nth-child(odd):not(.header-classement){
@@ -69,14 +70,41 @@ a{
 	font-size:2em;
 }
 
+.classement.winner .row:nth-child(2):not(.header-classement){
+	font-size:2em;
+	font-weight: 800;
+	background-color: #DAA520; // color gold
+}
+
+.classement.winner .row:nth-child(3):not(.header-classement){	
+	background-color: #C0C0C0; // color silver
+}
+
+.classement.winner .row:nth-child(4):not(.header-classement){
+	background-color: #CD7F32; // color bronze
+}
+
+.classement.winner .row:last-child:not(.header-classement){
+	background-color: $noir-sqli;
+	color: white;
+}
+
+.classement.winner .row:nth-child(3):not(.header-classement),
+.classement.winner .row:nth-child(4):not(.header-classement),
+.classement.winner .row:last-child:not(.header-classement){
+	font-weight: 800;
+	font-size: 1.5em;
+}
+
+
 .classement .row:not(.header-classement){
 	margin-bottom: 0;
-	height: 2em;
-	line-height: 2em;
+	height: 1.8em;
+	line-height: 1.8em;
 }
 
 .game .classement .row.header-classement{
-	font-size: 2em;
+	font-size: 1.8em;
 	background-color: $noir-sqli;
 	color: white;
 	font-weight: 800;

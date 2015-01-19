@@ -2,7 +2,7 @@
     <div id="divLogo" ng-show='player.register'>
     	<div>
 	    	<h1 ng-bind-template="Joueur : {{player.pseudo}}"></h1>
-            <p>Question N° : </p>
+            <p>Question N° : {{indexQuestion}}</p>
 	    	<p ng-show="modeFifo">Appuyez sur le bouton "Réponse" pour répondre.
 	    	</p>
             <p ng-show="modeRumble">Choisissez la bonne réponse.

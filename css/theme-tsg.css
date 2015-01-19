@@ -57,39 +57,71 @@ a {
 
 /* line 57, ../scss/theme-tsg.scss */
 .classement {
-  font-size: 1.5em;
-  height: 80%;
+  font-size: 1.3em;
+  height: 900px;
   overflow-y: auto;
+  margin-top: -40px;
 }
 
-/* line 63, ../scss/theme-tsg.scss */
+/* line 64, ../scss/theme-tsg.scss */
 .classement .row:nth-child(odd):not(.header-classement) {
   background-color: #636363;
   color: white;
 }
 
-/* line 68, ../scss/theme-tsg.scss */
+/* line 69, ../scss/theme-tsg.scss */
 .classement .row:nth-child(2):not(.header-classement) {
   font-size: 2em;
 }
 
-/* line 72, ../scss/theme-tsg.scss */
-.classement .row:not(.header-classement) {
-  margin-bottom: 0;
-  height: 2em;
-  line-height: 2em;
+/* line 73, ../scss/theme-tsg.scss */
+.classement.winner .row:nth-child(2):not(.header-classement) {
+  font-size: 2em;
+  font-weight: 800;
+  background-color: #DAA520;
 }
 
-/* line 78, ../scss/theme-tsg.scss */
+/* line 79, ../scss/theme-tsg.scss */
+.classement.winner .row:nth-child(3):not(.header-classement) {
+  background-color: #C0C0C0;
+}
+
+/* line 83, ../scss/theme-tsg.scss */
+.classement.winner .row:nth-child(4):not(.header-classement) {
+  background-color: #CD7F32;
+}
+
+/* line 87, ../scss/theme-tsg.scss */
+.classement.winner .row:last-child:not(.header-classement) {
+  background-color: #111211;
+  color: white;
+}
+
+/* line 92, ../scss/theme-tsg.scss */
+.classement.winner .row:nth-child(3):not(.header-classement),
+.classement.winner .row:nth-child(4):not(.header-classement),
+.classement.winner .row:last-child:not(.header-classement) {
+  font-weight: 800;
+  font-size: 1.5em;
+}
+
+/* line 100, ../scss/theme-tsg.scss */
+.classement .row:not(.header-classement) {
+  margin-bottom: 0;
+  height: 1.8em;
+  line-height: 1.8em;
+}
+
+/* line 106, ../scss/theme-tsg.scss */
 .game .classement .row.header-classement {
-  font-size: 2em;
+  font-size: 1.8em;
   background-color: #111211;
   color: white;
   font-weight: 800;
   height: auto;
 }
 
-/* line 86, ../scss/theme-tsg.scss */
+/* line 114, ../scss/theme-tsg.scss */
 .game .timer.alert {
   color: #da0e1a;
 }

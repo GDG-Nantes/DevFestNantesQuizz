@@ -47,19 +47,31 @@
                     <div class="col-md-2">Score</div>
                 </div>
                 <div ng-repeat="playerTmp in rank" class="row">
-                    <div class="col-md-2">{{$index}}</div>
+                    <div class="col-md-2">{{$index + 1}}</div>
                     <div class="col-md-8">{{playerTmp.pseudo}}</div>
                     <div class="col-md-2">{{playerTmp.score}}</div>
-                    </div>
                 </div>
             </div>
             <!-- Affiché au moment du résultat -->
-            <div ng-show="winner">
+            <div ng-show="winner&&modeFifo">
                 <img src="./assets/images/question pour un devfest winner.png" class="center-block"/>
                 <h1 class="title text-center">Le champion est</h1>
                 <h1 class="title winner text-center">{{winner.pseudo}}</h1>
                 <h2 class="title podium text-center" ng-repeat="aPlayer in podium">{{aPlayer.pseudo}}</h2>
                 <h1 class="title looser text-center">{{looser.pseudo}}</h1>
+            </div>
+            <!-- Affiché au moment du résultat -->
+            <div ng-show="winner&&modeRumble" class="container winner classement">
+                <div class="row header-classement">
+                    <div class="col-md-2">Position</div>
+                    <div class="col-md-8">Pseudo</div>
+                    <div class="col-md-2">Score</div>
+                </div>
+                <div ng-repeat="playerTmp in rank" class="row">
+                    <div class="col-md-2">{{$index + 1}}</div>
+                    <div class="col-md-8">{{playerTmp.pseudo}}</div>
+                    <div class="col-md-2">{{playerTmp.score}}</div>
+                </div>
             </div>
             <!--<pdf-presentation curent-page='curentPage' nb-pages='nbPages' raz="RAZReponses()"></pdf-presentation>-->
         </div>

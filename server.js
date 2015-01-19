@@ -152,6 +152,8 @@ io.on('connection', function(socket) {
                     }
                 }
             }
+        }else if (message.type === 'updatePlayers'){
+            playerList = message.data;
         }else{    		
 	        console.log('### message: '+message);
 	        socket.broadcast.emit('message', message);

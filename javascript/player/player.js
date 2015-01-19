@@ -20,6 +20,7 @@ controller('PlayerCtrl', ['$scope', '$rootScope', '$log', '$routeParams', '$loca
 	$scope.classAnswer3 = '';
 	$scope.classAnswer4 = '';
 	$scope.alreadyAnwser = false;
+	$scope.indexQuestion = 0;
 
 	$scope.reponse = function(choice){
 		if (!$scope.alreadyAnwser){
@@ -81,6 +82,11 @@ controller('PlayerCtrl', ['$scope', '$rootScope', '$log', '$routeParams', '$loca
 		});
 	});
 
+	$rootScope.$on('currentQuestion', function(evt, data){
+		$scope.$apply(function(){
+			$scope.indexQuestion = data.data.index;
+		});
+	});
 	
 	$rootScope.$on('clearScore', function(evt, data){
 		window.location = "http://devfest.gdgnantes.com";

@@ -75,6 +75,7 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 	$scope.gameFinish = false;
 	$scope.modeFifo = false;
 	$scope.modeRumble = false;
+	$scope.indexQuestion = 0;
 	
 	wsFacotry.getPlayers();
 
@@ -132,6 +133,7 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 	var unregisterCurrentQuestion = $rootScope.$on('currentQuestion', function(evt,data){
 		$scope.$apply(function(){
 			$scope.currentQuestion = data.data;
+			$scope.indexQuestion = data.data.index;		
 		});
 	});
 
@@ -197,7 +199,7 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 			allowResp = false;
 			$scope.RAZReponses();		
 			$scope.allowResp();
-			if (indexQuestions === NB_QUESTIONS){
+			if (indexQuestions > NB_QUESTIONS){
 				$scope.gameFinish = true;
 			}
 		}else{

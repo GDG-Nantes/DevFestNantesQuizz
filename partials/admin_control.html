@@ -11,7 +11,7 @@
         <!--<button type="button" class="btn btn-warning btn-lg btn-block center-block" id="navRAZ" ng-click="RAZReponses()" ng-show="gameInProgress">RAZ réponses</button>-->
     </div>
     <div ng-show="currentQuestion&&gameInProgress&&!gameFinish" class="row">
-        <h1> Question : </h1>
+        <h1> Question : {{indexQuestion}}</h1>
         <h2 ng-bind-html="currentQuestion.title"></h2>
         <h1> Réponse : </h1>
         <h2 ng-bind-html="currentQuestion.answer"></h2>

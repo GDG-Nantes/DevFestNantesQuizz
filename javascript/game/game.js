@@ -57,7 +57,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', '$timeout', 'ModelF
 		});
 	}
 
-	wsFacotry.getPlayers();
+	//wsFacotry.getPlayers();
 	wsFacotry.getConfig();
 
 	// On restore l'état précédent
@@ -67,7 +67,9 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', '$timeout', 'ModelF
 		$scope.currentGame = state.currentGame;
 		$scope.startGame = 	state.startGame;
 		$scope.questionsPlayed = state.questionsPlayed; 
+		$scope.currentGame.question.index = $scope.currentGame.index;
 		wsFacotry.sendData('currentQuestion', $scope.currentGame.question);	     
+		wsFacotry.sendData('updatePlayers', $scope.playerArray);	     
 		if (state.startGame){
 			wsFacotry.sendData('startGame',{});
 		}
@@ -201,7 +203,8 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', '$timeout', 'ModelF
 		var currentTime = new Date().getTime();
 		if (currentTime - $scope.time > TIME_JEOPARDY_SONG){
 			$scope.allowResp = false;
-			wsFacotry.sendData('showResp',{});				
+			wsFacotry.sendData('showResp',{});		
+			showResp();		
 			return;
 		}
 		var totalDiff = TIME_JEOPARDY_SONG - (currentTime - $scope.time);
@@ -287,7 +290,13 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', '$timeout', 'ModelF
 			var winner = _.max($scope.playerArray, function(playerTmp){return playerTmp.score});
 			var looser = _.min($scope.playerArray, function(playerTmp){return playerTmp.score});
 			wsFacotry.sendData('winnerEvt', winner.id);
-			wsFacotry.sendData('looserEvt', looser.id);
+			if (winner.id === looser.id){
+				var tmpArray = _.sortBy($scope.playerArray,'score');
+				looser = tmpArray.length > 1 ? tmpArray[1] : tmpArray[0];
+			}
+			$timeout(function(){
+				wsFacotry.sendData('looserEvt', looser.id);
+			},2000)
 		}, 5000);
 	};
 
@@ -453,23 +462,17 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', '$timeout', 'ModelF
 	      	}
 	      	$scope.winner = null;
 	      	$scope.currentGame.index++;
-	      	if ($scope.currentGame.index === NB_QUESTIONS){
+	      	if ($scope.currentGame.index > NB_QUESTIONS){
 	      		var max = 0;
-	      		$scope.winner = null;
-	      		/*for (var i = 0; i < $scope.playerArray.length; i++){
-					if ($scope.playerArray[i].score > max){
-						$scope.winner = $scope.playerArray[i];
-						max = $scope.winner.score;
-					}
-				}*/
+	      		$scope.winner = null;	      		
 				$scope.winner = _.max($scope.playerArray, function(playerTmp){return playerTmp.score});
 				if (model.config().mode === model.MODE_RUMBLE) {					
-					$scope.podium = _.filter(_.sortBy($scope.playerArray,'score').reverse(),function(playerTmp, index){return index>0 && index < 4 && index < $scope.playerArray.length -1});
-					$scope.looser = _.min($scope.playerArray, function(playerTmp){return playerTmp.score});
+					sendScores();
 				}
 	      		return;
 	      	}else{		      	
 		      	$scope.currentGame.question = getNextQuestion();
+		      	$scope.currentGame.question.index = $scope.currentGame.index;
 		      	wsFacotry.sendData('currentQuestion', $scope.currentGame.question);	   
 		      	$scope.time = new Date().getTime();
 		      	cancelTimer = false;
@@ -488,6 +491,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', '$timeout', 'ModelF
 	      		return;
 	      	$scope.currentGame.index--;
 	      	$scope.currentGame.question = getPreviousQuestion();
+	      	$scope.currentGame.question.index = $scope.currentGame.index;
 	      	wsFacotry.sendData('currentQuestion', $scope.currentGame.question);
 	      });
 	});

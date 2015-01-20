@@ -143,12 +143,19 @@ controller('AdminCtrl', ['$scope', '$rootScope', '$log', '$location','WebSocketF
 		$scope.modeRumble = data.data.mode === model.MODE_RUMBLE;
 	});
 
+	var unregisterSaveState = $rootScope.$on('showResp', function(evt, data){
+		$scope.$apply(function(){
+			saveState();
+		});
+	});
+
 	$scope.$on('$routeChangeSuccess', function(next, current) { 
 		if (current.$$route.controller != 'ControlCtrl'){
 			unregisterPlayers();
 	   		unregisterPlayer();
 	   		unregisterResponse();
 	   		unregisterNbQuestions();
+	   		unregisterSaveState();
 		}
  	});
 

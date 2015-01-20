@@ -296,7 +296,7 @@ controller('GameCtrl', ['$scope', '$rootScope', '$location', '$timeout', 'ModelF
 			}
 			$timeout(function(){
 				wsFacotry.sendData('looserEvt', looser.id);
-			},2000)
+			},3000)
 		}, 5000);
 	};
 
